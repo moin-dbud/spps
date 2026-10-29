@@ -1,0 +1,42 @@
+Slide 1: images = ['image2.jpeg']
+  Text: Ikh + ,e + Jh + lkfo = hckbZ Qqys gk;Ldqy euik ] panziwj ih ++,e + Jh + varxZr “kkGse/;s jkcfoysys midze
+----------------------------------------
+Slide 3: images = ['image4.jpeg', 'image3.jpeg', 'image7.jpeg', 'image6.jpeg', 'image5.jpeg']
+  Text: 1 + Rakck [ kqeqDr “ kkGk
+----------------------------------------
+Slide 6: images = ['image9.jpeg', 'image8.jpeg', 'image11.jpeg', 'image10.jpeg']
+  Text: 
+----------------------------------------
+Slide 8: images = ['image13.jpeg', 'image12.jpeg', 'image15.jpeg', 'image14.jpeg']
+  Text: 
+----------------------------------------
+Slide 9: images = ['image17.jpeg', 'image16.jpeg', 'image18.jpeg']
+  Text: v karjjk’Vzh ; Lrjkojhy iz [; kr rKkaps izsj.kknk;h ekXkZn”kZu O;DrheRo fodkl o djhvj ekXkZn”kZu fMthVy f”k { k.k vkarjk’Vzh ; Lrjkojhy iz [; kr RkKkaps izsj.kknk;h ekxZn”kZu O;DrheRo fodkl o djhvj ekxZn”kZu fMthVYk f”k { k.k ;k lacaf / kr ih + ,e + Jh + lkfo = hckbZ Qys gk;Ldqy euik panziwj ; sFks ekXkZn”kZd Eg.kwu izk + MkW + lat ; csys ekth mi + izkpk;Z + MkW + vkacsMdj dkWyst ; sFks dk;Zjr gksrs + o Jherh + fo.kk Hkxr turk fo|ky ; rkMkyh ft + panziwj ; kauh fo’k;kyk vuql#u ekXkZn”kZu dsys +
+----------------------------------------
+Slide 10: images = ['image20.jpeg', 'image19.jpeg', 'image21.jpeg']
+  Text: fHkari = r#.k laikfndk fo|kFkhZ ys [ kd eaMG ih + ,e + Jh + lkfo = hckbZ Qqys gk;Ldqy euik Pkanziwj varxZRk fHkari = r#.k laikfndk fo|kFkhZ ys [ kd eaMG midze jkcfo .; kr vkyk + ;k midzekyk “ kkGsps ek + eq [;k/;kid bjikrs lj ; kaP;k gLrs mn ~? kkVu dj .; kr vkys +
+----------------------------------------
+Slide 11: images = ['image23.jpeg', 'image22.jpeg', 'image26.jpeg', 'image25.jpeg', 'image24.jpeg']
+  Text: fo”ks’k xjtk vl.kkj;k fo|kFkhZ.kh fo”ks’k xjtk vl.kkj;k “ kkGsP;k 5 fo|kFkhZuhaph fuoM dj .; kr vkyh vkgs + ; ke /;s 1 + Lokuanh oxjdj ] 2 + rstLohuh fto.ks ] 3 + dkosjh esJke ] 4 + t;Jh Hkkysjko ] 5 + ; ksfxrk “ ksaMs ;k fo|kFkhZuhauk izfr 2000 # psd ns.; kr vkyk +
+----------------------------------------
+Slide 12: images = ['image28.jpeg', 'image27.jpeg', 'image29.jpeg']
+  Text: bdks Dyc mn ~? kkVu lksgGk o o`{ kkjksiu dk;Zdze bdks Dyc mn ~? kkVu lksgGk o o`{ kkjksi.k dk;Zdze Jh + caMq / kksrjs lj v/;{k bdks izks ljapk panziwj o bdks Dyc lferh Onkjs mn ~? kkVu o o`{ kkjksiu dk;Zdze gk midze jkcfo .; kr vkyk +
+----------------------------------------
+Slide 13: images = ['image31.jpeg', 'image30.jpeg', 'image32.jpeg']
+  Text: bdks Dyc varxZr fuca /k o fp = dyk Li/ kkZ o cf {kl forj.k bdks Dyc varxZr fuca /k o fp = dyk Li/ kkZ ? ks .; kr vkyh +; kar 250 fo|kF;kZauh lgHkkx ? ksryk o ek + eq [;k/;kid Jh + bjikrs lj ; kaP;k gLrs ikfjrks’khd ns.; kr vkys +
+----------------------------------------
+Slide 14: images = ['image34.jpeg', 'image33.jpeg', 'image36.jpeg', 'image35.jpeg']
+  Text: LoPNrk ia / kjokMk midze
+----------------------------------------
+Slide 15: images = ['image38.jpeg', 'image37.jpeg']
+  Text: Xkf.kr eaMG midze पी . एम. श्री. सावित्रीबाई फुले उच्च प्राथमिक व माध्यमिक शाळा, मनपा चंद्रपूर येथे विद्यार्थ्यांसाठी गणित मॉडेल प्रदर्शन आयोजित करण्यात आले.या उपक्रमात विद्यार्थ्यांनी भिन्न, टक्केवारी, क्षेत्रफळ व घनफळ यांसारख्या संकल्पनांवर आधारित मॉडेल्स सादर केले.या प्रदर्शनामुळे विद्यार्थ्यांची गणिताविषयी रुची वाढली, संकल्पना स्पष्ट झाल्या व आत्मविश्वास वाढला.✍️ अजय माडोत सरमुख्याध्यापक – शिवलाल इरपाते सर
+----------------------------------------
+Slide 16: images = ['image40.jpeg', 'image39.jpeg', 'image41.jpeg']
+  Text: foKku eaMG foKku eaMGk varxZr fo|kF;kZps foKku eaMG r;kj d#u foKku izn”kZukps vk;kstu d#u fotsR;kauk cf {kl ? ks .; kr vkys +
+----------------------------------------
+Slide 17: images = ['image42.jpeg']
+  Text: सहलीचे आयोजन करण्यात आले होते. या सहलीमध्ये विद्यार्थ्यांनी उत्साहाने सहभाग घेतला. सहलीचा मुख्य उद्देश विद्यार्थ्यांना प्रत्यक्ष अनुभवातून ज्ञान मिळावे, त्यांच्यामध्ये निरीक्षणशक्ती वाढावी आणि ऐतिहासिक, भौगोलिक व वैज्ञानिक माहिती मिळावी हा होता संपूर्ण सहल आनंददायी, शिस्तबद्ध व ज्ञानवर्धक झाली. या सहलीच्या यशस्वितेसाठी मुख्याध्यापक, शिक्षकवृंद आणि सहभागी विद्यार्थ्यांचे सहकार्य लाभले.. “ kS { kf.kd lgy
+----------------------------------------
+Slide 18: images = ['image44.jpeg', 'image43.jpeg', 'image46.jpeg', 'image45.jpeg']
+  Text: “ kS { kf.kd lgy gSnzkckn
+----------------------------------------

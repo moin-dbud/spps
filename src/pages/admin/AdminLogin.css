@@ -1,0 +1,176 @@
+/* =========================================================
+   ADMIN LOGIN — AdminLogin.css
+   ========================================================= */
+
+.admin-login-page {
+  min-height: 100vh;
+  background: var(--clr-cream-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+}
+
+.admin-login-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--clr-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--clr-neutral-100);
+  overflow: hidden;
+}
+
+/* Brand header */
+.admin-login-brand {
+  background: var(--clr-green-800);
+  color: var(--clr-white);
+  padding: var(--space-8) var(--space-8) var(--space-6);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+.admin-login-brand__shield {
+  width: 52px;
+  height: 52px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--clr-saffron-300);
+}
+.admin-login-brand__name {
+  font-family: var(--font-heading);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--clr-white);
+  line-height: 1.3;
+}
+.admin-login-brand__sub {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.admin-login-divider {
+  border: none;
+  border-top: 1px solid var(--clr-neutral-100);
+}
+
+/* Form */
+.admin-login-form {
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.admin-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-bottom: var(--space-4);
+}
+.admin-form-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--clr-neutral-700);
+}
+.admin-form-input {
+  width: 100%;
+  padding: 0.6875rem 1rem;
+  border: 1.5px solid var(--clr-neutral-200);
+  border-radius: var(--radius-md);
+  font: inherit;
+  font-size: 0.9375rem;
+  color: var(--clr-neutral-800);
+  background: var(--clr-white);
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.admin-form-input:focus {
+  border-color: var(--clr-green-500);
+  box-shadow: 0 0 0 3px rgba(45, 122, 69, 0.12);
+}
+
+.admin-form-password-wrap {
+  position: relative;
+}
+.admin-form-password-wrap .admin-form-input {
+  padding-right: 2.75rem;
+}
+.admin-form-eye {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--clr-neutral-400);
+  display: flex;
+  align-items: center;
+  padding: var(--space-1);
+  transition: color var(--transition-fast);
+}
+.admin-form-eye:hover {
+  color: var(--clr-neutral-700);
+}
+
+/* Error */
+.admin-login-error {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: #fff0f0;
+  border: 1px solid #fca5a5;
+  color: #b91c1c;
+  font-size: 0.875rem;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-3);
+}
+
+/* Submit button */
+.admin-login-btn {
+  width: 100%;
+  padding: 0.8125rem;
+  background: var(--clr-green-700);
+  color: var(--clr-white);
+  border: none;
+  border-radius: var(--radius-md);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--transition-base), transform var(--transition-fast);
+  margin-top: var(--space-2);
+}
+.admin-login-btn:hover:not(:disabled) {
+  background: var(--clr-green-800);
+  transform: translateY(-1px);
+}
+.admin-login-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Note */
+.admin-login-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-size: 0.78125rem;
+  color: var(--clr-neutral-400);
+  padding: var(--space-4) var(--space-8) var(--space-6);
+  text-align: center;
+  border-top: 1px solid var(--clr-neutral-100);
+}

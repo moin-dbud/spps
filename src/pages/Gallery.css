@@ -1,0 +1,99 @@
+/* =========================================================
+   GALLERY PAGE STYLES
+   ========================================================= */
+
+.gallery-section {
+  background: var(--clr-cream-100);
+}
+
+.gallery-count-bar {
+  margin-bottom: var(--space-6);
+  font-size: 0.875rem;
+  color: var(--clr-neutral-500);
+  font-weight: 500;
+}
+
+.gallery-item-card {
+  cursor: pointer;
+  outline: none;
+}
+
+.gallery-item-card__img-wrap {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  background: var(--clr-neutral-200);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.gallery-item-card:hover .gallery-item-card__img-wrap,
+.gallery-item-card:focus-visible .gallery-item-card__img-wrap {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-xl);
+}
+
+.gallery-item-card__img-wrap img {
+  width: 100%;
+  display: block;
+  transition: transform var(--transition-slow);
+}
+
+.gallery-item-card:hover .gallery-item-card__img-wrap img {
+  transform: scale(1.04);
+}
+
+.gallery-item-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(13, 43, 26, 0.85) 0%, rgba(13, 43, 26, 0.2) 60%, transparent 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: var(--space-4);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.gallery-item-card:hover .gallery-item-card__overlay,
+.gallery-item-card:focus-visible .gallery-item-card__overlay {
+  opacity: 1;
+}
+
+.gallery-item-card__caption {
+  font-size: 0.8125rem;
+  color: white;
+  font-weight: 500;
+  line-height: 1.4;
+  max-width: 80%;
+}
+
+.gallery-item-card__badge {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Lightbox Specifics */
+.lightbox__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 90vw;
+  max-height: 85vh;
+}
+
+.lightbox__counter {
+  font-size: 0.75rem;
+  opacity: 0.75;
+  margin-left: var(--space-3);
+  padding-left: var(--space-3);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+}
+

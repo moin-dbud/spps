@@ -1,0 +1,35 @@
+{
+  "name": {
+    "marathi": "पी.एम. श्री. सावित्रीबाई फुले हायस्कूल, महानगरपालिका, चंद्रपूर",
+    "hindi": "पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल, महानगरपालिका, चंद्रपुर",
+    "english": "P.M. Shri Savitribai Phule High School, Municipal Corporation, Chandrapur",
+    "short": "P.M. Shri Savitribai Phule High School"
+  },
+  "address": {
+    "line1": "Netaji Chowk",
+    "area": "Babupeth",
+    "city": "Chandrapur",
+    "state": "Maharashtra",
+    "pincode": "442403",
+    "fullAddress": "Netaji Chowk, Babupeth, Chandrapur, Maharashtra 442403"
+  },
+  "classesServed": "Classes 1–10 (Upper Primary & High School)",
+  "medium": "Marathi / Semi-English",
+  "management": "Municipal Corporation, Chandrapur (मनपा)",
+  "contact": {
+    "phone": "+91 12345 67890",
+    "whatsapp": "+91 12345 67890",
+    "email": "savitribaiphule.school@gmail.com"
+  },
+  "social": {
+    "facebook": "https://facebook.com/pmshrisavitribaiphulechandrapur",
+    "youtube": "https://youtube.com/@pmshrisavitribaiphuleschool",
+    "instagram": "https://instagram.com/pmshrisavitribaiphuleschool"
+  },
+  "enquiryFormUrl": "https://docs.google.com/forms/d/e/1FAIpQLSdoh1QzH_GNGcbcqi9AeYXjz6pSMws2QNFq7E88tQu1EvuaPw/viewform?embedded=true",
+  "defaultLanguage": "mr",
+  "canonicalUrl": "https://pmshrispps-chandrapur.edu.in",
+  "principal": "Shivlal Irpate Sir (शिवलाल इरपाते)",
+  "headTeacher": "Ajay Madot Sir (अजय माडोत)",
+  "academicYear": "2026-27"
+}

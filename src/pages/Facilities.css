@@ -1,0 +1,122 @@
+/* =========================================================
+   FACILITIES PAGE STYLES
+   ========================================================= */
+
+.facilities-main {
+  background: var(--clr-cream-100);
+}
+
+.facilities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: var(--space-8);
+}
+
+.facility-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--clr-white);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--clr-neutral-100);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.facility-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.facility-card__img-wrap {
+  position: relative;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  background: var(--clr-neutral-100);
+}
+
+.facility-card__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.facility-card:hover .facility-card__img-wrap img {
+  transform: scale(1.05);
+}
+
+.facility-card__icon {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  color: var(--clr-green-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+}
+
+.facility-card__body {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.facility-card__title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--clr-neutral-900);
+  margin-bottom: var(--space-2);
+  line-height: 1.4;
+}
+
+.facility-card__desc {
+  font-size: 0.9375rem;
+  color: var(--clr-neutral-600);
+  line-height: 1.6;
+  margin-bottom: var(--space-4);
+  flex: 1;
+}
+
+.facility-card__points {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  border-top: 1px solid var(--clr-neutral-100);
+  padding-top: var(--space-4);
+}
+
+.facility-card__points li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: 0.8125rem;
+  color: var(--clr-neutral-700);
+  line-height: 1.5;
+}
+
+.facility-check {
+  color: var(--clr-green-600);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* Facilities Overview */
+.facilities-overview {
+  background: var(--clr-cream-200);
+}
+
+.campus-badge-row {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+}
+

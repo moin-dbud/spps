@@ -1,0 +1,453 @@
+/* =========================================================
+   ABOUT PAGE STYLES
+   ========================================================= */
+
+.about-page-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.about-page-header__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+  color: white;
+  padding: 0.35rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+}
+
+/* School Identity */
+.about-identity__grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+.about-identity__para {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: var(--clr-neutral-700);
+  margin-bottom: var(--space-4);
+  white-space: pre-line;
+}
+
+.about-identity__img-wrap {
+  position: relative;
+}
+
+.about-identity__img-frame {
+  position: relative;
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  border: 4px solid var(--clr-white);
+}
+
+.about-identity__img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+}
+
+.about-identity__img-badge {
+  position: absolute;
+  bottom: var(--space-4);
+  left: var(--space-4);
+  background: rgba(13, 43, 26, 0.85);
+  backdrop-filter: blur(8px);
+  color: white;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+/* Mission & Vision */
+.about-mission {
+  background: var(--clr-cream-200);
+}
+
+.mission-card {
+  background: var(--clr-white);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--clr-neutral-100);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.mission-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.mission-card--green {
+  border-top: 5px solid var(--clr-green-600);
+}
+
+.mission-card--saffron {
+  border-top: 5px solid var(--clr-saffron-500);
+}
+
+.mission-card__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.mission-card__icon {
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mission-card--green .mission-card__icon {
+  background: var(--clr-green-50);
+  color: var(--clr-green-600);
+}
+
+.mission-card--saffron .mission-card__icon {
+  background: var(--clr-saffron-50);
+  color: var(--clr-saffron-600);
+}
+
+.mission-card__body p {
+  color: var(--clr-neutral-700);
+  line-height: 1.8;
+  font-size: 1.0625rem;
+}
+
+/* Tribute Section */
+.about-tribute {
+  background: linear-gradient(135deg, var(--clr-green-900), var(--clr-green-800));
+  color: white;
+}
+
+.about-tribute .section-title {
+  color: white;
+}
+
+.about-tribute__grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+.about-tribute__img-frame {
+  position: relative;
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.about-tribute__img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  display: block;
+}
+
+.about-tribute__img-caption {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  margin-top: var(--space-2);
+}
+
+.about-tribute__para {
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.8;
+  font-size: 1.0625rem;
+  margin-bottom: var(--space-4);
+}
+
+.about-tribute__quote {
+  border-left: 4px solid var(--clr-saffron-400);
+  padding-left: var(--space-5);
+  margin-block: var(--space-6);
+  font-style: italic;
+  font-size: 1.125rem;
+  color: var(--clr-saffron-100);
+  line-height: 1.7;
+}
+
+/* School Profile Grid */
+.about-profile {
+  background: var(--clr-cream-100);
+}
+
+.about-profile__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+
+.about-profile__row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  background: var(--clr-white);
+  padding: var(--space-5);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--clr-neutral-100);
+  transition: transform var(--transition-base);
+}
+
+.about-profile__row:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.about-profile__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-lg);
+  background: var(--clr-green-50);
+  color: var(--clr-green-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.about-profile__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--clr-neutral-500);
+  margin-bottom: var(--space-1);
+}
+
+.about-profile__value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--clr-neutral-900);
+}
+
+.about-profile__note {
+  font-size: 0.75rem;
+  color: #b56b00;
+  margin-top: 2px;
+}
+
+/* PM Shri */
+.about-pmshri__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+.about-pmshri__body {
+  font-size: 1.0625rem;
+  color: var(--clr-neutral-700);
+  line-height: 1.8;
+  margin-bottom: var(--space-6);
+}
+
+.about-pmshri__features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.about-pmshri__feature {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.about-pmshri__feature-icon {
+  color: var(--clr-green-600);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.about-pmshri__feature-title {
+  font-weight: 600;
+  color: var(--clr-neutral-900);
+  margin-bottom: 2px;
+}
+
+.about-pmshri__feature-desc {
+  font-size: 0.9375rem;
+  color: var(--clr-neutral-600);
+  line-height: 1.5;
+}
+
+.about-pmshri__img-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.about-pmshri__img-row img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+}
+
+/* Principal Section */
+.about-principal {
+  background: var(--clr-cream-200);
+}
+
+.about-principal__grid {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+.about-principal__img-frame {
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  border: 4px solid var(--clr-white);
+}
+
+.about-principal__img-frame img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  display: block;
+}
+
+.about-principal__quote-wrap {
+  position: relative;
+  padding-left: var(--space-6);
+  border-left: 4px solid var(--clr-green-500);
+  margin-block: var(--space-6);
+}
+
+.about-principal__quote {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--clr-neutral-800);
+  font-style: italic;
+}
+
+.about-principal__name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--clr-neutral-900);
+}
+
+.about-principal__role {
+  color: var(--clr-green-600);
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+/* Staff & SMC */
+.about-staff__grid,
+.about-smc__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-10);
+  align-items: center;
+}
+
+.about-staff__img-wrap img,
+.about-smc__img-wrap img {
+  width: 100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-lg);
+  display: block;
+}
+
+.about-staff__points {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.about-staff__point {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.about-staff__point svg {
+  color: var(--clr-green-600);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.about-smc__roles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.about-smc__role-card {
+  background: var(--clr-white);
+  padding: var(--space-4);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--clr-neutral-100);
+  box-shadow: var(--shadow-sm);
+}
+
+.about-smc__role {
+  font-weight: 600;
+  color: var(--clr-neutral-900);
+  margin-bottom: var(--space-1);
+  font-size: 0.9375rem;
+}
+
+.about-smc__role-desc {
+  font-size: 0.8125rem;
+  color: var(--clr-neutral-600);
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .about-identity__grid,
+  .about-tribute__grid,
+  .about-pmshri__grid,
+  .about-principal__grid,
+  .about-staff__grid,
+  .about-smc__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .about-tribute__img-frame,
+  .about-principal__img-frame {
+    max-width: 400px;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-smc__roles {
+    grid-template-columns: 1fr;
+  }
+  .about-pmshri__img-row {
+    grid-template-columns: 1fr;
+  }
+}
+
