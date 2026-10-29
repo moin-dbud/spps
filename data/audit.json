@@ -1,0 +1,34 @@
+[
+  {
+    "id": "audit_1793289513437_8tsn2",
+    "timestamp": "2026-10-29T15:58:33.437Z",
+    "actor": "admin",
+    "target": "admin",
+    "action": "Login successful",
+    "details": ""
+  },
+  {
+    "id": "audit_1793289460633_jv2pb",
+    "timestamp": "2026-10-29T15:57:40.633Z",
+    "actor": "admin",
+    "target": "sunita_patil",
+    "action": "Administrator account deleted",
+    "details": ""
+  },
+  {
+    "id": "audit_1793289457521_25iqk",
+    "timestamp": "2026-10-29T15:57:37.521Z",
+    "actor": "admin",
+    "target": "sunita_patil",
+    "action": "Admin account updated",
+    "details": "Status: Inactive, Role: Content Admin"
+  },
+  {
+    "id": "audit_1793289441419",
+    "timestamp": "2026-10-29T15:57:21.419Z",
+    "actor": "admin",
+    "target": "audit_logs",
+    "action": "Audit logs cleared by Super Admin",
+    "details": "Previous log history cleared"
+  }
+]

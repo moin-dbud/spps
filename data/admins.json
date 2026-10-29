@@ -1,0 +1,12 @@
+[
+  {
+    "id": "admin_super_1",
+    "username": "admin",
+    "displayName": "Super Administrator",
+    "passwordHash": "a920c97b1455f6f714468c615c961bf5:2b59978932239178b94a9828410d10aaf9094db2ae91eabf108b2f3167c611bd009459f3c06d91edf9a19e009327dbe076a487c9f128a8f01b38e597251f5f2f",
+    "role": "Super Admin",
+    "status": "Active",
+    "createdAt": "2026-10-29T12:00:00.000Z",
+    "lastLogin": "2026-10-29T15:58:33.435Z"
+  }
+]

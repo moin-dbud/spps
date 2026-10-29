@@ -2,16 +2,12 @@ import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Lock, User, Eye, EyeOff, ShieldAlert } from "lucide-react";
 import { SCHOOL_CONFIG } from "../../config/school";
+import { apiLogin } from "../../utils/api";
 import "./AdminLogin.css";
 
 /* =========================================================
-   ADMIN LOGIN PAGE — standalone (no Layout/Header/Footer)
+   ADMIN LOGIN PAGE — Connected to Secure Server Endpoint
    ========================================================= */
-
-const ADMIN_USER =
-  import.meta.env.VITE_ADMIN_USER?.trim() || "admin";
-const ADMIN_PASS =
-  import.meta.env.VITE_ADMIN_PASS?.trim() || "spps2026";
 
 export default function AdminLogin() {
   const navigate = useNavigate();
@@ -21,21 +17,28 @@ export default function AdminLogin() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    if (!username.trim() || !password) {
+      setError("Please enter both username and password.");
+      return;
+    }
+
     setError("");
     setLoading(true);
 
-    // Simulate brief async check
-    setTimeout(() => {
-      if (username.trim() === ADMIN_USER && password === ADMIN_PASS) {
-        localStorage.setItem("spps_admin_auth", "true");
+    try {
+      const res = await apiLogin(username.trim(), password);
+      if (res.success) {
         navigate("/admin/dashboard", { replace: true });
       } else {
-        setError("Invalid username or password. Please try again.");
-        setLoading(false);
+        setError(res.error || "Invalid username or password. Please try again.");
       }
-    }, 400);
+    } catch (err: any) {
+      setError(err.message || "Unable to reach server. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -58,71 +61,75 @@ export default function AdminLogin() {
           {/* Username */}
           <div className="admin-form-field">
             <label className="admin-form-label" htmlFor="al-username">
-              <User size={15} />
               Username
             </label>
-            <input
-              id="al-username"
-              type="text"
-              className="admin-form-input"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              autoComplete="username"
-              required
-              placeholder="Enter username"
-            />
+            <div className="admin-input-wrap">
+              <User size={16} className="admin-input-icon" aria-hidden />
+              <input
+                id="al-username"
+                type="text"
+                className="admin-input"
+                placeholder="Enter admin username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                autoComplete="username"
+                required
+                disabled={loading}
+              />
+            </div>
           </div>
 
           {/* Password */}
           <div className="admin-form-field">
             <label className="admin-form-label" htmlFor="al-password">
-              <Lock size={15} />
               Password
             </label>
-            <div className="admin-form-password-wrap">
+            <div className="admin-input-wrap">
+              <Lock size={16} className="admin-input-icon" aria-hidden />
               <input
                 id="al-password"
                 type={showPass ? "text" : "password"}
-                className="admin-form-input"
+                className="admin-input"
+                placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 autoComplete="current-password"
                 required
-                placeholder="Enter password"
+                disabled={loading}
               />
               <button
                 type="button"
-                className="admin-form-eye"
+                className="admin-pass-toggle"
                 onClick={() => setShowPass((v) => !v)}
                 aria-label={showPass ? "Hide password" : "Show password"}
+                tabIndex={-1}
               >
                 {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
             </div>
           </div>
 
-          {/* Error message */}
+          {/* Error alert */}
           {error && (
             <div className="admin-login-error" role="alert">
-              <ShieldAlert size={15} />
-              {error}
+              <ShieldAlert size={16} />
+              <span>{error}</span>
             </div>
           )}
 
           {/* Submit */}
           <button
             type="submit"
-            className="admin-login-btn"
-            disabled={loading || !username || !password}
+            className="btn btn-primary admin-login-btn"
+            disabled={loading}
           >
-            {loading ? "Signing in…" : "Sign In"}
+            {loading ? "Verifying Credentials…" : "Sign In to Dashboard"}
           </button>
         </form>
 
-        <p className="admin-login-note">
-          <Lock size={13} />
-          This area is for authorised school staff only.
-        </p>
+        <div className="admin-login-footer">
+          <p>Restricted access for authorized school personnel only.</p>
+        </div>
       </div>
     </div>
   );
