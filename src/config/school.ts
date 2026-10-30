@@ -98,7 +98,7 @@ export const SCHOOL_CONFIG: SchoolConfigType = {
   enquiryFormUrl: "",
 
   /** Default language */
-  defaultLanguage: "mr",
+  defaultLanguage: "en",
 
   /** Canonical production URL */
   canonicalUrl: "https://pmshrispps-chandrapur.edu.in",

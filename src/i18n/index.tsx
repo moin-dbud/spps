@@ -29,11 +29,11 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const setLang = (newLang: Language) => {
     setLangState(newLang);
     localStorage.setItem(STORAGE_KEY, newLang);
-    document.documentElement.lang = newLang === "en" ? "en" : "mr"; // Devanagari for both MR and HI
+    document.documentElement.lang = newLang;
   };
 
   useEffect(() => {
-    document.documentElement.lang = lang === "en" ? "en" : "mr";
+    document.documentElement.lang = lang;
   }, [lang]);
 
   return (

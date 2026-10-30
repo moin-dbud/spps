@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import {
   Calendar, Search, X, Newspaper, ExternalLink,
-  Sparkles, ChevronRight, FileText, CheckCircle2
+  Sparkles, ChevronRight, FileText, CheckCircle2, ChevronDown
 } from "lucide-react";
 import { useI18n } from "../i18n";
 import { DEFAULT_NEWS, type NewsItem } from "../data/news";
@@ -13,6 +13,54 @@ export default function News() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeModalItem, setActiveModalItem] = useState<NewsItem | null>(null);
   const [newsList, setNewsList] = useState<NewsItem[]>(DEFAULT_NEWS);
+
+  // Responsive pagination: 9 on desktop (>=768px), 3 on mobile (<768px)
+  const [isMobile, setIsMobile] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 768;
+    }
+    return false;
+  });
+  const [hasLoadedMore, setHasLoadedMore] = useState(false);
+  const [visibleCount, setVisibleCount] = useState<number>(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 768 ? 3 : 9;
+    }
+    return 9;
+  });
+
+  // Handle window resizing between desktop and mobile views
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile((prevMobile) => {
+        if (prevMobile !== mobile) {
+          if (!hasLoadedMore) {
+            setVisibleCount(mobile ? 3 : 9);
+          } else {
+            const initial = mobile ? 3 : 9;
+            setVisibleCount((prev) => Math.max(prev, initial));
+          }
+          return mobile;
+        }
+        return prevMobile;
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [hasLoadedMore]);
+
+  // Reset pagination when category filter or search query changes
+  useEffect(() => {
+    setHasLoadedMore(false);
+    setVisibleCount(isMobile ? 3 : 9);
+  }, [selectedCategory, searchQuery]);
+
+  const handleLoadMore = () => {
+    setHasLoadedMore(true);
+    setVisibleCount((prev) => prev + 3);
+  };
 
   // Fetch live notices from backend API or localStorage fallback
   useEffect(() => {
@@ -88,6 +136,12 @@ export default function News() {
       return matchCategory && matchSearch;
     });
   }, [newsList, selectedCategory, searchQuery, lang]);
+
+  const displayedNews = useMemo(() => {
+    return filteredNews.slice(0, visibleCount);
+  }, [filteredNews, visibleCount]);
+
+  const canLoadMore = visibleCount < filteredNews.length;
 
   // Handle ESC key to close modal
   useEffect(() => {
@@ -203,8 +257,9 @@ export default function News() {
                     </p>
                   </div>
                 ) : (
-                  <div className="notice-grid">
-                    {filteredNews.map((item, index) => {
+                  <>
+                    <div className="notice-grid">
+                      {displayedNews.map((item, index) => {
                       const itemTitle = l(item.title, item.titleHi, item.titleMr);
                       const itemExcerpt = l(item.excerpt, item.excerptHi, item.excerptMr);
                       const isPress = item.category === "press";
@@ -294,7 +349,22 @@ export default function News() {
                         </article>
                       );
                     })}
-                  </div>
+                    </div>
+
+                    {canLoadMore && (
+                      <div className="news-load-more-wrap">
+                        <button
+                          type="button"
+                          className="news-load-more-btn"
+                          onClick={handleLoadMore}
+                          aria-label={l("Load More", "और देखें", "आणखी पहा")}
+                        >
+                          <span>{l("Load More", "और देखें", "आणखी पहा")}</span>
+                          <ChevronDown size={18} />
+                        </button>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             </div>

@@ -1,5 +1,13 @@
 [
   {
+    "id": "audit_1793332450501_0for8",
+    "timestamp": "2026-10-30T03:54:10.502Z",
+    "actor": "admin",
+    "target": "admin",
+    "action": "Login successful",
+    "details": ""
+  },
+  {
     "id": "audit_1793289513437_8tsn2",
     "timestamp": "2026-10-29T15:58:33.437Z",
     "actor": "admin",
