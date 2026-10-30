@@ -58,6 +58,7 @@ import {
 } from "../../utils/api";
 import StaffManagementTab from "./StaffManagementTab";
 import ContributionManagementTab from "./ContributionManagementTab";
+import MultilingualField from "../../components/admin/MultilingualField";
 import "./AdminDashboard.css";
 import "./AdminAccounts.css";
 
@@ -1701,31 +1702,28 @@ function GalleryTab({
                 onChange={(e) => setForm({ ...form, src: e.target.value })}
               />
             </div>
-            <div className="admin-form-field">
-              <label className="admin-form-label">Caption (English)</label>
-              <input
-                className="admin-form-input"
-                type="text"
-                value={form.caption}
-                onChange={(e) => setForm({ ...form, caption: e.target.value })}
-              />
-            </div>
-            <div className="admin-form-field">
-              <label className="admin-form-label">Caption (Marathi)</label>
-              <input
-                className="admin-form-input"
-                type="text"
-                value={form.captionMr}
-                onChange={(e) => setForm({ ...form, captionMr: e.target.value })}
-              />
-            </div>
-            <div className="admin-form-field">
-              <label className="admin-form-label">Caption (Hindi)</label>
-              <input
-                className="admin-form-input"
-                type="text"
-                value={form.captionHi}
-                onChange={(e) => setForm({ ...form, captionHi: e.target.value })}
+            <div style={{ gridColumn: "1 / -1" }}>
+              <MultilingualField
+                label="Caption"
+                context="general"
+                values={{
+                  en: form.caption || "",
+                  mr: form.captionMr || "",
+                  hi: form.captionHi || "",
+                }}
+                onChange={(v) =>
+                  setForm((prev: any) => ({
+                    ...prev,
+                    caption: v.en,
+                    captionMr: v.mr,
+                    captionHi: v.hi,
+                  }))
+                }
+                placeholder={{
+                  en: "e.g. Science Exhibition & Lab Inauguration",
+                  mr: "उदा. विज्ञान प्रदर्शन आणि प्रयोगशाळा उद्घाटन",
+                  hi: "उदा. विज्ञान प्रदर्शनी एवं प्रयोगशाला उद्घाटन",
+                }}
               />
             </div>
             <div className="admin-form-field">
@@ -1971,35 +1969,29 @@ function NewsTab({
           </div>
 
           <div className="admin-form-grid">
-            <div className="admin-form-field admin-form-field--full">
-              <label className="admin-form-label">Title (English) *</label>
-              <input
-                className="admin-form-input"
-                type="text"
-                placeholder="e.g. Annual Mathematics Model Exhibition & Hands-on Lab Day"
-                value={form.titleEn}
-                onChange={(e) => setForm({ ...form, titleEn: e.target.value })}
+            <div style={{ gridColumn: "1 / -1" }}>
+              <MultilingualField
+                label="Headline / Title"
                 required
-              />
-            </div>
-            <div className="admin-form-field">
-              <label className="admin-form-label">Title (Marathi - मराठी)</label>
-              <input
-                className="admin-form-input"
-                type="text"
-                placeholder="e.g. वार्षिक गणित प्रतिकृती प्रदर्शन व लॅब दिन"
-                value={form.titleMr}
-                onChange={(e) => setForm({ ...form, titleMr: e.target.value })}
-              />
-            </div>
-            <div className="admin-form-field">
-              <label className="admin-form-label">Title (Hindi - हिन्दी)</label>
-              <input
-                className="admin-form-input"
-                type="text"
-                placeholder="e.g. वार्षिक गणित मॉडल प्रदर्शनी व लैब दिवस"
-                value={form.titleHi}
-                onChange={(e) => setForm({ ...form, titleHi: e.target.value })}
+                context="title"
+                values={{
+                  en: form.titleEn || "",
+                  mr: form.titleMr || "",
+                  hi: form.titleHi || "",
+                }}
+                onChange={(v) =>
+                  setForm((prev: any) => ({
+                    ...prev,
+                    titleEn: v.en,
+                    titleMr: v.mr,
+                    titleHi: v.hi,
+                  }))
+                }
+                placeholder={{
+                  en: "e.g. Annual Mathematics Model Exhibition & Hands-on Lab Day",
+                  mr: "उदा. वार्षिक गणित प्रतिकृती प्रदर्शन व लॅब दिन",
+                  hi: "उदा. वार्षिक गणित मॉडल प्रदर्शनी व लैब दिवस",
+                }}
               />
             </div>
             <div className="admin-form-field admin-form-field--full">
@@ -2465,14 +2457,29 @@ function SettingsTab() {
             <Building2 size={18} color="var(--clr-green-700)" /> School Name &amp; Governance
           </h3>
           <div className="admin-form-grid">
-            <div className="admin-form-field">
-              <label className="admin-form-label">Official Name (English) *</label>
-              <input
-                className="admin-form-input"
-                type="text"
+            <div style={{ gridColumn: "1 / -1" }}>
+              <MultilingualField
+                label="Official School Name"
                 required
-                value={formData.nameEnglish}
-                onChange={(e) => setFormData({ ...formData, nameEnglish: e.target.value })}
+                context="title"
+                values={{
+                  en: formData.nameEnglish || "",
+                  mr: formData.nameMarathi || "",
+                  hi: formData.nameHindi || "",
+                }}
+                onChange={(v) =>
+                  setFormData((prev: any) => ({
+                    ...prev,
+                    nameEnglish: v.en,
+                    nameMarathi: v.mr,
+                    nameHindi: v.hi,
+                  }))
+                }
+                placeholder={{
+                  en: "P.M. Shri Savitribai Phule High School",
+                  mr: "पी.एम. श्री सावित्रीबाई फुले हायस्कूल",
+                  hi: "पी.एम. श्री सावित्रीबाई फुले उच्च विद्यालय",
+                }}
               />
             </div>
             <div className="admin-form-field">
@@ -2483,26 +2490,6 @@ function SettingsTab() {
                 required
                 value={formData.nameShort}
                 onChange={(e) => setFormData({ ...formData, nameShort: e.target.value })}
-              />
-            </div>
-            <div className="admin-form-field">
-              <label className="admin-form-label">Official Name (Marathi) *</label>
-              <input
-                className="admin-form-input"
-                type="text"
-                required
-                value={formData.nameMarathi}
-                onChange={(e) => setFormData({ ...formData, nameMarathi: e.target.value })}
-              />
-            </div>
-            <div className="admin-form-field">
-              <label className="admin-form-label">Official Name (Hindi) *</label>
-              <input
-                className="admin-form-input"
-                type="text"
-                required
-                value={formData.nameHindi}
-                onChange={(e) => setFormData({ ...formData, nameHindi: e.target.value })}
               />
             </div>
             <div className="admin-form-field admin-form-field--full">

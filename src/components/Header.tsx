@@ -7,18 +7,12 @@ import { useI18n, LANG_LABELS, type Language } from "../i18n";
 import { useSchoolSettings } from "../context/SchoolSettingsContext";
 import "./Header.css";
 
-/* ── Main nav links (visible directly) ── */
-const MAIN_NAV = [
-  { href: "/",           key: "home"       as const },
-  { href: "/about",      key: "about"      as const },
-  { href: "/academics",  key: "academics"  as const },
-  { href: "/facilities", key: "facilities" as const },
-  { href: "/activities", key: "activities" as const },
-];
-
-/* ── "More" dropdown links ── */
-const MORE_NAV = [
+/* ── Exactly seven approved navigation links in order ── */
+const PUBLIC_NAV = [
+  { href: "/",               key: "home"          as const },
+  { href: "/about",          key: "about"         as const },
   { href: "/teaching-staff", key: "teachingStaff" as const },
+  { href: "/facilities",     key: "facilities"    as const },
   { href: "/contribution",   key: "contribution"  as const },
   { href: "/news",           key: "news"          as const },
   { href: "/gallery",        key: "gallery"       as const },
@@ -29,11 +23,9 @@ export default function Header() {
   const { settings } = useSchoolSettings();
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
-  const [moreOpen, setMoreOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   const langRef = useRef<HTMLDivElement>(null);
-  const moreRef = useRef<HTMLLIElement>(null);
   const navigate = useNavigate();
 
   /* ── Scroll shadow ── */
@@ -54,45 +46,21 @@ export default function Header() {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  /* ── Close "More" dropdown on outside click ── */
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
-        setMoreOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, []);
-
-  /* ── Body scroll lock when mobile menu is open ── */
-  useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
-
   /* ── Close mobile menu on ESC ── */
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setMenuOpen(false);
-        setMoreOpen(false);
         setLangOpen(false);
       }
     };
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
   }, []);
 
   /* ── Close mobile menu on resize ── */
   useEffect(() => {
-    const handler = () => { if (window.innerWidth > 768) setMenuOpen(false); };
+    const handler = () => { if (window.innerWidth > 1120) setMenuOpen(false); };
     window.addEventListener("resize", handler);
     return () => window.removeEventListener("resize", handler);
   }, []);
@@ -104,11 +72,6 @@ export default function Header() {
 
   /* Always show the short English name in the header for clarity */
   const shortName = settings.name.short || settings.name.english;
-
-  /* Check whether any "More" child is currently active */
-  const moreChildActive = MORE_NAV.some(({ href }) =>
-    window.location.pathname.startsWith(href)
-  );
 
   return (
     <header className={`site-header${scrolled ? " site-header--scrolled" : ""}`} role="banner">
@@ -133,10 +96,10 @@ export default function Header() {
           </div>
         </Link>
 
-        {/* ── Desktop nav (centered via CSS grid) ── */}
+        {/* ── Desktop nav (centered via CSS grid: exactly 7 links) ── */}
         <nav className="site-header__nav" aria-label="Main navigation">
           <ul className="site-header__nav-list" role="list">
-            {MAIN_NAV.map(({ href, key }) => (
+            {PUBLIC_NAV.map(({ href, key }) => (
               <li key={href}>
                 <NavLink
                   to={href}
@@ -149,49 +112,6 @@ export default function Header() {
                 </NavLink>
               </li>
             ))}
-
-            {/* ── "More" dropdown ── */}
-            <li className="nav-more" ref={moreRef}>
-              <button
-                className={`site-header__nav-link nav-more__btn${moreChildActive ? " active" : ""}`}
-                onClick={() => setMoreOpen((o) => !o)}
-                aria-expanded={moreOpen}
-                aria-haspopup="true"
-              >
-                {lang === "mr" ? "आणखी" : lang === "hi" ? "अधिक" : "More"}
-                <ChevronDown size={14} className={moreOpen ? "rotated" : ""} aria-hidden />
-              </button>
-              {moreOpen && (
-                <ul className="nav-more__menu" role="menu">
-                  {MORE_NAV.map(({ href, key }) => (
-                    <li key={href} role="none">
-                      <NavLink
-                        to={href}
-                        className={({ isActive }) =>
-                          `nav-more__item${isActive ? " active" : ""}`
-                        }
-                        role="menuitem"
-                        onClick={() => setMoreOpen(false)}
-                      >
-                        {t.nav[key]}
-                      </NavLink>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-
-            {/* ── Enquiry (last visible link) ── */}
-            <li>
-              <NavLink
-                to="/contact"
-                className={({ isActive }) =>
-                  `site-header__nav-link${isActive ? " active" : ""}`
-                }
-              >
-                {t.nav.contact}
-              </NavLink>
-            </li>
           </ul>
         </nav>
 
@@ -276,7 +196,7 @@ export default function Header() {
 
           <nav aria-label="Mobile navigation">
             <ul role="list" className="mobile-nav-list">
-              {[...MAIN_NAV, ...MORE_NAV, { href: "/contact", key: "contact" as const }].map(({ href, key }) => (
+              {PUBLIC_NAV.map(({ href, key }) => (
                 <li key={href}>
                   <NavLink
                     to={href}

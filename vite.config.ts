@@ -49,6 +49,9 @@ export default defineConfig(({ mode }) => {
   if (env.SESSION_SECRET && !process.env.SESSION_SECRET) {
     process.env.SESSION_SECRET = env.SESSION_SECRET;
   }
+  if (env.GEMINI_API_KEY && !process.env.GEMINI_API_KEY) {
+    process.env.GEMINI_API_KEY = env.GEMINI_API_KEY;
+  }
 
   return {
     plugins: [react(), apiBackendPlugin()],

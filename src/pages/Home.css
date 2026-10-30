@@ -4,7 +4,6 @@
 
 .home-editorial {
   width: 100%;
-  overflow-x: hidden;
   background-color: var(--clr-parchment-50);
 }
 
@@ -1431,6 +1430,13 @@
 }
 
 @media (max-width: 480px) {
+  .ed-btn {
+    white-space: normal;
+    text-align: center;
+    padding: 0.65rem 1rem;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
   .ed-glance__metrics {
     grid-template-columns: 1fr 1fr;
     gap: 1.25rem 0.75rem;

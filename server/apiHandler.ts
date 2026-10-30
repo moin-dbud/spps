@@ -21,6 +21,7 @@ import {
   logAudit,
 } from './auth.ts';
 import { seedInitialData } from './seed.ts';
+import { autoTranslateAll } from './translation.ts';
 import type {
   AdminDocument,
   NewsDocument,
@@ -180,6 +181,62 @@ export async function handleApiRequest(req: IncomingMessage, res: ServerResponse
   // Session verification helper
   const token = getRequestToken(req);
   const session = token ? await verifySession(db, token) : null;
+
+  // ==========================================
+  // MULTILINGUAL AUTO-TRANSLATION ROUTE
+  // ==========================================
+  if (url === '/api/translate' && req.method === 'POST') {
+    if (!checkRateLimit(req, 60, 60000)) {
+      sendJson(res, 429, {
+        success: false,
+        error: 'Too many translation requests. Please slow down.',
+      });
+      return;
+    }
+
+    try {
+      const body = await parseRequestBody(req);
+      const text = typeof body.text === 'string' ? body.text.trim() : '';
+      const sourceLang = body.sourceLang || 'auto';
+      const targetLangs = Array.isArray(body.targetLangs) ? body.targetLangs : undefined;
+      const context = body.context || 'general';
+
+      if (!text) {
+        sendJson(res, 200, {
+          success: true,
+          sourceLang: sourceLang === 'auto' ? 'en' : sourceLang,
+          translations: { en: '', mr: '', hi: '' },
+          provider: 'none',
+        });
+        return;
+      }
+
+      if (text.length > 5000) {
+        sendJson(res, 400, {
+          success: false,
+          error: 'Text exceeds maximum limit of 5,000 characters.',
+        });
+        return;
+      }
+
+      const result = await autoTranslateAll({
+        text,
+        sourceLang,
+        targetLangs,
+        context,
+      });
+
+      sendJson(res, 200, result);
+      return;
+    } catch (err: any) {
+      console.error('[API Translate Error]', err);
+      sendJson(res, 500, {
+        success: false,
+        error: err.message || 'Translation service failed',
+      });
+      return;
+    }
+  }
 
   // ==========================================
   // AUTHENTICATION ROUTES

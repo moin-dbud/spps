@@ -19,6 +19,7 @@ import {
   apiDeleteStaff,
   type StaffMember,
 } from "../../utils/api";
+import MultilingualField from "../../components/admin/MultilingualField";
 
 const DEPARTMENTS = [
   "Primary Education (Classes 1–5)",
@@ -560,74 +561,45 @@ export default function StaffManagementTab({ onNotify }: StaffManagementTabProps
                 </div>
 
                 {/* Multilingual Names */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "0.75rem" }}>
-                  <div>
-                    <label className="admin-form-label">Full Name (English) *</label>
-                    <input
-                      type="text"
-                      required
-                      className="admin-form-input"
-                      placeholder="e.g. Smt. Uma Kukudpewar"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <label className="admin-form-label">नाव (मराठी)</label>
-                    <input
-                      type="text"
-                      className="admin-form-input"
-                      placeholder="उदा. सौ. उमा कुकूडपेवार"
-                      value={formData.nameMr}
-                      onChange={(e) => setFormData({ ...formData, nameMr: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <label className="admin-form-label">नाम (हिन्दी)</label>
-                    <input
-                      type="text"
-                      className="admin-form-input"
-                      placeholder="उदा. श्रीमती उमा कुकूदपेवार"
-                      value={formData.nameHi}
-                      onChange={(e) => setFormData({ ...formData, nameHi: e.target.value })}
-                    />
-                  </div>
-                </div>
+                <MultilingualField
+                  label="Teacher Name"
+                  required
+                  context="name"
+                  values={{ en: formData.name, mr: formData.nameMr, hi: formData.nameHi }}
+                  onChange={(v) =>
+                    setFormData((prev) => ({ ...prev, name: v.en, nameMr: v.mr, nameHi: v.hi }))
+                  }
+                  placeholder={{
+                    en: "e.g. Smt. Uma Kukudpewar",
+                    mr: "उदा. सौ. उमा कुकूडपेवार",
+                    hi: "उदा. श्रीमती उमा कुकूदपेवार",
+                  }}
+                />
 
                 {/* Multilingual Designation */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "0.75rem" }}>
-                  <div>
-                    <label className="admin-form-label">Designation (English) *</label>
-                    <input
-                      type="text"
-                      required
-                      className="admin-form-input"
-                      placeholder="e.g. Assistant Teacher"
-                      value={formData.designation}
-                      onChange={(e) => setFormData({ ...formData, designation: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <label className="admin-form-label">पदनाम (मराठी)</label>
-                    <input
-                      type="text"
-                      className="admin-form-input"
-                      placeholder="उदा. सहाय्यक शिक्षक"
-                      value={formData.designationMr}
-                      onChange={(e) => setFormData({ ...formData, designationMr: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <label className="admin-form-label">पदनाम (हिन्दी)</label>
-                    <input
-                      type="text"
-                      className="admin-form-input"
-                      placeholder="उदा. सहायक शिक्षक"
-                      value={formData.designationHi}
-                      onChange={(e) => setFormData({ ...formData, designationHi: e.target.value })}
-                    />
-                  </div>
-                </div>
+                <MultilingualField
+                  label="Designation"
+                  required
+                  context="title"
+                  values={{
+                    en: formData.designation,
+                    mr: formData.designationMr,
+                    hi: formData.designationHi,
+                  }}
+                  onChange={(v) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      designation: v.en,
+                      designationMr: v.mr,
+                      designationHi: v.hi,
+                    }))
+                  }
+                  placeholder={{
+                    en: "e.g. Assistant Teacher",
+                    mr: "उदा. सहाय्यक शिक्षक",
+                    hi: "उदा. सहायक शिक्षक",
+                  }}
+                />
 
                 {/* Department & Qualifications */}
                 <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "0.75rem" }}>
@@ -690,17 +662,31 @@ export default function StaffManagementTab({ onNotify }: StaffManagementTabProps
                   </div>
                 </div>
 
-                {/* Brief Biography (English) */}
-                <div>
-                  <label className="admin-form-label">Biography / Teaching Philosophy (English)</label>
-                  <textarea
-                    rows={2}
-                    className="admin-form-input"
-                    placeholder="Short summary of background, teaching specialization, or accolades..."
-                    value={formData.bio}
-                    onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                  />
-                </div>
+                {/* Multilingual Biography */}
+                <MultilingualField
+                  label="Biography / Teaching Philosophy"
+                  type="textarea"
+                  rows={2}
+                  context="content"
+                  values={{
+                    en: formData.bio,
+                    mr: formData.bioMr,
+                    hi: formData.bioHi,
+                  }}
+                  onChange={(v) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      bio: v.en,
+                      bioMr: v.mr,
+                      bioHi: v.hi,
+                    }))
+                  }
+                  placeholder={{
+                    en: "Short summary of background, teaching specialization, or accolades...",
+                    mr: "शिक्षकाचा संक्षिप्त परिचय, विशेष कौशल्ये, अनुभव...",
+                    hi: "शिक्षक का संक्षिप्त परिचय, विशेषज्ञता, अनुभव...",
+                  }}
+                />
               </div>
 
               <div className="admin-modal__footer">

@@ -1,0 +1,224 @@
+/* =========================================================
+   MULTILINGUAL AUTO-TRANSLATION FIELD STYLES
+   PM Shri Savitribai Phule School, Admin Design System
+   ========================================================= */
+
+.ml-field {
+  margin-bottom: 1.25rem;
+  background: #ffffff;
+  border: 1px solid var(--clr-neutral-200, #e5e7eb);
+  border-radius: 8px;
+  padding: 1rem 1.15rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ml-field:focus-within {
+  border-color: var(--clr-green-600, #1b693a);
+  box-shadow: 0 0 0 2px rgba(27, 105, 58, 0.08);
+}
+
+.ml-field__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ml-field__label-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ml-field__label {
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--clr-neutral-900, #111827);
+  letter-spacing: 0.02em;
+}
+
+.ml-field__required {
+  color: #dc2626;
+  margin-left: 2px;
+}
+
+.ml-field__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 12px;
+  background: rgba(27, 105, 58, 0.08);
+  color: var(--clr-green-800, #144e2b);
+  border: 1px solid rgba(27, 105, 58, 0.2);
+}
+
+.ml-field__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ml-field__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.74rem;
+  color: var(--clr-neutral-500, #6b7280);
+}
+
+.ml-field__retranslate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: transparent;
+  border: 1px solid var(--clr-neutral-200, #e5e7eb);
+  border-radius: 4px;
+  padding: 0.25rem 0.55rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--clr-neutral-700, #374151);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ml-field__retranslate-btn:hover:not(:disabled) {
+  background: var(--clr-neutral-100, #f3f4f6);
+  color: var(--clr-green-800, #144e2b);
+  border-color: var(--clr-green-600, #1b693a);
+}
+
+.ml-field__retranslate-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Grid of 3 language inputs */
+.ml-field__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.85rem;
+}
+
+.ml-field__column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ml-field__lang-tag {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--clr-neutral-600, #4b5563);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding-inline: 0.15rem;
+}
+
+.ml-field__tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.7rem;
+}
+
+.ml-field__tag-pill--en {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.ml-field__tag-pill--mr {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.ml-field__tag-pill--hi {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.ml-field__state-indicator {
+  font-size: 0.68rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.ml-field__state-indicator--auto {
+  color: #059669;
+}
+
+.ml-field__state-indicator--manual {
+  color: #b45309;
+}
+
+.ml-field__input-wrap {
+  position: relative;
+}
+
+.ml-field__input {
+  width: 100%;
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.88rem;
+  padding: 0.65rem 0.85rem;
+  border: 1.5px solid var(--clr-neutral-200, #e5e7eb);
+  border-radius: 6px;
+  background: var(--clr-neutral-50, #f9fafb);
+  color: var(--clr-neutral-900, #111827);
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ml-field__input:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: var(--clr-green-600, #1b693a);
+  box-shadow: 0 0 0 3px rgba(27, 105, 58, 0.1);
+}
+
+.ml-field__textarea {
+  min-height: 80px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.ml-field__helper {
+  font-size: 0.75rem;
+  color: var(--clr-neutral-500, #6b7280);
+  margin-top: 0.45rem;
+  display: block;
+}
+
+/* Spinner Animation */
+@keyframes mlSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.ml-field__spinner {
+  animation: mlSpin 1s linear infinite;
+  color: var(--clr-green-600, #1b693a);
+}
+
+/* Responsive down to mobile */
+@media (max-width: 820px) {
+  .ml-field__grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+

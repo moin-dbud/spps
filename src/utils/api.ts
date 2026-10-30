@@ -585,3 +585,53 @@ export async function apiDeleteContribution(
   }
 }
 
+// ================= TRANSLATION API =================
+export interface TranslateApiResponse {
+  success: boolean;
+  sourceLang: 'en' | 'mr' | 'hi';
+  translations: {
+    en?: string;
+    mr?: string;
+    hi?: string;
+  };
+  provider: string;
+  error?: string;
+}
+
+export async function apiTranslate(options: {
+  text: string;
+  sourceLang?: 'en' | 'mr' | 'hi' | 'auto';
+  targetLangs?: Array<'en' | 'mr' | 'hi'>;
+  context?: 'general' | 'name' | 'title' | 'content';
+}): Promise<TranslateApiResponse> {
+  try {
+    const res = await fetch('/api/translate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeaders(),
+      },
+      body: JSON.stringify(options),
+    });
+    if (res.ok) {
+      return await res.json();
+    }
+    const errData = await res.json().catch(() => ({}));
+    return {
+      success: false,
+      sourceLang: options.sourceLang === 'auto' ? 'en' : options.sourceLang || 'en',
+      translations: {},
+      provider: 'none',
+      error: errData.error || `Error ${res.status}: ${res.statusText}`,
+    };
+  } catch (e: any) {
+    return {
+      success: false,
+      sourceLang: options.sourceLang === 'auto' ? 'en' : options.sourceLang || 'en',
+      translations: {},
+      provider: 'none',
+      error: e.message || 'Network error during translation',
+    };
+  }
+}
+

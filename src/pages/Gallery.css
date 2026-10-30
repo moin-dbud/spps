@@ -4,7 +4,6 @@
 
 .gallery-page {
   width: 100%;
-  overflow-x: hidden;
   background-color: var(--clr-parchment-50);
 }
 

@@ -148,6 +148,7 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -156,6 +157,22 @@ body {
   color: var(--clr-neutral-800);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Base site wrapper: single page-level flow */
+.site-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#main-content {
+  flex: 1 0 auto;
+  width: 100%;
 }
 
 /* Devanagari content uses Noto Sans Devanagari */

@@ -705,12 +705,29 @@
     padding-block: 2.75rem 2rem;
   }
 
+  .contrib-form-layout {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .contrib-form-layout > * {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
   .contrib-form-card {
-    padding: 1.25rem 1rem;
+    padding: 1.25rem 0.85rem;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .contrib-safety-dossier {
-    padding: 1.25rem 1rem;
+    padding: 1.25rem 0.85rem;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 }
 

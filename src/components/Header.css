@@ -96,15 +96,15 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 0.5rem 0.85rem;
-  font-size: 0.875rem;
+  padding: 0.45rem clamp(0.5rem, 0.85vw, 0.8rem);
+  font-size: clamp(0.82rem, 0.9vw, 0.875rem);
   font-weight: 500;
   color: var(--clr-charcoal-700);
   text-decoration: none;
   background: transparent;
   border: none;
   cursor: pointer;
-  transition: color var(--transition-fast);
+  transition: color var(--transition-fast), background var(--transition-fast);
   white-space: nowrap;
   font-family: inherit;
   border-radius: var(--radius-sm);
@@ -408,7 +408,7 @@
 }
 
 /* Responsive */
-@media (max-width: 1080px) {
+@media (max-width: 1120px) {
   .site-header__inner {
     display: flex;
     justify-content: space-between;
