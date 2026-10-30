@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import {
-  ArrowRight, BookOpen, Monitor, Users, Leaf, Shield, Award,
+  ArrowRight, Monitor, Users, Leaf, Shield, Award,
   ChevronRight, Building2, GraduationCap, Star, Sparkles,
-  TreePine, FlaskConical, Calculator, Library, Sun,
+  TreePine, FlaskConical, Calculator, Library, Sun, CheckCircle2,
 } from "lucide-react";
 import { useI18n } from "../i18n";
 import { useSchoolSettings } from "../context/SchoolSettingsContext";
@@ -10,625 +10,828 @@ import { staticGalleryItems } from "../data/gallery";
 import "./Home.css";
 
 /* =========================================================
-   HOME PAGE
+   HOMEPAGE — PREMIUM EDITORIAL INSTITUTIONAL DESIGN
+   P.M. Shri Savitribai Phule High School, Chandrapur
    ========================================================= */
 
-// Hero image — authentic school entrance gate with official board from pptx1
-const HERO_IMG = "/assets/images/pptx1/image2.jpeg";
+// Authentic school photos
+const HERO_BUILDING = "/assets/images/pptx1/image2.jpeg";
+const HERO_VIGNETTE = "/assets/images/pptx1/image22.jpeg";
+const SAVITRIBAI_PORTRAIT = "/assets/images/pptx1/image4.jpeg";
 
-// Intro section images — real activities (smart classroom, rocket model, hands-on learning)
-const INTRO_IMGS = [
-  "/assets/images/pptx1/image22.jpeg",
-  "/assets/images/pptx1/image7.jpeg",
-  "/assets/images/pptx1/image13.jpeg",
-];
-
-// Preview gallery items (curated)
+// Preview gallery items (curated authentic moments)
 const previewItems = staticGalleryItems.slice(0, 6);
 
 export default function Home() {
   const { t, lang } = useI18n();
   const { settings } = useSchoolSettings();
 
+  const l = (en: string, hi: string, mr: string) =>
+    lang === "en" ? en : lang === "hi" ? hi : mr;
+
   return (
-    <div className="home">
-      {/* ===== A. HERO ===== */}
-      <section className="hero" aria-label="Hero">
-        <div className="hero__bg">
-          <img
-            src={HERO_IMG}
-            alt="PM Shri Savitribai Phule School campus"
-            className="hero__img"
-            loading="eager"
-          />
-          <div className="hero-overlay" aria-hidden />
-        </div>
-        <div className="hero__content container">
-          <div className="hero__badge animate-fadeInUp">
-            <Star size={14} aria-hidden />
-            <span>
-              {lang === "en"
-                ? "P.M. Shri — Municipal Corporation, Chandrapur"
-                : lang === "hi"
-                  ? "पी.एम. श्री — मनपा चंद्रपुर"
-                  : "पी.एम. श्री — मनपा चंद्रपूर"}
-            </span>
+    <div className="home-editorial">
+
+      {/* =========================================================
+         1. HERO — ASYMMETRIC EDITORIAL SPLIT
+         ========================================================= */}
+      <section className="ed-hero" aria-label="Welcome">
+        <div className="container container--wide">
+          <div className="ed-hero__grid">
+
+            {/* Left: Editorial Typography & Institutional Identity */}
+            <div className="ed-hero__narrative">
+              <div className="ed-hero__kicker">
+                <span className="ed-kicker-badge">
+                  <Star size={13} aria-hidden />
+                  {l("P.M. SHRI INSTITUTION", "पी.एम. श्री आदर्श विद्यालय", "पी.एम. श्री आदर्श शाळा")}
+                </span>
+                <span className="ed-kicker-sub">
+                  {l("Chandrapur Municipal Corporation", "चंद्रपुर महानगरपालिका", "चंद्रपूर महानगरपालिका")}
+                </span>
+              </div>
+
+              <h1 className="ed-hero__title">
+                {t.home.heroHeadline}
+              </h1>
+
+              <div className="ed-hero__rule" aria-hidden />
+
+              <p className="ed-hero__lead">
+                {t.home.heroSub}
+              </p>
+
+              <div className="ed-hero__actions">
+                <Link to="/about" className="ed-btn ed-btn--primary">
+                  <span>{t.home.exploreCta}</span>
+                  <ArrowRight size={17} aria-hidden />
+                </Link>
+                <Link to="/academics" className="ed-btn ed-btn--outline">
+                  <span>{l("Academic Pedagogy", "शैक्षणिक प्रणाली", "शैक्षणिक प्रणाली")}</span>
+                </Link>
+                <Link to="/contact" className="ed-btn ed-btn--ghost">
+                  <span>{t.nav.enquire}</span>
+                </Link>
+              </div>
+
+              {/* Verified Institutional Accreditations */}
+              <div className="ed-hero__accreditations">
+                <div className="ed-accred-item">
+                  <span className="ed-accred-dot" />
+                  <div>
+                    <strong>PM SHRI</strong>
+                    <span>{l("Govt. of India", "भारत सरकार", "भारत सरकार")}</span>
+                  </div>
+                </div>
+                <div className="ed-accred-item">
+                  <span className="ed-accred-dot" />
+                  <div>
+                    <strong>NEP 2020</strong>
+                    <span>{l("Model Pedagogy", "आदर्श शिक्षण", "आदर्श अभ्यासक्रम")}</span>
+                  </div>
+                </div>
+                <div className="ed-accred-item">
+                  <span className="ed-accred-dot" />
+                  <div>
+                    <strong>Classes 1–10</strong>
+                    <span>{l("Marathi & Semi-English", "मराठी व सेमी-इंग्रजी", "मराठी व सेमी-इंग्रजी")}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Museum-Grade Photographic Showcase */}
+            <div className="ed-hero__visual">
+              <div className="ed-hero__photo-card">
+                <img
+                  src={HERO_BUILDING}
+                  alt="P.M. Shri Savitribai Phule High School campus entrance in Babupeth, Chandrapur"
+                  className="ed-hero__main-img"
+                  loading="eager"
+                />
+                <div className="ed-hero__caption-badge">
+                  <Building2 size={16} className="ed-caption-icon" aria-hidden />
+                  <div>
+                    <p className="ed-caption-title">{settings.name.short}</p>
+                    <p className="ed-caption-sub">Babupeth, Chandrapur • Ward 18</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Secondary Overlapping Vignette */}
+              <div className="ed-hero__vignette-card" aria-hidden="true">
+                <img
+                  src={HERO_VIGNETTE}
+                  alt="Students in modern smart classroom"
+                  className="ed-hero__vignette-img"
+                  loading="eager"
+                />
+                <div className="ed-hero__vignette-text">
+                  <Sparkles size={14} />
+                  <span>{l("Smart Classroom & ICT Lab", "स्मार्ट वर्गखोली व संगणक लॅब", "स्मार्ट वर्गखोली व संगणक लॅब")}</span>
+                </div>
+              </div>
+            </div>
+
           </div>
-
-          <h1 className="hero__title animate-fadeInUp delay-1">
-            {t.home.heroHeadline}
-          </h1>
-
-          <p className="hero__sub animate-fadeInUp delay-2">
-            {t.home.heroSub}
-          </p>
-
-          <div className="hero__actions animate-fadeInUp delay-3">
-            <Link to="/about" className="btn btn-white btn--lg">
-              {t.home.exploreCta}
-              <ArrowRight size={18} aria-hidden />
-            </Link>
-            <Link to="/activities" className="btn btn-outline-white btn--lg">
-              {t.home.activitiesCta}
-            </Link>
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="hero__scroll-indicator" aria-hidden>
-          <div className="hero__scroll-dot" />
         </div>
       </section>
 
-      {/* ===== B. INTRO / ABOUT ===== */}
-      <section className="section home-intro" aria-labelledby="intro-title">
+      {/* =========================================================
+         2. SCHOOL AT A GLANCE — CARDLESS TYPOGRAPHY-LED STATS
+         ========================================================= */}
+      <section className="ed-glance" aria-label="School At A Glance">
+        <div className="container container--wide">
+          <div className="ed-glance__header">
+            <span className="editorial-eyebrow">
+              {l("INSTITUTIONAL METRICS", "शालेय अवलोकन", "शालेय अवलोकन")}
+            </span>
+            <h2 className="ed-glance__title">{t.home.glanceTitle}</h2>
+          </div>
+
+          <div className="ed-glance__metrics">
+            <div className="ed-metric-col">
+              <span className="ed-metric-num">1–10</span>
+              <span className="ed-metric-label">{l("Classes Served", "कक्षाएँ", "इयत्ता १ ली ते १० वी")}</span>
+              <p className="ed-metric-sub">{l("Primary to High School", "प्राथमिक व माध्यमिक", "प्राथमिक व माध्यमिक स्तर")}</p>
+            </div>
+
+            <div className="ed-metric-divider" aria-hidden />
+
+            <div className="ed-metric-col">
+              <span className="ed-metric-num">PM SHRI</span>
+              <span className="ed-metric-label">{l("Accredited Scheme", "मान्यता प्राप्त योजना", "मान्यताप्राप्त योजना")}</span>
+              <p className="ed-metric-sub">{l("Rising India Exemplar School", "भारत सरकारचे मॉडेल स्कूल", "भारत सरकारचे मॉडेल स्कूल")}</p>
+            </div>
+
+            <div className="ed-metric-divider" aria-hidden />
+
+            <div className="ed-metric-col">
+              <span className="ed-metric-num">NEP 2020</span>
+              <span className="ed-metric-label">{l("Curriculum Standard", "अभ्यासक्रम मानक", "अभ्यासक्रम मानक")}</span>
+              <p className="ed-metric-sub">{l("FLN & Competency Based", "पायाभूत साक्षरता व कौशल्ये", "पायाभूत साक्षरता व कौशल्ये")}</p>
+            </div>
+
+            <div className="ed-metric-divider" aria-hidden />
+
+            <div className="ed-metric-col">
+              <span className="ed-metric-num">100%</span>
+              <span className="ed-metric-label">{l("Free & Inclusive", "समान व मोफत शिक्षण", "समान व मोफत शिक्षण")}</span>
+              <p className="ed-metric-sub">{l("Uniforms, Meals & Digital Tools", "गणवेश, पोषण आहार व डिजिटल साधने", "गणवेश, पोषण आहार व डिजिटल साधने")}</p>
+            </div>
+
+            <div className="ed-metric-divider" aria-hidden />
+
+            <div className="ed-metric-col">
+              <span className="ed-metric-num">Babupeth</span>
+              <span className="ed-metric-label">{l("Chandrapur, Maharashtra", "चंद्रपूर, महाराष्ट्र", "चंद्रपूर, महाराष्ट्र")}</span>
+              <p className="ed-metric-sub">{l("Municipal Corporation School", "मनपा संचलित शाळा", "मनपा संचलित शाळा")}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+         3. SCHOOL INTRODUCTION — EDITORIAL STORYTELLING SPREAD
+         ========================================================= */}
+      <section className="ed-section bg-parchment-light" aria-labelledby="intro-head">
         <div className="container">
-          <div className="home-intro__grid">
-            <div className="home-intro__text">
-              <span className="section-label">
-                <Building2 size={14} aria-hidden />
-                {lang === "en" ? "Welcome" : lang === "hi" ? "स्वागत" : "स्वागत"}
+          <div className="ed-story-spread">
+
+            {/* Left: Savitribai's Legacy & School Mission */}
+            <div className="ed-story-spread__text">
+              <span className="editorial-eyebrow">
+                {l("HERITAGE & PURPOSE", "वारसा आणि ध्येय", "वारसा आणि ध्येय")}
               </span>
-              <h2 className="section-title" id="intro-title">{t.home.introTitle}</h2>
-              <div className="divider" aria-hidden />
-              <p className="section-subtitle">
+              <h2 className="editorial-title" id="intro-head">
+                {t.home.introTitle}
+              </h2>
+              <div className="editorial-rule editorial-rule--gold" aria-hidden />
+
+              <p className="ed-story-p ed-dropcap">
                 {lang === "en"
-                  ? "P.M. Shri Savitribai Phule School is a municipal corporation school located in Babupeth, Chandrapur, Maharashtra. Named after the pioneering social reformer and educator Savitribai Phule, the school is committed to providing quality, inclusive education to every child."
+                  ? "P.M. Shri Savitribai Phule School is a municipal corporation school located in Babupeth, Chandrapur, Maharashtra. Named after the pioneering social reformer and feminist educator Krantijyoti Savitribai Phule, the school stands as a beacon of inclusive, high-quality public education for every child in the community."
                   : lang === "hi"
-                    ? "पी.एम. श्री सावित्रीबाई फुले विद्यालय बाबूपेठ, चंद्रपुर, महाराष्ट्र में स्थित नगर निगम का विद्यालय है। महान समाज सुधारक और शिक्षाविद सावित्रीबाई फुले के नाम पर समर्पित यह विद्यालय प्रत्येक बच्चे को गुणवत्तापूर्ण, समावेशी शिक्षा देने के लिए प्रतिबद्ध है।"
-                    : "पी.एम. श्री. सावित्रीबाई फुले उच्च प्राथमिक व माध्यमिक शाळा, बाबूपेठ, चंद्रपूर, महाराष्ट्र येथे स्थित मनपाची शाळा आहे. महान समाजसुधारक व शिक्षणतज्ज्ञ सावित्रीबाई फुले यांच्या नावाने ओळखली जाणारी ही शाळा प्रत्येक विद्यार्थ्याला दर्जेदार, समावेशक शिक्षण देण्यास कटिबद्ध आहे."}
+                    ? "पी.एम. श्री सावित्रीबाई फुले विद्यालय महाराष्ट्र के चंद्रपुर जिले के बाबूपेठ क्षेत्र में स्थित नगर निगम का विद्यालय है। महान समाज सुधारक और शिक्षाविद सावित्रीबाई फुले के नाम पर समर्पित यह विद्यालय प्रत्येक बच्चे को गुणवत्तापूर्ण, समावेशी शिक्षा देने के लिए कृतसंकल्पित है।"
+                    : "पी.एम. श्री. सावित्रीबाई फुले उच्च प्राथमिक व माध्यमिक शाळा ही महाराष्ट्रातील चंद्रपूर जिल्ह्याच्या बाबूपेठ परिसरातील मनपाची शाळा आहे. महान समाजसुधारक व आद्य शिक्षिका क्रांतिज्योती सावित्रीबाई फुले यांच्या नावाने ओळखली जाणारी ही शाळा प्रत्येक विद्यार्थ्याला दर्जेदार व समावेशक शिक्षण देण्यास कटिबद्ध आहे."}
               </p>
-              <blockquote className="intro-quote">
+
+              <blockquote className="editorial-quote">
                 {lang === "en"
-                  ? "\"Providing a safe, modern, and nurturing school environment to help every student develop their full potential through quality education, hands-on learning, and community participation.\""
+                  ? "“Providing a safe, modern, and nurturing school environment to help every student develop their full potential through quality education, hands-on learning, and community participation.”"
                   : lang === "hi"
-                    ? "\"सुरक्षित, आधुनिक और पोषणयुक्त शालेय वातावरण के माध्यम से गुणवत्तापूर्ण शिक्षा, प्रायोगिक अधिगम और सामुदायिक सहभागिता से प्रत्येक विद्यार्थी की पूर्ण क्षमता विकसित करना।\""
-                    : "\"सुरक्षित, आधुनिक व प्रेरणादायक शालेय वातावरणातून दर्जेदार शिक्षण, कृती-शिक्षण आणि समुदाय सहभागाद्वारे प्रत्येक विद्यार्थ्याची पूर्ण क्षमता विकसित करणे.\""}
+                    ? "“सुरक्षित, आधुनिक और पोषणयुक्त शालेय वातावरण के माध्यम से गुणवत्तापूर्ण शिक्षा, प्रायोगिक अधिगम और सामुदायिक सहभागिता से प्रत्येक विद्यार्थी की पूर्ण क्षमता विकसित करना।”"
+                    : "“सुरक्षित, आधुनिक व प्रेरणादायक शालेय वातावरणातून दर्जेदार शिक्षण, कृती-शिक्षण आणि समुदाय सहभागाद्वारे प्रत्येक विद्यार्थ्याची पूर्ण क्षमता विकसित करणे.”"}
               </blockquote>
 
-              <div style={{ marginTop: "var(--space-6)", display: "flex", gap: "var(--space-3)", flexWrap: "wrap" }}>
-                <Link to="/about" className="btn btn-primary">
-                  {t.common.learnMore} <ArrowRight size={16} aria-hidden />
-                </Link>
-                <Link to="/contact" className="btn btn-outline">
-                  {t.nav.enquire}
-                </Link>
-              </div>
-            </div>
-
-            <div className="home-intro__gallery">
-              {INTRO_IMGS.map((src, i) => (
-                <div key={i} className={`home-intro__img home-intro__img--${i + 1}`}>
-                  <img src={src} alt={`School activity ${i + 1}`} loading="lazy" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== C. SCHOOL AT A GLANCE ===== */}
-      <section className="section--sm home-glance" aria-labelledby="glance-title">
-        <div className="container">
-          <div className="section-header section-header--center">
-            <span className="section-label">
-              <Sparkles size={14} aria-hidden />
-              {lang === "en" ? "Quick Facts" : lang === "hi" ? "त्वरित तथ्य" : "थोडक्यात माहिती"}
-            </span>
-            <h2 className="section-title" id="glance-title">{t.home.glanceTitle}</h2>
-            <div className="divider" aria-hidden />
-          </div>
-
-          <div className="glance-grid">
-            {([
-              {
-                label: lang === "en" ? "School Name" : lang === "hi" ? "विद्यालय नाम" : "शाळेचे नाव",
-                value: lang === "en" ? settings.name.english : lang === "hi" ? settings.name.hindi : settings.name.marathi,
-                icon: <Building2 size={20} />,
-              },
-              {
-                label: lang === "en" ? "Location" : lang === "hi" ? "स्थान" : "स्थान",
-                value: `${settings.address.area}, ${settings.address.city}`,
-                icon: <GraduationCap size={20} />,
-              },
-              {
-                label: lang === "en" ? "Management" : lang === "hi" ? "प्रबंधन" : "व्यवस्थापन",
-                value: settings.management,
-                icon: <Award size={20} />,
-              },
-              {
-                label: lang === "en" ? "Classes" : lang === "hi" ? "कक्षाएँ" : "इयत्ता",
-                value: settings.classesServed,
-                icon: <BookOpen size={20} />,
-              },
-              {
-                label: lang === "en" ? "Medium" : lang === "hi" ? "माध्यम" : "माध्यम",
-                value: settings.medium,
-                icon: <Users size={20} />,
-              },
-              {
-                label: lang === "en" ? "Academic Year" : lang === "hi" ? "शैक्षणिक वर्ष" : "शैक्षणिक वर्ष",
-                value: settings.academicYear,
-                icon: <Star size={20} />,
-              },
-            ] as Array<{ label: string; value: string; icon: React.ReactNode; note?: string }>).map((item, i) => (
-              <div className="glance-card animate-fadeInUp" key={i} style={{ animationDelay: `${i * 0.08}s` }}>
-                <div className="glance-card__icon">{item.icon}</div>
-                <div>
-                  <p className="glance-card__label">{item.label}</p>
-                  <p className="glance-card__value">{item.value}</p>
-                  {item.note && (
-                    <p className="glance-card__note">{item.note}</p>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== D. ACADEMIC EXCELLENCE ===== */}
-      <section className="section home-academics" aria-labelledby="academics-title">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-label">
-              <BookOpen size={14} aria-hidden />
-              {lang === "en" ? "Learning & Growth" : lang === "hi" ? "शिक्षण और विकास" : "शिक्षण आणि विकास"}
-            </span>
-            <h2 className="section-title" id="academics-title">{t.home.academicsTitle}</h2>
-            <div className="divider" aria-hidden />
-            <p className="section-subtitle">{t.academics.fln}</p>
-          </div>
-
-          <div className="grid-3">
-            {[
-              {
-                title: lang === "en" ? "Foundational Literacy & Numeracy (FLN)" : lang === "hi" ? "बुनियादी साक्षरता और संख्या ज्ञान" : "पायाभूत साक्षरता व संख्याज्ञान (FLN)",
-                desc: lang === "en"
-                  ? "Activity-based learning, TLM, digital tools, and learning by doing — developing reading, writing, and core numeracy skills."
-                  : lang === "hi"
-                    ? "गतिविधि-आधारित शिक्षण, TLM, डिजिटल उपकरण — पढ़ना, लिखना और बुनियादी गणित कौशल विकसित करना।"
-                    : "कृती-आधारित शिक्षण, TLM, डिजिटल साधने — वाचन, लेखन व मूलभूत गणितीय कौशल्ये विकसित करणे.",
-                img: "/assets/images/pptx1/image10.jpeg",
-                badge: "FLN",
-              },
-              {
-                title: lang === "en" ? "Competency-Based Learning" : lang === "hi" ? "दक्षता आधारित शिक्षण" : "क्षमताधारित शिक्षण",
-                desc: lang === "en"
-                  ? "Learning by doing, critical thinking, problem solving, and real-life application — students apply knowledge in practice."
-                  : lang === "hi"
-                    ? "करके सीखना, तर्कपूर्ण सोच, समस्या समाधान और वास्तविक जीवन अनुप्रयोग।"
-                    : "करून शिकणे, तार्किक विचार, समस्या निराकरण आणि वास्तविक जीवनातील उपयोजन.",
-                img: "/assets/images/pptx1/image13.jpeg",
-                badge: "CBL",
-              },
-              {
-                title: lang === "en" ? "Student-Made Model Exhibitions" : lang === "hi" ? "विद्यार्थी निर्मित मॉडल प्रदर्शनी" : "विद्यार्थी-निर्मित मॉडेल प्रदर्शन",
-                desc: lang === "en"
-                  ? "Students prepare self-made models based on taught concepts and confidently present them at exhibitions."
-                  : lang === "hi"
-                    ? "विद्यार्थी पढ़े हुए अवधारणाओं पर आधारित मॉडल तैयार करते हैं और प्रदर्शनी में आत्मविश्वास के साथ प्रस्तुत करते हैं।"
-                    : "विद्यार्थी शिकलेल्या संकल्पनांवर आधारित मॉडेल्स तयार करून प्रदर्शनात आत्मविश्वासाने सादर करतात.",
-                img: "/assets/images/pptx1/image7.jpeg",
-                badge: lang === "en" ? "Exhibition" : lang === "hi" ? "प्रदर्शनी" : "प्रदर्शन",
-              },
-              {
-                title: lang === "en" ? "Inclusive Education" : lang === "hi" ? "समावेशी शिक्षा" : "समावेशक शिक्षण",
-                desc: lang === "en"
-                  ? "Every child learns with equal opportunities, respect, and support. Special attention for CWSN students."
-                  : lang === "hi"
-                    ? "हर बच्चे को समान अवसर, सम्मान और सहयोग के साथ शिक्षा मिलती है।"
-                    : "प्रत्येक विद्यार्थ्याला समान संधी, सन्मान व आवश्यक सहाय्यासह शिक्षण दिले जाते.",
-                img: "/assets/images/pptx1/image16.jpeg",
-                badge: "CWSN",
-              },
-              {
-                title: lang === "en" ? "Remedial & Enrichment Programmes" : lang === "hi" ? "उपचारात्मक और संवर्धन कार्यक्रम" : "उपचारात्मक व संवर्धन कार्यक्रम",
-                desc: lang === "en"
-                  ? "Targeted support for students who need extra help, alongside enrichment for advanced learners."
-                  : lang === "hi"
-                    ? "अतिरिक्त सहयोग की जरूरत वाले विद्यार्थियों के लिए लक्षित कार्यक्रम।"
-                    : "अतिरिक्त मदतीची गरज असणाऱ्या विद्यार्थ्यांसाठी लक्षित सहाय्य आणि प्रगत विद्यार्थ्यांसाठी संवर्धन.",
-                img: "/assets/images/pptx1/image15.jpeg",
-                badge: lang === "en" ? "Support" : lang === "hi" ? "सहयोग" : "सहाय्य",
-              },
-              {
-                title: lang === "en" ? "Learning Outcomes & Assessment" : lang === "hi" ? "शिक्षण परिणाम और मूल्यांकन" : "शिकण्याचे परिणाम व मूल्यमापन",
-                desc: lang === "en"
-                  ? "NIPUN Maharashtra & PAT assessment for effective measurement of foundational learning and academic progress."
-                  : lang === "hi"
-                    ? "NIPUN Maharashtra और PAT मूल्यांकन — मूलभूत शिक्षण का प्रभावी मापन।"
-                    : "NIPUN Maharashtra व PAT मूल्यमापनाद्वारे पायाभूत शिक्षण व शैक्षणिक प्रगतीचे प्रभावी मूल्यमापन.",
-                img: "/assets/images/pptx1/image19.jpeg",
-                badge: "NIPUN",
-              },
-            ].map((card, i) => (
-              <article className="academic-card card" key={i}>
-                <div className="academic-card__img">
-                  <img src={card.img} alt={card.title} loading="lazy" />
-                  <span className="badge badge-green academic-card__badge">{card.badge}</span>
-                </div>
-                <div className="card-body">
-                  <h3 className="academic-card__title">{card.title}</h3>
-                  <p className="academic-card__desc">{card.desc}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <div style={{ textAlign: "center", marginTop: "var(--space-10)" }}>
-            <Link to="/academics" className="btn btn-primary">
-              {t.common.viewAll} <ArrowRight size={16} aria-hidden />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== E. DIGITAL LEARNING ===== */}
-      <section className="section home-digital" aria-labelledby="digital-title">
-        <div className="container">
-          <div className="home-digital__grid">
-            <div className="home-digital__images">
-              <div className="home-digital__img-main">
-                <img src="/assets/images/pptx1/image22.jpeg" alt="Smart classroom with interactive panel" loading="lazy" />
-              </div>
-              <div className="home-digital__img-grid">
-                <img src="/assets/images/pptx1/image24.jpeg" alt="ICT Lab" loading="lazy" />
-                <img src="/assets/images/pptx1/image26.jpeg" alt="IDEAL Lab" loading="lazy" />
-                <img src="/assets/images/pptx1/image28.jpeg" alt="QR Code learning" loading="lazy" />
-                <img src="/assets/images/pptx1/image29.jpeg" alt="Library" loading="lazy" />
-              </div>
-            </div>
-            <div className="home-digital__content">
-              <span className="section-label">
-                <Monitor size={14} aria-hidden />
-                {lang === "en" ? "Infrastructure" : lang === "hi" ? "बुनियादी ढाँचा" : "पायाभूत सुविधा"}
-              </span>
-              <h2 className="section-title" id="digital-title">{t.home.digitalTitle}</h2>
-              <div className="divider" aria-hidden />
-              <p className="section-subtitle" style={{ marginBottom: "var(--space-8)" }}>
+              <p className="ed-story-p">
                 {lang === "en"
-                  ? "Modern infrastructure and technology tools to make learning engaging, effective, and future-ready."
+                  ? "Recognised under the Government of India's PM SHRI initiative, we combine foundational literacy and numeracy with experiential science, mathematics clubs, rooftop solar energy, and civic leadership."
                   : lang === "hi"
-                    ? "शिक्षण को रोचक, प्रभावी और भविष्य के लिए तैयार बनाने वाली आधुनिक बुनियादी ढाँचा और तकनीक।"
-                    : "शिक्षण आनंददायी, परिणामकारक व भविष्यसज्ज करण्यासाठी आधुनिक पायाभूत सुविधा व तंत्रज्ञान."}
+                    ? "भारत सरकार की पीएम श्री योजना के अंतर्गत मान्यता प्राप्त, हम बुनियादी साक्षरता और संख्या ज्ञान को प्रायोगिक विज्ञान, गणित क्लब, सौर ऊर्जा और नागरिक नेतृत्व के साथ जोड़ते हैं।"
+                    : "भारत सरकारच्या पीएम श्री योजनेंतर्गत मान्यताप्राप्त, आम्ही पायाभूत साक्षरता व संख्याज्ञानाला प्रत्यक्ष विज्ञान प्रयोग, गणित मंडळ, सौरऊर्जा आणि सामाजिक नेतृत्वाची जोड देतो."}
               </p>
 
-              <div className="digital-features">
-                {[
-                  {
-                    icon: <Monitor size={20} />,
-                    title: lang === "en" ? "Smart Classroom" : lang === "hi" ? "स्मार्ट कक्षा" : "स्मार्ट वर्गखोली",
-                    desc: lang === "en" ? "Interactive Panel, Digital Content & Audio-Visual aids" : lang === "hi" ? "इंटरएक्टिव पैनल, डिजिटल सामग्री और दृश्य-श्रव्य सहायक" : "इंटरॅक्टिव पॅनेल, डिजिटल सामग्री व दृकश्राव्य साधने",
-                  },
-                  {
-                    icon: <Calculator size={20} />,
-                    title: lang === "en" ? "ICT Lab" : "ICT Lab",
-                    desc: lang === "en" ? "E-learning, internet, educational software" : lang === "hi" ? "ई-लर्निंग, इंटरनेट, शैक्षणिक सॉफ्टवेयर" : "ई-लर्निंग, इंटरनेट, शैक्षणिक सॉफ्टवेअर",
-                  },
-                  {
-                    icon: <FlaskConical size={20} />,
-                    title: "IDEAL Lab",
-                    desc: lang === "en" ? "Innovation, problem-solving and teamwork" : lang === "hi" ? "नवाचार, समस्या समाधान और टीमवर्क" : "नवोपक्रम, समस्या निराकरण आणि संघकार्य",
-                  },
-                  {
-                    icon: <Library size={20} />,
-                    title: lang === "en" ? "Library" : lang === "hi" ? "पुस्तकालय" : "ग्रंथालय",
-                    desc: lang === "en" ? "Reading culture, self-study and knowledge exploration" : lang === "hi" ? "पठन संस्कृति, स्वाध्याय और ज्ञान अन्वेषण" : "वाचन संस्कृती, स्वयंअध्ययन व ज्ञानार्जन",
-                  },
-                  {
-                    icon: <Sun size={20} />,
-                    title: lang === "en" ? "Solar Energy" : lang === "hi" ? "सौर ऊर्जा" : "सौरऊर्जा",
-                    desc: lang === "en" ? "Renewable energy awareness and electricity saving" : lang === "hi" ? "नवीकरणीय ऊर्जा जागरूकता और बिजली की बचत" : "नवीकरणीय ऊर्जेची जाणीव आणि वीज बचत",
-                  },
-                  {
-                    icon: <Users size={20} />,
-                    title: lang === "en" ? "Accessibility" : lang === "hi" ? "दिव्यांग सुविधाएँ" : "दिव्यांग सुविधा",
-                    desc: lang === "en" ? "Ramps, railings, accessible sanitation for all students" : lang === "hi" ? "रैम्प, रेलिंग, सुलभ शौचालय — सभी के लिए" : "रॅम्प, रेलिंग, सुलभ स्वच्छतागृह — सर्वांसाठी",
-                  },
-                ].map((f, i) => (
-                  <div className="feature-box" key={i}>
-                    <div className="feature-icon">{f.icon}</div>
-                    <div>
-                      <p className="feature-box__title">{f.title}</p>
-                      <p className="feature-box__desc">{f.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div style={{ marginTop: "var(--space-6)" }}>
-                <Link to="/facilities" className="btn btn-primary">
-                  {lang === "en" ? "View All Facilities" : lang === "hi" ? "सभी सुविधाएँ देखें" : "सर्व सुविधा पहा"}
+              <div className="ed-story-actions">
+                <Link to="/about" className="ed-btn ed-btn--primary">
+                  <span>{t.common.learnMore}</span>
                   <ArrowRight size={16} aria-hidden />
+                </Link>
+                <Link to="/contact" className="ed-btn ed-btn--outline">
+                  <span>{t.nav.enquire}</span>
                 </Link>
               </div>
             </div>
+
+            {/* Right: Asymmetrical Authentic Photo Montage */}
+            <div className="ed-story-spread__gallery">
+              <div className="ed-montage-main">
+                <img
+                  src="/assets/images/pptx1/image7.jpeg"
+                  alt="Students presenting self-made models at the school exhibition"
+                  loading="lazy"
+                />
+                <div className="ed-montage-caption">
+                  <Award size={15} />
+                  <span>{l("Student-Made Science & Math Exhibition", "विद्यार्थी-निर्मित विज्ञान व गणित प्रदर्शन", "विद्यार्थी-निर्मित विज्ञान व गणित प्रदर्शन")}</span>
+                </div>
+              </div>
+
+              <div className="ed-montage-side">
+                <div className="ed-montage-item">
+                  <img
+                    src={SAVITRIBAI_PORTRAIT}
+                    alt="Krantijyoti Savitribai Phule Portrait"
+                    loading="lazy"
+                  />
+                  <span className="ed-montage-label">
+                    {l("Krantijyoti Savitribai Phule", "क्रांतिज्योती सावित्रीबाई फुले", "क्रांतिज्योती सावित्रीबाई फुले")}
+                  </span>
+                </div>
+                <div className="ed-montage-item">
+                  <img
+                    src="/assets/images/pptx1/image13.jpeg"
+                    alt="Hands-on classroom activity"
+                    loading="lazy"
+                  />
+                  <span className="ed-montage-label">
+                    {l("Competency-Based Learning", "कृती-आधारित शिक्षण", "कृती-आधारित शिक्षण")}
+                  </span>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* ===== F. STUDENT ACTIVITIES ===== */}
-      <section className="section home-activities" aria-labelledby="activities-title">
+      {/* =========================================================
+         4. ACADEMIC EXCELLENCE — MAGAZINE EDITORIAL SPREAD
+         ========================================================= */}
+      <section className="ed-section bg-parchment" aria-labelledby="academics-head">
         <div className="container">
-          <div className="section-header section-header--center">
-            <span className="section-label">
-              <Award size={14} aria-hidden />
-              {lang === "en" ? "Student Life" : lang === "hi" ? "विद्यार्थी जीवन" : "विद्यार्थी जीवन"}
+          <div className="ed-section-intro">
+            <span className="editorial-eyebrow">
+              {l("PEDAGOGY & CURRICULUM", "शैक्षणिक उत्कृष्टता", "शैक्षणिक उत्कृष्टता")}
             </span>
-            <h2 className="section-title" id="activities-title">{t.home.activitiesTitle}</h2>
-            <div className="divider" aria-hidden />
-            <p className="section-subtitle">
-              {lang === "en"
-                ? "From mathematics exhibitions to educational excursions — our students explore, create, and celebrate learning."
-                : lang === "hi"
-                  ? "गणित प्रदर्शनी से लेकर शैक्षणिक भ्रमण तक — हमारे विद्यार्थी अन्वेषण, निर्माण और उत्सव में भाग लेते हैं।"
-                  : "गणित प्रदर्शनापासून शैक्षणिक सहलीपर्यंत — आमचे विद्यार्थी शोधतात, निर्माण करतात आणि शिकण्याचा उत्सव साजरा करतात."}
+            <h2 className="editorial-title" id="academics-head">
+              {t.home.academicsTitle}
+            </h2>
+            <div className="editorial-rule editorial-rule--gold" aria-hidden />
+            <p className="editorial-lead">
+              {t.academics.fln}
             </p>
           </div>
 
-          <div className="activities-showcase">
-            {[
-              {
-                img: "/assets/images/pptx2/image16.jpeg",
-                title: lang === "en" ? "Mathematics Model Exhibition" : lang === "hi" ? "गणित मॉडल प्रदर्शनी" : "गणित मॉडेल प्रदर्शन",
-                desc: lang === "en"
-                  ? "Students built and presented models on fractions, percentages, area, and volume — building confidence and conceptual clarity."
-                  : lang === "hi"
-                    ? "विद्यार्थियों ने भिन्न, प्रतिशत, क्षेत्रफल और आयतन पर मॉडल प्रस्तुत किए।"
-                    : "विद्यार्थ्यांनी भिन्न, टक्केवारी, क्षेत्रफळ व घनफळ यावर मॉडेल्स सादर केले.",
-                tag: lang === "en" ? "Math Club" : "गणित मंडळ",
-              },
-              {
-                img: "/assets/images/pptx2/image18.jpeg",
-                title: lang === "en" ? "Science Club Exhibition" : lang === "hi" ? "विज्ञान क्लब प्रदर्शनी" : "विज्ञान मंडळ प्रदर्शन",
-                desc: lang === "en"
-                  ? "Students prepared science models for exhibition. Winners received prizes for outstanding presentations."
-                  : lang === "hi"
-                    ? "विद्यार्थियों ने विज्ञान मॉडल तैयार किए। उत्कृष्ट प्रस्तुति के लिए पुरस्कार दिए गए।"
-                    : "विद्यार्थ्यांनी विज्ञान मॉडेल्स तयार केले. उत्कृष्ट सादरीकरणासाठी बक्षीसे देण्यात आली.",
-                tag: lang === "en" ? "Science" : "विज्ञान",
-              },
-              {
-                img: "/assets/images/pptx2/image2.jpeg",
-                title: lang === "en" ? "National Lecture Series" : lang === "hi" ? "राष्ट्रीय व्याख्यानमाला" : "राष्ट्रीय व्याख्यानमाला",
-                desc: lang === "en"
-                  ? "Inspiring lecture series on knowledge, motivation, and patriotism — 'राष्ट्रीय व्याख्यानमाला' organised with distinguished guest speakers."
-                  : lang === "hi"
-                    ? "ज्ञान, प्रेरणा और देशभक्ति पर प्रेरणादायक व्याख्यानमाला। विशिष्ट अतिथि वक्ताओं के साथ आयोजित।"
-                    : "ज्ञान, प्रेरणा आणि देशभक्तीचा संगम — राष्ट्रीय व्याख्यानमाला प्रतिष्ठित अतिथी वक्त्यांसह संपन्न.",
-                tag: lang === "en" ? "Events" : lang === "hi" ? "कार्यक्रम" : "कार्यक्रम",
-              },
-              {
-                img: "/assets/images/pptx2/image20.jpeg",
-                title: lang === "en" ? "Educational Excursion — Hyderabad" : lang === "hi" ? "शैक्षणिक भ्रमण — हैदराबाद" : "शैक्षणिक सहल — हैदराबाद",
-                desc: lang === "en"
-                  ? "Students visited Charminar, Golconda Fort, Salar Jung Museum, Hussain Sagar Lake, and Birla Mandir — learning history, geography, and culture."
-                  : lang === "hi"
-                    ? "विद्यार्थियों ने चारमिनार, गोलकोंडा, सालारजंग, हुसेनसागर और बिर्ला मंदिर का भ्रमण किया।"
-                    : "चारमिनार, गोलकोंडा किल्ला, सालारजंग संग्रहालय, हुसेनसागर व बिर्ला मंदिराला भेट.",
-                tag: lang === "en" ? "Educational Trip" : lang === "hi" ? "शैक्षणिक भ्रमण" : "शैक्षणिक सहल",
-              },
-            ].map((act, i) => (
-              <article className="activity-card" key={i}>
-                <div className="activity-card__img">
-                  <img src={act.img} alt={act.title} loading="lazy" />
-                  <span className="badge badge-saffron activity-card__tag">{act.tag}</span>
+          <div className="ed-academics-magazine">
+
+            {/* Lead Feature: FLN & Model Making */}
+            <div className="ed-mag-lead">
+              <div className="ed-mag-lead__img-wrap">
+                <img
+                  src="/assets/images/pptx1/image10.jpeg"
+                  alt="Foundational Literacy & Numeracy in early classes"
+                  loading="lazy"
+                />
+                <span className="ed-mag-tag">NIPUN BHARAT • FLN</span>
+              </div>
+              <div className="ed-mag-lead__content">
+                <h3 className="ed-mag-lead__title">
+                  {l(
+                    "Foundational Literacy & Numeracy: Building Strong Roots",
+                    "बुनियादी साक्षरता और संख्या ज्ञान (FLN)",
+                    "पायाभूत साक्षरता व संख्याज्ञान (FLN)"
+                  )}
+                </h3>
+                <p className="ed-mag-lead__desc">
+                  {l(
+                    "Through Teaching Learning Materials (TLM), phonics games, reading circles, and activity cards, every child masters reading comprehension and core mathematical fluency with confidence and joy.",
+                    "टीचिंग लर्निंग मटेरियल (TLM), ध्वनिकी खेल और गतिविधि कार्ड के माध्यम से प्रत्येक बच्चा आत्मविश्वास के साथ पठन और गणितीय दक्षता हासिल करता है।",
+                    "टीचिंग लर्निंग मटेरियल (TLM), ध्वनी खेळ व ॲक्टिव्हिटी कार्ड्सद्वारे प्रत्येक विद्यार्थी आत्मविश्वासाने वाचन व मूलभूत गणिती कौशल्ये आत्मसात करतो."
+                  )}
+                </p>
+                <Link to="/academics" className="ed-inline-link">
+                  <span>{l("Explore FLN Curriculum", "FLN अभ्यासक्रम पहा", "FLN अभ्यासक्रम पहा")}</span>
+                  <ArrowRight size={15} />
+                </Link>
+              </div>
+            </div>
+
+            {/* Side Column: Indexed Editorial Pedagogy Points */}
+            <div className="ed-mag-list">
+
+              <div className="ed-mag-item">
+                <span className="ed-mag-index">01</span>
+                <div>
+                  <h4 className="ed-mag-item__title">
+                    {l("Competency-Based Learning (CBL)", "दक्षता आधारित शिक्षण", "क्षमताधारित शिक्षण (CBL)")}
+                  </h4>
+                  <p className="ed-mag-item__desc">
+                    {l(
+                      "Learning by doing, real-life problem solving, and critical thinking replace rote memorisation.",
+                      "करके सीखना, वास्तविक जीवन में समस्या समाधान और तार्किक सोच।",
+                      "करून शिकणे, प्रत्यक्ष जीवनातील समस्या निराकरण व तार्किक विचारसरणी."
+                    )}
+                  </p>
                 </div>
-                <div className="activity-card__body">
-                  <h3 className="activity-card__title">{act.title}</h3>
-                  <p className="activity-card__desc">{act.desc}</p>
+              </div>
+
+              <div className="ed-mag-item">
+                <span className="ed-mag-index">02</span>
+                <div>
+                  <h4 className="ed-mag-item__title">
+                    {l("Student-Made Model Exhibitions", "विद्यार्थी निर्मित मॉडल प्रदर्शनी", "विद्यार्थी-निर्मित मॉडेल प्रदर्शन")}
+                  </h4>
+                  <p className="ed-mag-item__desc">
+                    {l(
+                      "Children independently construct working mathematical and scientific apparatus to demonstrate core principles.",
+                      "विद्यार्थी स्वयं गणितीय और वैज्ञानिक मॉडल बनाकर सिद्धांतों को प्रदर्शित करते हैं।",
+                      "विद्यार्थी स्वतः गणितीय व वैज्ञानिक मॉडेल्स बनवून संकल्पनांचे प्रात्यक्षिक सादरीकरण करतात."
+                    )}
+                  </p>
                 </div>
-              </article>
-            ))}
+              </div>
+
+              <div className="ed-mag-item">
+                <span className="ed-mag-index">03</span>
+                <div>
+                  <h4 className="ed-mag-item__title">
+                    {l("Inclusive Education for CWSN", "समावेशी शिक्षा (CWSN)", "समावेशक शिक्षण (CWSN)")}
+                  </h4>
+                  <p className="ed-mag-item__desc">
+                    {l(
+                      "Full accessibility, barrier-free ramps, individualised support, and dignified peer integration for all learners.",
+                      "दिव्यांग विद्यार्थियों के लिए रैम्प, विशेष शैक्षणिक सहायता और गरिमामय समावेश।",
+                      "दिव्यांग विद्यार्थ्यांसाठी रॅम्प्स, विशेष शैक्षणिक सहाय्य आणि सन्मानपूर्वक समान संधी."
+                    )}
+                  </p>
+                </div>
+              </div>
+
+              <div className="ed-mag-item">
+                <span className="ed-mag-index">04</span>
+                <div>
+                  <h4 className="ed-mag-item__title">
+                    {l("PAT & NIPUN Maharashtra Assessments", "मूल्यांकन आणि प्रगती", "मूल्यमापन आणि शैक्षणिक प्रगती")}
+                  </h4>
+                  <p className="ed-mag-item__desc">
+                    {l(
+                      "Continuous Periodic Assessment Tests diagnose learning gaps and ensure timely remedial support.",
+                      "नियतकालिक मूल्यांकन चाचण्यांद्वारे विद्यार्थ्यांच्या प्रगतीचे अचूक मूल्यमापन.",
+                      "नियतकालिक मूल्यांकन चाचण्यांद्वारे (PAT) विद्यार्थ्यांच्या प्रगतीचे अचूक मूल्यमापन."
+                    )}
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+         5. DIGITAL INFRASTRUCTURE — ARCHITECTURAL SHOWCASE
+         ========================================================= */}
+      <section className="ed-section bg-parchment-light" aria-labelledby="infra-head">
+        <div className="container">
+          <div className="ed-section-intro">
+            <span className="editorial-eyebrow">
+              {l("MODERN INFRASTRUCTURE", "आधुनिक पायाभूत सुविधा", "आधुनिक पायाभूत सुविधा")}
+            </span>
+            <h2 className="editorial-title" id="infra-head">
+              {t.home.digitalTitle}
+            </h2>
+            <div className="editorial-rule editorial-rule--gold" aria-hidden />
+            <p className="editorial-lead">
+              {l(
+                "PM SHRI resources bring cutting-edge interactive panels, computer laboratories, and sustainable rooftop energy to Babupeth's municipal students.",
+                "पीएम श्री संसाधनों से बाबूपेठ के मनपा विद्यार्थियों के लिए आधुनिक इंटरएक्टिव पैनल, कंप्यूटर लैब और हरित ऊर्जा की उपलब्धता।",
+                "पीएम श्री निधीतून बाबूपेठच्या मनपा विद्यार्थ्यांना आधुनिक डिजिटल पॅनेल्स, संगणक लॅब आणि पर्यावरणपूरक सौरऊर्जेची उपलब्धता."
+              )}
+            </p>
           </div>
 
-          <div style={{ textAlign: "center", marginTop: "var(--space-10)" }}>
-            <Link to="/activities" className="btn btn-primary">
-              {t.common.viewAll} <ArrowRight size={16} aria-hidden />
+          {/* Full-Width Centerpiece Photograph */}
+          <div className="ed-infra-showcase">
+            <div className="ed-infra-hero-photo">
+              <img
+                src="/assets/images/pptx1/image22.jpeg"
+                alt="Students using interactive smart panel in classroom"
+                loading="lazy"
+              />
+              <div className="ed-infra-hero-overlay">
+                <div className="ed-infra-hero-badge">
+                  <Monitor size={18} />
+                  <div>
+                    <strong>{l("Interactive Smart Classroom", "इंटरॅक्टिव्ह स्मार्ट वर्गखोली", "इंटरॅक्टिव्ह स्मार्ट वर्गखोली")}</strong>
+                    <span>High-Definition Digital Learning • Audio-Visual Demonstrations</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Technical Specification Rows (Cardless) */}
+            <div className="ed-infra-specs">
+              <div className="ed-spec-row">
+                <div className="ed-spec-col ed-spec-col--title">
+                  <Calculator size={18} className="ed-spec-icon" />
+                  <h4>{l("ICT Computer Laboratory", "ICT कंप्यूटर प्रयोगशाला", "ICT संगणक लॅब")}</h4>
+                </div>
+                <div className="ed-spec-col ed-spec-col--desc">
+                  <p>{l("Dedicated student workstations for digital literacy, typing mastery, and educational internet research under teacher supervision.", "विद्यार्थ्यांसाठी समर्पित संगणक वर्कस्टेशन, इंटरनेट व डिजिटल साक्षरता.", "विद्यार्थ्यांसाठी स्वतंत्र संगणक, टायपिंग सराव व मार्गदर्शित इंटरनेट शिक्षण.")}</p>
+                </div>
+                <div className="ed-spec-col ed-spec-col--stat">
+                  <span>{l("Workstations Installed", "कार्यरत संगणक", "कार्यरत संगणक")}</span>
+                </div>
+              </div>
+
+              <div className="ed-spec-row">
+                <div className="ed-spec-col ed-spec-col--title">
+                  <FlaskConical size={18} className="ed-spec-icon" />
+                  <h4>{l("IDEAL Innovation Lab", "IDEAL नवाचार प्रयोगशाला", "IDEAL नवोपक्रम प्रयोगशाळा")}</h4>
+                </div>
+                <div className="ed-spec-col ed-spec-col--desc">
+                  <p>{l("Hands-on tinkering kits, problem-solving puzzles, and experiential science modules to foster analytical curiosity.", "वैज्ञानिक प्रयोग किट्स, कोडी व प्रत्यक्ष प्रात्यक्षिकांद्वारे संशोधक वृत्तीचा विकास.", "वैज्ञानिक प्रयोग किट्स, कोडी व प्रत्यक्ष प्रात्यक्षिकांद्वारे संशोधक वृत्तीचा विकास.")}</p>
+                </div>
+                <div className="ed-spec-col ed-spec-col--stat">
+                  <span>{l("STEM Tinkering Space", "STEM संशोधन केंद्र", "STEM संशोधन केंद्र")}</span>
+                </div>
+              </div>
+
+              <div className="ed-spec-row">
+                <div className="ed-spec-col ed-spec-col--title">
+                  <Library size={18} className="ed-spec-icon" />
+                  <h4>{l("Central Library & Reading Corners", "पुस्तकालय और वाचन कोना", "शालेय ग्रंथालय व वाचन कट्टा")}</h4>
+                </div>
+                <div className="ed-spec-col ed-spec-col--desc">
+                  <p>{l("Rich collection of pictorial storybooks, biographies, scientific encyclopaedias, and classroom reading corners in every grade.", "सचित्र गोष्टींची पुस्तके, चरित्रग्रंथ, ज्ञानकोश व प्रत्येक वर्गात वर्ग-ग्रंथालय.", "सचित्र गोष्टींची पुस्तके, चरित्रग्रंथ, ज्ञानकोश व प्रत्येक वर्गात वर्ग-ग्रंथालय.")}</p>
+                </div>
+                <div className="ed-spec-col ed-spec-col--stat">
+                  <span>{l("Open Access Reading", "मुक्त वाचन संस्कृती", "मुक्त वाचन संस्कृती")}</span>
+                </div>
+              </div>
+
+              <div className="ed-spec-row">
+                <div className="ed-spec-col ed-spec-col--title">
+                  <Sun size={18} className="ed-spec-icon" />
+                  <h4>{l("Rooftop Solar Power Facility", "रूफटॉप सौर ऊर्जा संयंत्र", "सौरऊर्जा प्रकल्प")}</h4>
+                </div>
+                <div className="ed-spec-col ed-spec-col--desc">
+                  <p>{l("Renewable clean energy generation powering classroom fans and digital displays while educating children on green conservation.", "शाळेच्या छतावर सौरऊर्जा प्रकल्प, अखंड वीजपुरवठा व ऊर्जा बचतीचे धडे.", "शाळेच्या छतावर सौरऊर्जा प्रकल्प, अखंड वीजपुरवठा व ऊर्जा बचतीचे धडे.")}</p>
+                </div>
+                <div className="ed-spec-col ed-spec-col--stat">
+                  <span>{l("100% Green Energy", "हरित ऊर्जा संचलन", "हरित ऊर्जा संचलन")}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="ed-infra-cta">
+              <Link to="/facilities" className="ed-btn ed-btn--primary">
+                <span>{l("Tour All School Facilities", "शाळेच्या सर्व सुविधा पहा", "शाळेच्या सर्व सुविधा पहा")}</span>
+                <ArrowRight size={16} aria-hidden />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+         6. STUDENT LIFE & ACTIVITIES — MAGAZINE PHOTOJOURNAL
+         ========================================================= */}
+      <section className="ed-section bg-parchment" aria-labelledby="life-head">
+        <div className="container">
+          <div className="ed-section-intro">
+            <span className="editorial-eyebrow">
+              {l("STUDENT CO-CURRICULAR JOURNAL", "विद्यार्थी जीवन आणि उपक्रम", "विद्यार्थी जीवन आणि उपक्रम")}
+            </span>
+            <h2 className="editorial-title" id="life-head">
+              {t.home.activitiesTitle}
+            </h2>
+            <div className="editorial-rule editorial-rule--gold" aria-hidden />
+            <p className="editorial-lead">
+              {l(
+                "Education extends beyond the blackboard. Through exhibitions, lecture series, and educational excursions, our students explore the world.",
+                "शिक्षणाचा परीघ फक्त पुस्तकांपुरता मर्यादित नाही. प्रदर्शन, राष्ट्रीय व्याख्यानमाला आणि शैक्षणिक सहलीतून आमचे विद्यार्थी जग अनुभवतात.",
+                "शिक्षणाचा परीघ फक्त पुस्तकांपुरता मर्यादित नाही. प्रदर्शन, राष्ट्रीय व्याख्यानमाला आणि शैक्षणिक सहलीतून आमचे विद्यार्थी जग अनुभवतात."
+              )}
+            </p>
+          </div>
+
+          <div className="ed-journal-grid">
+
+            {/* Feature 1: Large Dominant Story — Educational Excursion */}
+            <article className="ed-journal-lead">
+              <div className="ed-journal-lead__media">
+                <img
+                  src="/assets/images/pptx2/image20.jpeg"
+                  alt="Students at Charminar, Hyderabad on educational trip"
+                  loading="lazy"
+                />
+                <span className="ed-journal-tag">{l("Educational Excursion", "शैक्षणिक भ्रमण", "शैक्षणिक सहल")}</span>
+              </div>
+              <div className="ed-journal-lead__body">
+                <span className="ed-journal-date">Hyderabad • Charminar, Golconda & Salar Jung Museum</span>
+                <h3 className="ed-journal-lead__title">
+                  {l(
+                    "Expanding Horizons: Annual Multi-City Educational Excursion",
+                    "हैदराबाद शैक्षणिक सहल: इतिहास, विज्ञान व संस्कृतीचा अभ्यास",
+                    "हैदराबाद शैक्षणिक सहल: इतिहास, विज्ञान व संस्कृतीचा अभ्यास"
+                  )}
+                </h3>
+                <p className="ed-journal-lead__excerpt">
+                  {l(
+                    "Students visited Charminar, Golconda Fort, Salar Jung Museum, and Birla Planetarium — bridging textbook history and geography with unforgettable real-world exploration.",
+                    "विद्यार्थ्यांनी चारमिनार, गोलकोंडा किल्ला, सालारजंग संग्रहालय आणि बिर्ला तारांगणाला प्रत्यक्ष भेट देऊन इतिहास व विज्ञानाचा अनुभव घेतला.",
+                    "विद्यार्थ्यांनी चारमिनार, गोलकोंडा किल्ला, सालारजंग संग्रहालय आणि बिर्ला तारांगणाला प्रत्यक्ष भेट देऊन इतिहास व विज्ञानाचा अनुभव घेतला."
+                  )}
+                </p>
+                <Link to="/activities" className="ed-inline-link">
+                  <span>{l("Read Excursion Report", "सहलीचा सविस्तर अहवाल", "सहलीचा सविस्तर अहवाल")}</span>
+                  <ArrowRight size={15} />
+                </Link>
+              </div>
+            </article>
+
+            {/* Feature 2: National Lecture Series */}
+            <article className="ed-journal-card">
+              <div className="ed-journal-card__media">
+                <img
+                  src="/assets/images/pptx2/image2.jpeg"
+                  alt="Dignitaries speaking at National Lecture Series"
+                  loading="lazy"
+                />
+                <span className="ed-journal-tag">{l("Lecture Series", "व्याख्यानमाला", "व्याख्यानमाला")}</span>
+              </div>
+              <div className="ed-journal-card__body">
+                <h4 className="ed-journal-card__title">
+                  {l("National Lecture Series: Inspiring Civic Character", "राष्ट्रीय व्याख्यानमाला: ज्ञान व प्रेरणेचा जागर", "राष्ट्रीय व्याख्यानमाला: ज्ञान व प्रेरणेचा जागर")}
+                </h4>
+                <p className="ed-journal-card__excerpt">
+                  {l(
+                    "Eminent public figures, educators, and social reformers regularly engage with students on ethics, constitutional values, and career ambition.",
+                    "विविध क्षेत्रातील तज्ज्ञ वक्त्यांची व्याख्याने, संविधान मूल्ये व व्यक्तिमत्व विकास मार्गदर्शन.",
+                    "विविध क्षेत्रातील तज्ज्ञ वक्त्यांची व्याख्याने, संविधान मूल्ये व व्यक्तिमत्व विकास मार्गदर्शन."
+                  )}
+                </p>
+              </div>
+            </article>
+
+            {/* Feature 3: Mathematics Club Exhibition */}
+            <article className="ed-journal-card">
+              <div className="ed-journal-card__media">
+                <img
+                  src="/assets/images/pptx2/image16.jpeg"
+                  alt="Students presenting fractions and geometry models"
+                  loading="lazy"
+                />
+                <span className="ed-journal-tag">{l("Mathematics Club", "गणित मंडळ", "गणित मंडळ")}</span>
+              </div>
+              <div className="ed-journal-card__body">
+                <h4 className="ed-journal-card__title">
+                  {l("Mathematics Model Fair: Conquering Abstract Math", "गणित मॉडेल प्रदर्शन: प्रत्यक्ष कृतीतून अंकज्ञान", "गणित मॉडेल प्रदर्शन: प्रत्यक्ष कृतीतून अंकज्ञान")}
+                </h4>
+                <p className="ed-journal-card__excerpt">
+                  {l(
+                    "Self-crafted tactile models illustrating fractions, theorems, and spatial geometry demystify mathematics for every student.",
+                    "विद्यार्थ्यांनी स्वनिर्मित मॉडेल्सद्वारे भूमिती, अपूर्णांक व सूत्रांचे सहज सादरीकरण केले.",
+                    "विद्यार्थ्यांनी स्वनिर्मित मॉडेल्सद्वारे भूमिती, अपूर्णांक व सूत्रांचे सहज सादरीकरण केले."
+                  )}
+                </p>
+              </div>
+            </article>
+
+          </div>
+
+          <div className="ed-journal-footer">
+            <Link to="/activities" className="ed-btn ed-btn--primary">
+              <span>{l("View All Co-Curricular Activities", "सर्व शालेय उपक्रम पहा", "सर्व शालेय उपक्रम पहा")}</span>
+              <ArrowRight size={16} aria-hidden />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ===== G. ENVIRONMENT ===== */}
-      <section className="section home-environment" aria-labelledby="env-title">
+      {/* =========================================================
+         7. ENVIRONMENT & SUSTAINABILITY — DEEP FOREST GREEN
+         ========================================================= */}
+      <section className="ed-section bg-forest-deep" aria-labelledby="env-head">
         <div className="container">
-          <div className="home-environment__inner">
-            <div className="home-environment__content">
-              <span className="section-label" style={{ color: "rgba(255,255,255,.7)" }}>
-                <Leaf size={14} aria-hidden />
-                {lang === "en" ? "Green Campus" : lang === "hi" ? "हरित परिसर" : "हरित परिसर"}
+          <div className="ed-env-spread">
+
+            {/* Left Narrative */}
+            <div className="ed-env-spread__narrative">
+              <span className="editorial-eyebrow">
+                <Leaf size={14} className="ed-icon-gold" aria-hidden />
+                {l("SUSTAINABILITY & GREEN CAMPUS", "हरित परिसर व पर्यावरण संवर्धन", "हरित परिसर व पर्यावरण संवर्धन")}
               </span>
-              <h2 className="section-title" id="env-title" style={{ color: "white" }}>
+              <h2 className="editorial-title" id="env-head">
                 {t.home.environmentTitle}
               </h2>
-              <div className="divider" aria-hidden />
+              <div className="editorial-rule editorial-rule--dark" aria-hidden />
 
-              <div className="env-features">
-                {[
-                  {
-                    icon: <TreePine size={18} />,
-                    title: lang === "en" ? "Tree Plantation" : lang === "hi" ? "वृक्षारोपण" : "वृक्षारोपण",
-                    desc: lang === "en" ? "'Ek Ped Maa Ke Naam' — every student plants a tree" : lang === "hi" ? "'एक पेड माँ के नाम' — हर विद्यार्थी ने एक पेड़ लगाया" : "'एक पेड माँ के नाम' — प्रत्येक विद्यार्थ्याने वृक्षारोपण",
-                  },
-                  {
-                    icon: <Leaf size={18} />,
-                    title: "Eco Club",
-                    desc: lang === "en" ? "Environmental protection and biodiversity awareness" : lang === "hi" ? "पर्यावरण संरक्षण और जैव विविधता जागरूकता" : "पर्यावरण संरक्षण व जैवविविधता जागरूकता",
-                  },
-                  {
-                    icon: <Sun size={18} />,
-                    title: lang === "en" ? "Solar Energy" : lang === "hi" ? "सौर ऊर्जा" : "सौरऊर्जा",
-                    desc: lang === "en" ? "Renewable energy installation and awareness" : lang === "hi" ? "नवीकरणीय ऊर्जा स्थापना और जागरूकता" : "सौरऊर्जा व ऊर्जा बचत जनजागृती",
-                  },
-                  {
-                    icon: <Shield size={18} />,
-                    title: lang === "en" ? "Plastic-Free Campus" : lang === "hi" ? "प्लास्टिक-मुक्त परिसर" : "प्लास्टिकमुक्त परिसर",
-                    desc: lang === "en" ? "Cloth bags, proper waste management, awareness" : lang === "hi" ? "कपड़े के थैले, कचरा प्रबंधन, जागरूकता" : "कापडी पिशव्या, कचरा व्यवस्थापन, जनजागृती",
-                  },
-                  {
-                    icon: <Star size={18} />,
-                    title: lang === "en" ? "Kitchen Garden" : lang === "hi" ? "किचन गार्डन / परसबाग" : "परसबाग / Kitchen Garden",
-                    desc: lang === "en" ? "Students learn entrepreneurship through the school market" : lang === "hi" ? "शालेय बाजार के माध्यम से उद्यमशीलता का पाठ" : "शालेय बाजार उपक्रमाद्वारे उद्योजकतेचे धडे",
-                  },
-                  {
-                    icon: <Users size={18} />,
-                    title: lang === "en" ? "Water Conservation" : lang === "hi" ? "जल संरक्षण" : "जलसंवर्धन",
-                    desc: lang === "en" ? "Rainwater harvesting and water-use awareness" : lang === "hi" ? "वर्षा जल संचयन और जल उपयोग जागरूकता" : "पावसाचे पाणी साठवण व जनजागृती",
-                  },
-                ].map((f, i) => (
-                  <div className="env-feature" key={i}>
-                    <div className="env-feature__icon">{f.icon}</div>
-                    <div>
-                      <p className="env-feature__title">{f.title}</p>
-                      <p className="env-feature__desc">{f.desc}</p>
-                    </div>
+              <p className="editorial-lead">
+                {lang === "en"
+                  ? "Environmental stewardship is lived daily at P.M. Shri Savitribai Phule School. From individual saplings planted in mothers' honor to rooftop solar panels and plastic-free dining, our students lead the green transformation."
+                  : lang === "hi"
+                    ? "पी.एम. श्री सावित्रीबाई फुले विद्यालय में पर्यावरण संरक्षण दैनिक जीवन का हिस्सा है। 'एक पेड़ माँ के नाम' वृक्षारोपण से लेकर सौर ऊर्जा तक, हमारे छात्र हरित क्रांति का नेतृत्व करते हैं।"
+                    : "पी.एम. श्री. सावित्रीबाई फुले शाळेत पर्यावरण संवर्धन हा दैनंदिन आचरणाचा भाग आहे. 'एक पेड माँ के नाम' वृक्षारोपणापासून ते सौरऊर्जेपर्यंत, आमचे विद्यार्थी हरित भविष्यासाठी पुढाकार घेतात."}
+              </p>
+
+              <div className="ed-env-initiatives">
+                <div className="ed-env-item">
+                  <TreePine size={18} className="ed-env-icon" />
+                  <div>
+                    <strong>{l("'Ek Ped Maa Ke Naam' Plantation Drive", "'एक पेड माँ के नाम' वृक्षारोपण", "'एक पेड माँ के नाम' वृक्षारोपण")}</strong>
+                    <p>{l("Every student personally plants and nurtures an indigenous fruit or shade sapling across the campus.", "प्रत्येक विद्यार्थ्याने आईच्या नावाने एक रोप लावून त्याचे संगोपन करण्याची शपथ घेतली.", "प्रत्येक विद्यार्थ्याने आईच्या नावाने एक रोप लावून त्याचे संगोपन करण्याची शपथ घेतली.")}</p>
                   </div>
-                ))}
+                </div>
+
+                <div className="ed-env-item">
+                  <Leaf size={18} className="ed-env-icon" />
+                  <div>
+                    <strong>{l("School Kitchen Garden (परसबाग)", "शालेय परसबाग व भाजीपाला", "शालेय परसबाग व भाजीपाला उत्पादन")}</strong>
+                    <p>{l("Students cultivate fresh greens used in mid-day meals, gaining practical agro-science knowledge.", "परसबागेत विद्यार्थ्यांनी सेंद्रिय भाज्या पिकवून पोषण आहाराला जोड दिली आणि उद्योजकतेचे धडे घेतले.", "परसबागेत विद्यार्थ्यांनी सेंद्रिय भाज्या पिकवून पोषण आहाराला जोड दिली आणि उद्योजकतेचे धडे घेतले.")}</p>
+                  </div>
+                </div>
+
+                <div className="ed-env-item">
+                  <Shield size={18} className="ed-env-icon" />
+                  <div>
+                    <strong>{l("Plastic-Free Campus & Waste Segregation", "प्लास्टिक-मुक्त शाळा व कचरा व्यवस्थापन", "प्लास्टिकमुक्त शाळा व कचरा व्यवस्थापन")}</strong>
+                    <p>{l("Elimination of single-use plastics, adoption of cloth bags, and composting of organic leaf waste.", "कापडी पिशव्यांचा वापर, ओला-सुका कचरा वर्गीकरण व खतनिर्मिती प्रकल्प.", "कापडी पिशव्यांचा वापर, ओला-सुका कचरा वर्गीकरण व खतनिर्मिती प्रकल्प.")}</p>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="home-environment__gallery">
-              <div className="env-gallery-grid">
-                <img src="/assets/images/pptx2/image10.jpeg" alt="Eco Club inauguration" loading="lazy" />
-                <img src="/assets/images/pptx2/image11.jpeg" alt="Tree plantation" loading="lazy" />
-                <img src="/assets/images/pptx1/image77.jpeg" alt="Plantation drive" loading="lazy" />
-                <img src="/assets/images/pptx1/image79.jpeg" alt="Eco Club activities" loading="lazy" />
+
+            {/* Right Photo Mosaic */}
+            <div className="ed-env-spread__mosaic">
+              <div className="ed-env-mosaic-card ed-env-mosaic-card--tall">
+                <img
+                  src="/assets/images/pptx1/image77.jpeg"
+                  alt="Students and staff planting saplings during Ek Ped Maa Ke Naam drive"
+                  loading="lazy"
+                />
+                <span className="ed-env-mosaic-label">{l("Plantation Drive", "वृक्षारोपण मोहीम", "वृक्षारोपण मोहीम")}</span>
+              </div>
+
+              <div className="ed-env-mosaic-stack">
+                <div className="ed-env-mosaic-card">
+                  <img
+                    src="/assets/images/pptx2/image10.jpeg"
+                    alt="Eco Club student committee inauguration"
+                    loading="lazy"
+                  />
+                  <span className="ed-env-mosaic-label">{l("Eco Club Inauguration", "पर्यावरण मंडळ", "पर्यावरण मंडळ")}</span>
+                </div>
+                <div className="ed-env-mosaic-card">
+                  <img
+                    src="/assets/images/pptx1/image79.jpeg"
+                    alt="Kitchen garden fresh produce and green campus"
+                    loading="lazy"
+                  />
+                  <span className="ed-env-mosaic-label">{l("Kitchen Garden", "शालेय परसबाग", "शालेय परसबाग")}</span>
+                </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* ===== H. WELLBEING & COMMUNITY ===== */}
-      <section className="section home-wellbeing" aria-labelledby="wellbeing-title">
+      {/* =========================================================
+         8. SAFETY, INCLUSION & GOVERNANCE — EDITORIAL TWO-TONE
+         ========================================================= */}
+      <section className="ed-section bg-parchment-light" aria-labelledby="governance-head">
         <div className="container">
-          <div className="home-wellbeing__grid">
-            {/* Wellbeing */}
-            <div>
-              <span className="section-label">
+          <div className="ed-safety-grid">
+
+            {/* Column 1: Child Protection & Wellbeing */}
+            <div className="ed-safety-col">
+              <span className="editorial-eyebrow">
                 <Shield size={14} aria-hidden />
-                {lang === "en" ? "Safety & Inclusion" : lang === "hi" ? "सुरक्षा और समावेश" : "सुरक्षितता व समावेश"}
+                {l("STUDENT WELFARE & SAFETY", "सुरक्षितता व समावेश", "सुरक्षितता व समावेश")}
               </span>
-              <h2 className="section-title" id="wellbeing-title">{t.home.wellbeingTitle}</h2>
-              <div className="divider" aria-hidden />
-              <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", marginTop: "var(--space-6)" }}>
-                {[
-                  {
-                    title: lang === "en" ? "POCSO Awareness Programme" : lang === "hi" ? "POCSO जागरूकता कार्यक्रम" : "POCSO जागरूकता कार्यक्रम",
-                    desc: lang === "en" ? "Good touch / bad touch guidance for students" : lang === "hi" ? "विद्यार्थियों के लिए good touch/bad touch मार्गदर्शन" : "विद्यार्थ्यांना Good Touch/Bad Touch बद्दल मार्गदर्शन",
-                  },
-                  {
-                    title: lang === "en" ? "Child Protection Committee" : lang === "hi" ? "बाल संरक्षण समिति" : "बाल संरक्षण समिती",
-                    desc: lang === "en" ? "Safe, respectful, and fear-free school environment" : lang === "hi" ? "सुरक्षित, सम्मानजनक और भयमुक्त विद्यालय वातावरण" : "सुरक्षित, सन्मानजनक व भयमुक्त शालेय वातावरण",
-                  },
-                  {
-                    title: lang === "en" ? "Safe Complaint Resolution" : lang === "hi" ? "सुरक्षित शिकायत निवारण" : "सुरक्षित तक्रार निवारण",
-                    desc: lang === "en" ? "Students' rights, safety and trust — positive school atmosphere" : lang === "hi" ? "विद्यार्थियों के अधिकार, सुरक्षा और विश्वास" : "विद्यार्थ्यांचे हक्क, सुरक्षितता व विश्वास",
-                  },
-                  {
-                    title: lang === "en" ? "Sports & Leadership" : lang === "hi" ? "खेलकूद और नेतृत्व" : "क्रीडा व नेतृत्व",
-                    desc: lang === "en" ? "Confidence, discipline, teamwork and leadership through sports" : lang === "hi" ? "खेलकूद से आत्मविश्वास, अनुशासन और नेतृत्व का विकास" : "क्रीडाद्वारे आत्मविश्वास, शिस्त, संघभावना व नेतृत्वगुण",
-                  },
-                ].map((item, i) => (
-                  <div className="wellbeing-item" key={i}>
-                    <div className="wellbeing-item__dot" aria-hidden />
-                    <div>
-                      <h3 className="wellbeing-item__title">{item.title}</h3>
-                      <p className="wellbeing-item__desc">{item.desc}</p>
-                    </div>
+              <h3 className="ed-safety-col__title" id="governance-head">
+                {t.home.wellbeingTitle}
+              </h3>
+              <div className="editorial-rule editorial-rule--gold" aria-hidden />
+
+              <div className="ed-safety-items">
+                <div className="ed-safety-item">
+                  <CheckCircle2 size={18} className="ed-check-icon" />
+                  <div>
+                    <h4>{l("POCSO & Child Rights Awareness", "POCSO जनजागृती व बालहक्क", "POCSO जनजागृती व बालहक्क")}</h4>
+                    <p>{l("Regular workshops teaching Good Touch / Bad Touch, student rights, and personal safety in age-appropriate formats.", "विद्यार्थ्यांना Good Touch/Bad Touch बद्दल मार्गदर्शन व बालहक्क जागृती कार्यशाळा.", "विद्यार्थ्यांना Good Touch/Bad Touch बद्दल मार्गदर्शन व बालहक्क जागृती कार्यशाळा.")}</p>
                   </div>
-                ))}
+                </div>
+
+                <div className="ed-safety-item">
+                  <CheckCircle2 size={18} className="ed-check-icon" />
+                  <div>
+                    <h4>{l("Internal Complaints & Grievance Box", "तक्रार निवारण व समुपदेशन", "तक्रार निवारण व समुपदेशन")}</h4>
+                    <p>{l("Confidential complaint box and dedicated student protection committee to address concerns promptly without fear.", "सुरक्षित व गोपनीय तक्रार निवारण पेटी आणि तत्पर समुपदेशन व्यवस्था.", "सुरक्षित व गोपनीय तक्रार निवारण पेटी आणि तत्पर समुपदेशन व्यवस्था.")}</p>
+                  </div>
+                </div>
+
+                <div className="ed-safety-item">
+                  <CheckCircle2 size={18} className="ed-check-icon" />
+                  <div>
+                    <h4>{l("Physical Health & Preventive Screening", "आरोग्य तपासणी व क्रीडा", "आरोग्य तपासणी व क्रीडा")}</h4>
+                    <p>{l("Annual pediatric health checkups, nutritional monitoring, and daily sports for fitness and discipline.", "नियमित आरोग्य तपासणी, पोषण आहार व क्रीडा सरावाद्वारे सुदृढ पिढीची घडण.", "नियमित आरोग्य तपासणी, पोषण आहार व क्रीडा सरावाद्वारे सुदृढ पिढीची घडण.")}</p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Community */}
-            <div>
-              <span className="section-label">
+            {/* Column 2: School Management Committee & Governance */}
+            <div className="ed-safety-col">
+              <span className="editorial-eyebrow">
                 <Users size={14} aria-hidden />
-                {lang === "en" ? "Community" : lang === "hi" ? "समुदाय" : "समुदाय"}
+                {l("COMMUNITY PARTNERSHIP", "शाळा व्यवस्थापन समिती", "शाळा व्यवस्थापन समिती")}
               </span>
-              <h2 className="section-title">{t.home.communityTitle}</h2>
-              <div className="divider" aria-hidden />
-              <div className="community-card" style={{ marginTop: "var(--space-6)" }}>
-                <div className="community-card__img">
-                  <img src="/assets/images/pptx1/image44.jpeg" alt="School Management Committee meeting" loading="lazy" />
+              <h3 className="ed-safety-col__title">
+                {t.home.communityTitle}
+              </h3>
+              <div className="editorial-rule editorial-rule--gold" aria-hidden />
+
+              <div className="ed-gov-card">
+                <div className="ed-gov-card__media">
+                  <img
+                    src="/assets/images/pptx1/image44.jpeg"
+                    alt="School Management Committee meeting in session"
+                    loading="lazy"
+                  />
+                  <span className="ed-gov-badge">{l("SMC & Parent Council", "SMC समिती बैठक", "SMC समिती बैठक")}</span>
                 </div>
-                <div className="community-card__body">
-                  <h3>
-                    {lang === "en" ? "School Management Committee (SMC)" : lang === "hi" ? "विद्यालय प्रबंधन समिति (SMC)" : "शाळा व्यवस्थापन समिती (SMC)"}
-                  </h3>
+                <div className="ed-gov-card__body">
+                  <h4>{l("Transparent Democratic Governance", "पारदर्शक लोकशाही व्यवस्थापन", "पारदर्शक लोकशाही व्यवस्थापन")}</h4>
                   <p>
                     {lang === "en"
-                      ? "SMC actively works for school development, quality education, infrastructure, student welfare, and parent participation."
+                      ? "The School Management Committee (SMC), comprising elected parents, teachers, and municipal representatives, oversees infrastructure, student nutrition, and school development plans openly."
                       : lang === "hi"
-                        ? "SMC विद्यालय विकास, गुणवत्तापूर्ण शिक्षण, पायाभूत सुविधाओं, विद्यार्थी कल्याण और अभिभावक सहभागिता के लिए सक्रिय रूप से कार्य करती है।"
-                        : "SMC शाळेच्या विकास, गुणवत्तापूर्ण शिक्षण, पायाभूत सुविधा, विद्यार्थी कल्याण आणि पालक सहभाग वाढविण्यासाठी सक्रियपणे कार्य करते."}
-                  </p>
-                </div>
-              </div>
-              <div className="community-card" style={{ marginTop: "var(--space-4)" }}>
-                <div className="community-card__img">
-                  <img src="/assets/images/pptx1/image45.jpeg" alt="Parent participation" loading="lazy" />
-                </div>
-                <div className="community-card__body">
-                  <h3>{lang === "en" ? "Transparent Governance" : lang === "hi" ? "पारदर्शी प्रबंधन" : "पारदर्शक व्यवस्थापन"}</h3>
-                  <p>
-                    {lang === "en"
-                      ? "All school records, financial transactions, notices and decisions are shared openly with parents and the community."
-                      : lang === "hi"
-                        ? "सभी विद्यालय अभिलेख, वित्तीय व्यवहार, सूचनाएँ और निर्णय अभिभावकों और समुदाय के साथ खुलकर साझा किए जाते हैं।"
-                        : "सर्व शालेय नोंदी, आर्थिक व्यवहार, सूचना व निर्णय पालक आणि समाजासमोर खुलेपणाने मांडले जातात."}
+                        ? "पालक, शिक्षक आणि मनपा प्रतिनिधींनी मिळून बनलेली शाळा व्यवस्थापन समिती (SMC) शालेय विकास व विद्यार्थी कल्याणासाठी कटिबद्ध आहे."
+                        : "पालक, शिक्षक आणि मनपा प्रतिनिधींनी मिळून बनलेली शाळा व्यवस्थापन समिती (SMC) शालेय विकास व विद्यार्थी कल्याणासाठी कटिबद्ध आहे."}
                   </p>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* ===== I. GALLERY PREVIEW ===== */}
-      <section className="section--sm home-gallery-preview" aria-labelledby="gallery-prev-title">
-        <div className="container">
-          <div className="section-header section-header--center">
-            <span className="section-label">
-              <Star size={14} aria-hidden />
-              {lang === "en" ? "Highlights" : lang === "hi" ? "झलकियाँ" : "झलक"}
+      {/* =========================================================
+         9. GALLERY HIGHLIGHTS — ASYMMETRIC PHOTOGRAPHIC ARCHIVE
+         ========================================================= */}
+      <section className="ed-section bg-parchment" aria-labelledby="gallery-head">
+        <div className="container container--wide">
+          <div className="ed-section-intro ed-section-intro--center">
+            <span className="editorial-eyebrow">
+              {l("PHOTOGRAPHIC ARCHIVE", "शालेय क्षणचित्रे", "शालेय क्षणचित्रे")}
             </span>
-            <h2 className="section-title" id="gallery-prev-title">{t.home.galleryPreviewTitle}</h2>
-            <div className="divider" aria-hidden />
+            <h2 className="editorial-title" id="gallery-head">
+              {t.home.galleryPreviewTitle}
+            </h2>
+            <div className="editorial-rule editorial-rule--gold" style={{ margin: "var(--space-4) auto" }} aria-hidden />
           </div>
 
-          <div className="gallery-preview-grid">
-            {previewItems.map((item) => (
-              <Link to="/gallery" key={item.id} className="gallery-preview-item" aria-label={item.caption}>
+          <div className="ed-gallery-mosaic">
+            {previewItems.map((item, idx) => (
+              <Link
+                to="/gallery"
+                key={item.id}
+                className={`ed-mosaic-item ed-mosaic-item--${idx + 1}`}
+                aria-label={item.caption}
+              >
                 <img
                   src={item.src}
                   alt={item.captionMr || item.caption}
                   loading="lazy"
                 />
-                <div className="gallery-preview-item__overlay">
-                  <p className="gallery-preview-item__caption">
+                <div className="ed-mosaic-overlay">
+                  <p className="ed-mosaic-caption">
                     {lang === "en" ? item.caption : lang === "hi" ? (item.captionHi || item.caption) : (item.captionMr || item.caption)}
                   </p>
                 </div>
@@ -636,35 +839,47 @@ export default function Home() {
             ))}
           </div>
 
-          <div style={{ textAlign: "center", marginTop: "var(--space-8)" }}>
-            <Link to="/gallery" className="btn btn-primary">
-              {lang === "en" ? "View Full Gallery" : lang === "hi" ? "पूरी गैलरी देखें" : "संपूर्ण गॅलरी पहा"}
+          <div className="ed-gallery-cta">
+            <Link to="/gallery" className="ed-btn ed-btn--primary">
+              <span>{l("Enter Full Photographic Gallery", "संपूर्ण फोटो गॅलरी पहा", "संपूर्ण फोटो गॅलरी पहा")}</span>
               <ArrowRight size={16} aria-hidden />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ===== J. ENQUIRY CTA ===== */}
-      <section className="home-cta" aria-labelledby="cta-title">
+      {/* =========================================================
+         10. FINAL INSTITUTIONAL INVITATION & CTA
+         ========================================================= */}
+      <section className="ed-cta-band bg-forest-deep" aria-labelledby="cta-head">
         <div className="container">
-          <div className="home-cta__inner">
-            <div className="home-cta__content">
-              <h2 className="home-cta__title" id="cta-title">{t.home.enquiryCta}</h2>
-              <p className="home-cta__sub">{t.home.enquirySubtitle}</p>
+          <div className="ed-cta-box">
+            <div className="ed-cta-box__narrative">
+              <span className="editorial-eyebrow">
+                <GraduationCap size={15} className="ed-icon-gold" aria-hidden />
+                {l("ADMISSIONS & CAMPUS VISITS", "प्रवेश व शाळा भेट", "प्रवेश व शाळा भेट")}
+              </span>
+              <h2 className="ed-cta-title" id="cta-head">
+                {t.home.enquiryCta}
+              </h2>
+              <p className="ed-cta-lead">
+                {t.home.enquirySubtitle}
+              </p>
             </div>
-            <div className="home-cta__actions">
-              <Link to="/contact" className="btn btn-white btn--lg">
-                {t.home.contactUs}
+
+            <div className="ed-cta-box__actions">
+              <Link to="/contact" className="ed-btn ed-btn--gold">
+                <span>{t.home.contactUs}</span>
                 <ChevronRight size={18} aria-hidden />
               </Link>
-              <Link to="/news" className="btn btn-outline-white btn--lg">
-                {t.nav.news}
+              <Link to="/news" className="ed-btn ed-btn--outline-white">
+                <span>{t.nav.news}</span>
               </Link>
             </div>
           </div>
         </div>
       </section>
+
     </div>
   );
 }

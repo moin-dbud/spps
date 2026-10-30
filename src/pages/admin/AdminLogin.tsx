@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { Lock, User, Eye, EyeOff, ShieldAlert } from "lucide-react";
+import { Lock, User, Eye, EyeOff, ShieldAlert, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 import { SCHOOL_CONFIG } from "../../config/school";
 import { apiLogin } from "../../utils/api";
 import "./AdminLogin.css";
@@ -130,6 +131,12 @@ export default function AdminLogin() {
         <div className="admin-login-footer">
           <p>Restricted access for authorized school personnel only.</p>
         </div>
+      </div>
+
+      <div className="admin-login-back">
+        <Link to="/">
+          <ArrowLeft size={14} /> Return to School Homepage
+        </Link>
       </div>
     </div>
   );

@@ -31,6 +31,7 @@ import {
   X,
   User,
   Menu,
+  Calendar,
 } from "lucide-react";
 import { SCHOOL_CONFIG } from "../../config/school";
 import { useSchoolSettings } from "../../context/SchoolSettingsContext";
@@ -1825,6 +1826,11 @@ function NewsTab({
   const [form, setForm] = useState<Omit<NewsItem, "id">>({ ...EMPTY_NEWS });
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
+  // Search & Filter state
+  const [searchQuery, setSearchQuery] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState<"all" | NewsItem["category"]>("all");
+  const [statusFilter, setStatusFilter] = useState<"all" | "published" | "draft">("all");
+
   function startEdit(item: NewsItem) {
     const { id, ...rest } = item;
     setForm(rest);
@@ -1856,78 +1862,128 @@ function NewsTab({
 
   const isFormOpen = adding || editId !== null;
 
+  // Filter items
+  const filteredNews = news.filter((item) => {
+    if (categoryFilter !== "all" && item.category !== categoryFilter) return false;
+    if (statusFilter === "published" && !item.published) return false;
+    if (statusFilter === "draft" && item.published) return false;
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      const matchEn = item.titleEn.toLowerCase().includes(q);
+      const matchMr = (item.titleMr || "").toLowerCase().includes(q);
+      const matchHi = (item.titleHi || "").toLowerCase().includes(q);
+      const matchExcerpt = (item.excerpt || "").toLowerCase().includes(q);
+      if (!matchEn && !matchMr && !matchHi && !matchExcerpt) return false;
+    }
+    return true;
+  });
+
+  const categoryCounts = {
+    all: news.length,
+    notice: news.filter((n) => n.category === "notice").length,
+    event: news.filter((n) => n.category === "event").length,
+    press: news.filter((n) => n.category === "press").length,
+    update: news.filter((n) => n.category === "update").length,
+  };
+
   return (
-    <div className="admin-section">
+    <div className="admin-section admin-news-section">
       <div className="admin-section-header">
         <div>
           <h1 className="admin-page-title">News &amp; Notices</h1>
-          <p className="admin-page-sub">{news.length} total items</p>
+          <p className="admin-page-sub">
+            {news.length} total entries &bull; {news.filter((n) => n.published).length} published live
+          </p>
         </div>
         <button
-          className="admin-action-btn"
+          className="admin-action-btn admin-action-btn--primary"
           onClick={() => {
             setAdding(true);
             setEditId(null);
             setForm({ ...EMPTY_NEWS });
           }}
         >
-          <Plus size={16} /> Add Item
+          <Plus size={16} /> Add New Entry
         </button>
       </div>
 
       {isFormOpen && (
-        <div className="admin-form-card">
-          <h3 className="admin-form-card__title">
-            {editId ? "Edit Item" : "New News / Notice"}
-          </h3>
+        <div className="admin-form-card admin-news-form-card">
+          <div className="admin-form-card__header">
+            <div>
+              <h3 className="admin-form-card__title">
+                {editId ? "Edit Publication / Notice" : "Create New Publication / Notice"}
+              </h3>
+              <p className="admin-form-card__subtitle">
+                Enter multilingual details, publication status, and optional photographic attachment.
+              </p>
+            </div>
+            <button
+              className="admin-form-card__close"
+              onClick={() => {
+                setAdding(false);
+                setEditId(null);
+              }}
+              aria-label="Close form"
+            >
+              <X size={18} />
+            </button>
+          </div>
+
           <div className="admin-form-grid">
-            <div className="admin-form-field">
+            <div className="admin-form-field admin-form-field--full">
               <label className="admin-form-label">Title (English) *</label>
               <input
                 className="admin-form-input"
                 type="text"
+                placeholder="e.g. Annual Mathematics Model Exhibition & Hands-on Lab Day"
                 value={form.titleEn}
                 onChange={(e) => setForm({ ...form, titleEn: e.target.value })}
+                required
               />
             </div>
             <div className="admin-form-field">
-              <label className="admin-form-label">Title (Marathi)</label>
+              <label className="admin-form-label">Title (Marathi - मराठी)</label>
               <input
                 className="admin-form-input"
                 type="text"
+                placeholder="e.g. वार्षिक गणित प्रतिकृती प्रदर्शन व लॅब दिन"
                 value={form.titleMr}
                 onChange={(e) => setForm({ ...form, titleMr: e.target.value })}
               />
             </div>
             <div className="admin-form-field">
-              <label className="admin-form-label">Title (Hindi)</label>
+              <label className="admin-form-label">Title (Hindi - हिन्दी)</label>
               <input
                 className="admin-form-input"
                 type="text"
+                placeholder="e.g. वार्षिक गणित मॉडल प्रदर्शनी व लैब दिवस"
                 value={form.titleHi}
                 onChange={(e) => setForm({ ...form, titleHi: e.target.value })}
               />
             </div>
-            <div className="admin-form-field">
-              <label className="admin-form-label">Excerpt</label>
+            <div className="admin-form-field admin-form-field--full">
+              <label className="admin-form-label">Short Summary / Excerpt</label>
               <input
                 className="admin-form-input"
                 type="text"
+                placeholder="Brief one-line summary for notice board overview"
                 value={form.excerpt}
                 onChange={(e) => setForm({ ...form, excerpt: e.target.value })}
               />
             </div>
             <div className="admin-form-field admin-form-field--full">
-              <label className="admin-form-label">Full Content</label>
+              <label className="admin-form-label">Full Narrative / Circular Content</label>
               <textarea
                 className="admin-form-textarea"
                 rows={5}
+                placeholder="Full article text, schedule particulars, or official circular wording..."
                 value={form.content}
                 onChange={(e) => setForm({ ...form, content: e.target.value })}
               />
             </div>
             <div className="admin-form-field">
-              <label className="admin-form-label">Date</label>
+              <label className="admin-form-label">Publication Date</label>
               <input
                 className="admin-form-input"
                 type="date"
@@ -1936,7 +1992,7 @@ function NewsTab({
               />
             </div>
             <div className="admin-form-field">
-              <label className="admin-form-label">Category</label>
+              <label className="admin-form-label">Classification Category</label>
               <select
                 className="admin-form-select"
                 value={form.category}
@@ -1947,27 +2003,35 @@ function NewsTab({
                   })
                 }
               >
-                <option value="notice">Official Notice</option>
-                <option value="event">School Event</option>
-                <option value="press">Press Coverage</option>
-                <option value="update">General Update</option>
+                <option value="notice">Official Notice (नोटीस)</option>
+                <option value="event">School Event (कार्यक्रम)</option>
+                <option value="press">Press Coverage (वृत्तपत्र प्रसिद्धी)</option>
+                <option value="update">General Update (अपडेट)</option>
               </select>
             </div>
             <div className="admin-form-field admin-form-field--full">
-              <label className="admin-form-label">Image URL (Optional)</label>
-              <input
-                className="admin-form-input"
-                type="url"
-                placeholder="https://… or /assets/images/…"
-                value={form.imageUrl}
-                onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
-              />
+              <label className="admin-form-label">Photograph URL (Optional)</label>
+              <div className="admin-img-input-wrap">
+                <input
+                  className="admin-form-input"
+                  type="url"
+                  placeholder="https://… or /assets/images/…"
+                  value={form.imageUrl}
+                  onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
+                />
+                {form.imageUrl && (
+                  <div className="admin-img-preview-mini">
+                    <img
+                      src={form.imageUrl}
+                      alt="Preview"
+                      onError={(e) => ((e.currentTarget as HTMLElement).style.display = "none")}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
           <div className="admin-form-actions">
-            <button className="admin-action-btn" onClick={handleSave} disabled={!form.titleEn.trim()}>
-              <CheckCircle2 size={15} /> Save Item
-            </button>
             <button
               className="admin-action-btn admin-action-btn--ghost"
               onClick={() => {
@@ -1977,56 +2041,237 @@ function NewsTab({
             >
               Cancel
             </button>
+            <button
+              className="admin-action-btn admin-action-btn--primary"
+              onClick={handleSave}
+              disabled={!form.titleEn.trim()}
+            >
+              <CheckCircle2 size={16} /> {editId ? "Update Entry" : "Publish to Board"}
+            </button>
           </div>
         </div>
       )}
 
+      {/* Filter and Search Bar */}
+      <div className="admin-news-filter-bar">
+        <div className="admin-search-wrap">
+          <Search size={16} className="admin-search-icon" />
+          <input
+            type="text"
+            className="admin-search-input"
+            placeholder="Search by title, keywords, or content..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          {searchQuery && (
+            <button
+              className="admin-search-clear"
+              onClick={() => setSearchQuery("")}
+              aria-label="Clear search"
+            >
+              <X size={14} />
+            </button>
+          )}
+        </div>
+
+        <div className="admin-filter-pills">
+          <button
+            className={`admin-filter-pill ${categoryFilter === "all" ? "active" : ""}`}
+            onClick={() => setCategoryFilter("all")}
+          >
+            All <span className="admin-pill-count">{categoryCounts.all}</span>
+          </button>
+          <button
+            className={`admin-filter-pill ${categoryFilter === "notice" ? "active" : ""}`}
+            onClick={() => setCategoryFilter("notice")}
+          >
+            Notices <span className="admin-pill-count">{categoryCounts.notice}</span>
+          </button>
+          <button
+            className={`admin-filter-pill ${categoryFilter === "event" ? "active" : ""}`}
+            onClick={() => setCategoryFilter("event")}
+          >
+            Events <span className="admin-pill-count">{categoryCounts.event}</span>
+          </button>
+          <button
+            className={`admin-filter-pill ${categoryFilter === "press" ? "active" : ""}`}
+            onClick={() => setCategoryFilter("press")}
+          >
+            Press <span className="admin-pill-count">{categoryCounts.press}</span>
+          </button>
+          <button
+            className={`admin-filter-pill ${categoryFilter === "update" ? "active" : ""}`}
+            onClick={() => setCategoryFilter("update")}
+          >
+            Updates <span className="admin-pill-count">{categoryCounts.update}</span>
+          </button>
+        </div>
+
+        <div className="admin-status-filter">
+          <select
+            className="admin-status-select"
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value as any)}
+            aria-label="Filter by status"
+          >
+            <option value="all">Status: All</option>
+            <option value="published">Published Only</option>
+            <option value="draft">Drafts Only</option>
+          </select>
+        </div>
+      </div>
+
+      {/* News List */}
       <div className="admin-news-list">
-        {news.map((item) => (
-          <div key={item.id} className="admin-news-item">
-            <div className="admin-news-item__main">
-              <div className="admin-news-item__meta">
-                <span className="admin-badge admin-badge--cat">{item.category}</span>
-                <span className="admin-news-item__date">{item.date}</span>
-                <span className={`admin-badge ${item.published ? "admin-badge--pub" : "admin-badge--draft"}`}>
-                  {item.published ? "Published" : "Draft"}
-                </span>
-              </div>
-              <h3 className="admin-news-item__title">{item.titleEn}</h3>
-              {item.excerpt && <p className="admin-news-item__excerpt">{item.excerpt}</p>}
-            </div>
-            <div className="admin-news-item__actions">
-              <button className="admin-icon-btn" title="Edit" onClick={() => startEdit(item)}>
-                <Pencil size={15} />
-              </button>
+        {filteredNews.length === 0 ? (
+          <div className="admin-news-empty">
+            <Newspaper size={40} className="admin-news-empty__icon" />
+            <h4 className="admin-news-empty__title">No announcements found</h4>
+            <p className="admin-news-empty__text">
+              {searchQuery || categoryFilter !== "all" || statusFilter !== "all"
+                ? "No entries match your search criteria. Try resetting filters."
+                : "No announcements have been published yet. Click 'Add New Entry' to create one."}
+            </p>
+            {(searchQuery || categoryFilter !== "all" || statusFilter !== "all") && (
               <button
-                className="admin-icon-btn"
-                title={item.published ? "Unpublish" : "Publish"}
-                onClick={() => togglePublish(item.id)}
+                className="admin-action-btn admin-action-btn--ghost"
+                onClick={() => {
+                  setSearchQuery("");
+                  setCategoryFilter("all");
+                  setStatusFilter("all");
+                }}
               >
-                {item.published ? <Eye size={15} /> : <EyeOff size={15} />}
+                Reset Filters
               </button>
-              <button
-                className="admin-icon-btn admin-icon-btn--danger"
-                title="Delete"
-                onClick={() => setDeleteId(item.id)}
-              >
-                <Trash2 size={15} />
-              </button>
-            </div>
-            {deleteId === item.id && (
-              <div className="admin-confirm">
-                <span>Delete this notice?</span>
-                <button className="admin-action-btn admin-action-btn--danger" onClick={() => handleDelete(item.id)}>
-                  Delete
-                </button>
-                <button className="admin-action-btn admin-action-btn--ghost" onClick={() => setDeleteId(null)}>
-                  Cancel
-                </button>
-              </div>
             )}
           </div>
-        ))}
+        ) : (
+          filteredNews.map((item) => (
+            <div
+              key={item.id}
+              className={`admin-news-card admin-news-card--${item.category} ${
+                item.published ? "is-published" : "is-draft"
+              }`}
+            >
+              {/* Thumbnail or Category Icon */}
+              <div className="admin-news-card__media">
+                {item.imageUrl ? (
+                  <img
+                    src={item.imageUrl}
+                    alt={item.titleEn}
+                    className="admin-news-card__img"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLElement).style.display = "none";
+                      (e.currentTarget.parentElement as HTMLElement).classList.add("has-fallback");
+                    }}
+                  />
+                ) : (
+                  <div className={`admin-news-card__icon-box admin-news-card__icon-box--${item.category}`}>
+                    {item.category === "notice" && <FileText size={22} />}
+                    {item.category === "event" && <Calendar size={22} />}
+                    {item.category === "press" && <Newspaper size={22} />}
+                    {item.category === "update" && <AlertCircle size={22} />}
+                  </div>
+                )}
+              </div>
+
+              {/* Main Content */}
+              <div className="admin-news-card__body">
+                <div className="admin-news-card__meta">
+                  <span className={`admin-cat-chip admin-cat-chip--${item.category}`}>
+                    {item.category.toUpperCase()}
+                  </span>
+                  <span className="admin-news-card__date">
+                    <Calendar size={13} /> {item.date}
+                  </span>
+                  <span
+                    className={`admin-status-chip ${
+                      item.published ? "admin-status-chip--pub" : "admin-status-chip--draft"
+                    }`}
+                  >
+                    <span className="admin-status-dot" />
+                    {item.published ? "Live" : "Draft"}
+                  </span>
+
+                  {(item.titleMr || item.titleHi) && (
+                    <div className="admin-lang-chips">
+                      {item.titleMr && <span className="admin-lang-chip" title="Marathi title available">MR</span>}
+                      {item.titleHi && <span className="admin-lang-chip" title="Hindi title available">HI</span>}
+                    </div>
+                  )}
+                </div>
+
+                <h3 className="admin-news-card__title">{item.titleEn}</h3>
+
+                {item.titleMr && (
+                  <p className="admin-news-card__alt-title" lang="mr">
+                    {item.titleMr}
+                  </p>
+                )}
+
+                {item.excerpt && (
+                  <p className="admin-news-card__excerpt">{item.excerpt}</p>
+                )}
+              </div>
+
+              {/* Actions */}
+              <div className="admin-news-card__actions">
+                <button
+                  className="admin-btn-tool"
+                  title="Edit details"
+                  onClick={() => startEdit(item)}
+                >
+                  <Pencil size={15} />
+                  <span className="admin-btn-tool__label">Edit</span>
+                </button>
+
+                <button
+                  className={`admin-btn-tool ${
+                    item.published ? "admin-btn-tool--live" : "admin-btn-tool--draft"
+                  }`}
+                  title={item.published ? "Click to set Draft" : "Click to Publish"}
+                  onClick={() => togglePublish(item.id)}
+                >
+                  {item.published ? <Eye size={15} /> : <EyeOff size={15} />}
+                  <span className="admin-btn-tool__label">
+                    {item.published ? "Live" : "Draft"}
+                  </span>
+                </button>
+
+                <button
+                  className="admin-btn-tool admin-btn-tool--danger"
+                  title="Delete announcement"
+                  onClick={() => setDeleteId(item.id)}
+                >
+                  <Trash2 size={15} />
+                  <span className="admin-btn-tool__label">Delete</span>
+                </button>
+              </div>
+
+              {deleteId === item.id && (
+                <div className="admin-news-card__confirm-overlay">
+                  <div className="admin-news-card__confirm-box">
+                    <p>Are you sure you want to permanently delete this notice?</p>
+                    <div className="admin-confirm-actions">
+                      <button
+                        className="admin-action-btn admin-action-btn--danger"
+                        onClick={() => handleDelete(item.id)}
+                      >
+                        Yes, Delete
+                      </button>
+                      <button
+                        className="admin-action-btn admin-action-btn--ghost"
+                        onClick={() => setDeleteId(null)}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

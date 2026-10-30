@@ -1,397 +1,109 @@
-import "./About.css";
 import {
-  BookOpen, Users, Building2, Award, Star, Heart,
-  GraduationCap, Target, Eye, CheckCircle, Lightbulb,
+  Users, Building2, Award, Heart,
+  GraduationCap, Target, Eye, CheckCircle2, Lightbulb,
+  ShieldCheck,
 } from "lucide-react";
 import { useI18n } from "../i18n";
 import { useSchoolSettings } from "../context/SchoolSettingsContext";
 import { IMAGE_MANIFEST } from "../data/imageManifest";
+import "./About.css";
 
 /* =========================================================
-   ABOUT PAGE — P.M. Shri Savitribai Phule School, Babupeth, Chandrapur
+   ABOUT PAGE — EDITORIAL INSTITUTIONAL MONOGRAPH
+   P.M. Shri Savitribai Phule School, Babupeth, Chandrapur
    ========================================================= */
 
 export default function About() {
   const { lang } = useI18n();
   const { settings } = useSchoolSettings();
 
-  const tx = {
-    pageTitle:
-      lang === "en"
-        ? "About Our School"
-        : lang === "hi"
-        ? "हमारे विद्यालय के बारे में"
-        : "आमच्या शाळेविषयी",
-    pageSub:
-      lang === "en"
-        ? "P.M. Shri Savitribai Phule School, Babupeth, Chandrapur"
-        : lang === "hi"
-        ? "पी.एम. श्री सावित्रीबाई फुले विद्यालय, बाबूपेठ, चंद्रपुर"
-        : "पी.एम. श्री. सावित्रीबाई फुले शाळा, बाबूपेठ, चंद्रपूर",
-
-    /* School identity */
-    identityLabel:
-      lang === "en" ? "Our School" : lang === "hi" ? "हमारा विद्यालय" : "आमची शाळा",
-    identityTitle:
-      lang === "en"
-        ? "P.M. Shri Savitribai Phule School"
-        : lang === "hi"
-        ? "पी.एम. श्री सावित्रीबाई फुले विद्यालय"
-        : "पी.एम. श्री. सावित्रीबाई फुले शाळा",
-    identityBody:
-      lang === "en"
-        ? "P.M. Shri Savitribai Phule School is a Municipal Corporation school located in the Babupeth area of Chandrapur, Maharashtra. The school is committed to delivering quality, inclusive education to every child, rooted in the values of social justice, curiosity, and lifelong learning.\n\nRecognised under the prestigious P.M. Shri (Prime Minister Schools for Rising India) scheme of the Government of India, the school strives to be a model institution that embodies the principles of the National Education Policy 2020 — preparing students not just academically, but holistically.\n\nWith a dedicated team of trained educators, modern infrastructure, and a nurturing environment, the school is a beacon of learning for children of the Babupeth community."
-        : lang === "hi"
-        ? "पी.एम. श्री सावित्रीबाई फुले विद्यालय महाराष्ट्र के चंद्रपुर जिले के बाबूपेठ क्षेत्र में स्थित नगर निगम का विद्यालय है। यह विद्यालय सामाजिक न्याय, जिज्ञासा और आजीवन अधिगम के मूल्यों पर आधारित गुणवत्तापूर्ण, समावेशी शिक्षा देने के लिए प्रतिबद्ध है।\n\nभारत सरकार की प्रतिष्ठित पी.एम. श्री (प्रधानमंत्री स्कूल्स फॉर राइजिंग इंडिया) योजना के अंतर्गत मान्यता प्राप्त यह विद्यालय राष्ट्रीय शिक्षा नीति 2020 के सिद्धांतों को मूर्त रूप देने वाली एक आदर्श संस्था बनने का प्रयास करता है।\n\nप्रशिक्षित शिक्षकों की समर्पित टीम, आधुनिक बुनियादी ढाँचे और पोषणकारी वातावरण के साथ यह विद्यालय बाबूपेठ समुदाय के बच्चों के लिए शिक्षा का प्रकाश-स्तंभ है।"
-        : "पी.एम. श्री. सावित्रीबाई फुले उच्च प्राथमिक व माध्यमिक शाळा ही महाराष्ट्रातील चंद्रपूर जिल्ह्याच्या बाबूपेठ परिसरातील मनपाची शाळा आहे. सामाजिक न्याय, जिज्ञासा आणि आजीवन शिक्षणाच्या मूल्यांवर आधारित दर्जेदार, समावेशक शिक्षण देण्यास ही शाळा कटिबद्ध आहे.\n\nभारत सरकारच्या प्रतिष्ठित पी.एम. श्री (Prime Minister Schools for Rising India) योजनेंतर्गत मान्यताप्राप्त ही शाळा NEP 2020 च्या तत्त्वांना मूर्त स्वरूप देणारी एक आदर्श शाळा बनण्यास प्रयत्नशील आहे.\n\nप्रशिक्षित शिक्षकांची समर्पित टीम, आधुनिक पायाभूत सुविधा आणि प्रेरणादायक वातावरणामुळे ही शाळा बाबूपेठ समाजातील मुलांसाठी शिक्षणाचा दीपस्तंभ आहे.",
-
-    /* Mission & Vision */
-    missionLabel:
-      lang === "en"
-        ? "Our Purpose"
-        : lang === "hi"
-        ? "हमारा उद्देश्य"
-        : "आमचा उद्देश",
-    missionTitle:
-      lang === "en"
-        ? "Mission & Vision"
-        : lang === "hi"
-        ? "ध्येय और दृष्टि"
-        : "ध्येय आणि दृष्टी",
-    missionHead:
-      lang === "en"
-        ? "Our Mission"
-        : lang === "hi"
-        ? "हमारा ध्येय"
-        : "आमचे ध्येय",
-    missionBody:
-      lang === "en"
-        ? "To provide every child with quality, joyful, and inclusive education that develops their full potential — intellectually, socially, and emotionally — while fostering civic responsibility and a love for lifelong learning."
-        : lang === "hi"
-        ? "प्रत्येक बच्चे को गुणवत्तापूर्ण, आनंदमय और समावेशी शिक्षा प्रदान करना जो उनकी पूर्ण क्षमता — बौद्धिक, सामाजिक और भावनात्मक — विकसित करे और आजीवन अधिगम के प्रति प्रेम जगाए।"
-        : "प्रत्येक मुलाला दर्जेदार, आनंददायी व समावेशक शिक्षण देणे — जे त्यांची बौद्धिक, सामाजिक व भावनिक क्षमता विकसित करेल आणि नागरी जबाबदारी व आजीवन शिक्षणाची आवड जोपासेल.",
-    visionHead:
-      lang === "en" ? "Our Vision" : lang === "hi" ? "हमारी दृष्टि" : "आमची दृष्टी",
-    visionBody:
-      lang === "en"
-        ? "To be a model institution that exemplifies the ideals of the National Education Policy 2020 — a school where every student thrives, every voice is heard, and every learner is prepared to contribute meaningfully to society and the nation."
-        : lang === "hi"
-        ? "राष्ट्रीय शिक्षा नीति 2020 के आदर्शों को मूर्त रूप देने वाली एक आदर्श संस्था बनना — जहाँ हर विद्यार्थी प्रगति करे, हर आवाज सुनी जाए और हर शिक्षार्थी समाज और राष्ट्र में सार्थक योगदान के लिए तैयार हो।"
-        : "NEP 2020 च्या आदर्शांना मूर्त रूप देणारी एक आदर्श संस्था बनणे — जिथे प्रत्येक विद्यार्थी प्रगती करतो, प्रत्येक आवाज ऐकला जातो आणि प्रत्येक शिकणारा समाज व राष्ट्रासाठी अर्थपूर्ण योगदान देण्यास तयार असतो.",
-
-    /* Savitribai tribute */
-    tributeLabel:
-      lang === "en"
-        ? "Named After"
-        : lang === "hi"
-        ? "जिनके नाम पर"
-        : "ज्यांच्या नावाने",
-    tributeTitle:
-      lang === "en"
-        ? "Savitribai Phule — Pioneer of Education"
-        : lang === "hi"
-        ? "सावित्रीबाई फुले — शिक्षा की अग्रदूत"
-        : "सावित्रीबाई फुले — शिक्षणाची अग्रदूत",
-    tributeBody: [
-      lang === "en"
-        ? "Savitribai Phule (3 January 1831 – 10 March 1897) was a pioneering social reformer, educator, and poet who transformed the lives of countless Indians. She is widely regarded as the first female teacher of modern India."
-        : lang === "hi"
-        ? "सावित्रीबाई फुले (3 जनवरी 1831 – 10 मार्च 1897) एक अग्रणी समाज सुधारक, शिक्षाविद और कवयित्री थीं जिन्होंने अनगिनत भारतीयों के जीवन को बदल दिया। उन्हें आधुनिक भारत की पहली महिला शिक्षिका माना जाता है।"
-        : "सावित्रीबाई फुले (३ जानेवारी १८३१ – १० मार्च १८९७) या एक अग्रगण्य समाजसुधारक, शिक्षणतज्ज्ञ आणि कवयित्री होत्या, ज्यांनी असंख्य भारतीयांचे जीवन बदलले. त्यांना आधुनिक भारताच्या पहिल्या महिला शिक्षिका म्हणून ओळखले जाते.",
-      lang === "en"
-        ? "Together with her husband, the social reformer Jyotirao Phule, Savitribai founded one of India's first schools for girls in Pune in 1848. Despite fierce opposition and social ostracism, she continued to educate children from all castes and backgrounds — walking to school while people threw dung and stones at her."
-        : lang === "hi"
-        ? "अपने पति, समाज सुधारक ज्योतिराव फुले के साथ, सावित्रीबाई ने 1848 में पुणे में भारत की पहली बालिका विद्यालयों में से एक की स्थापना की। तीव्र विरोध और सामाजिक बहिष्कार के बावजूद, वे सभी जातियों और पृष्ठभूमि के बच्चों को शिक्षित करती रहीं।"
-        : "आपले पती, समाजसुधारक ज्योतिराव फुले यांच्यासह, सावित्रीबाईंनी १८४८ मध्ये पुण्यात भारतातील पहिल्या मुलींच्या शाळांपैकी एक स्थापन केली. तीव्र विरोध व सामाजिक बहिष्कार सहन करत त्यांनी सर्व जाती व पार्श्वभूमीच्या मुलांना शिकवत राहिल्या.",
-      lang === "en"
-        ? "She championed the rights of women, widows, and marginalised communities, established shelters for destitute women, and is revered as 'Krantijyoti' — the revolutionary flame of knowledge. Her birthday, January 3rd, is celebrated as Balika Din in Maharashtra."
-        : lang === "hi"
-        ? "उन्होंने महिलाओं, विधवाओं और हाशिए के समुदायों के अधिकारों की वकालत की, असहाय महिलाओं के लिए आश्रय स्थापित किए और उन्हें 'क्रांतिज्योति' — ज्ञान की क्रांतिकारी ज्वाला — के रूप में सम्मानित किया जाता है।"
-        : "त्यांनी महिला, विधवा आणि उपेक्षित समाजाच्या हक्कांसाठी लढा दिला, निराधार महिलांसाठी आश्रमशाळा स्थापन केल्या आणि त्यांना 'क्रांतिज्योती' — ज्ञानाची क्रांतिकारी ज्वाला — म्हणून आदरपूर्वक स्मरले जाते. त्यांचा जन्मदिन, ३ जानेवारी, महाराष्ट्रात बालिका दिन म्हणून साजरा केला जातो.",
-    ],
-
-    /* School Profile */
-    profileLabel:
-      lang === "en"
-        ? "School Profile"
-        : lang === "hi"
-        ? "विद्यालय प्रोफ़ाइल"
-        : "शाळा प्रोफाइल",
-    profileTitle:
-      lang === "en"
-        ? "School at a Glance"
-        : lang === "hi"
-        ? "विद्यालय एक दृष्टि में"
-        : "शाळा एका दृष्टिक्षेपात",
-
-    /* PM Shri */
-    pmshriLabel: "P.M. Shri Programme",
-    pmshriTitle:
-      lang === "en"
-        ? "PM Shri — Model Schools Under NEP 2020"
-        : lang === "hi"
-        ? "PM Shri — NEP 2020 के अंतर्गत आदर्श विद्यालय"
-        : "PM Shri — NEP 2020 अंतर्गत आदर्श शाळा",
-    pmshriBody:
-      lang === "en"
-        ? "PM SHRI (Prime Minister Schools for Rising India) is a flagship scheme of the Government of India launched to develop more than 14,500 schools across the country into model schools. Selected schools receive enhanced support for infrastructure, teacher training, digital tools, and holistic student development — fully aligned with the principles of the National Education Policy 2020."
-        : lang === "hi"
-        ? "PM SHRI (प्रधानमंत्री स्कूल्स फॉर राइजिंग इंडिया) भारत सरकार की एक प्रमुख योजना है जो देश भर के 14,500 से अधिक विद्यालयों को आदर्श विद्यालय के रूप में विकसित करने के लिए शुरू की गई है। चयनित विद्यालयों को बुनियादी ढाँचे, शिक्षक प्रशिक्षण, डिजिटल उपकरण और समग्र छात्र विकास के लिए बढ़ी हुई सहायता मिलती है — जो NEP 2020 के सिद्धांतों के साथ पूरी तरह से संरेखित है।"
-        : "PM SHRI (Prime Minister Schools for Rising India) ही भारत सरकारची एक प्रमुख योजना आहे जी देशभरातील १४,५०० हून अधिक शाळांना आदर्श शाळांमध्ये विकसित करण्यासाठी सुरू करण्यात आली. निवडलेल्या शाळांना पायाभूत सुविधा, शिक्षक प्रशिक्षण, डिजिटल साधने आणि सर्वांगीण विद्यार्थी विकासासाठी वाढीव सहाय्य मिळते — NEP 2020 च्या तत्त्वांशी पूर्णपणे सुसंगत.",
-
-    /* Principal's message */
-    principalLabel:
-      lang === "en"
-        ? "Leadership"
-        : lang === "hi"
-        ? "नेतृत्व"
-        : "नेतृत्व",
-    principalTitle:
-      lang === "en"
-        ? "Principal's Message"
-        : lang === "hi"
-        ? "प्राचार्य का संदेश"
-        : "मुख्याध्यापकांचा संदेश",
-    principalQuote:
-      lang === "en"
-        ? "\"Our school is more than a place of learning — it is a community where every child is seen, valued, and empowered. We believe that quality education, delivered with care and innovation, has the power to transform not just individual lives but entire communities. Together — students, teachers, parents, and society — we are building a brighter tomorrow.\""
-        : lang === "hi"
-        ? "\"हमारा विद्यालय सीखने की जगह से कहीं अधिक है — यह एक ऐसा समुदाय है जहाँ हर बच्चे को देखा, महत्त्व दिया और सशक्त किया जाता है। हम मानते हैं कि देखभाल और नवाचार के साथ दी गई गुणवत्तापूर्ण शिक्षा में केवल व्यक्तिगत जीवन ही नहीं बल्कि पूरे समुदाय को बदलने की शक्ति है।\""
-        : "\"आमची शाळा केवळ शिकण्याची जागा नाही — ती एक समुदाय आहे जिथे प्रत्येक मुलाला पाहिले जाते, महत्त्व दिले जाते आणि सक्षम केले जाते. आमचा विश्वास आहे की काळजी व नवोपक्रमाने दिलेल्या दर्जेदार शिक्षणात केवळ व्यक्तिगत जीवन नव्हे तर संपूर्ण समाज बदलण्याची शक्ती आहे.\"",
-    principalName: settings.principal,
-    principalRole:
-      lang === "en"
-        ? "Principal / Head of Institution"
-        : lang === "hi"
-        ? "प्राचार्य / संस्था प्रमुख"
-        : "मुख्याध्यापक / संस्था प्रमुख",
-
-    /* Staff */
-    staffLabel:
-      lang === "en" ? "Our Team" : lang === "hi" ? "हमारी टीम" : "आमची टीम",
-    staffTitle:
-      lang === "en"
-        ? "Dedicated Teaching Staff"
-        : lang === "hi"
-        ? "समर्पित शिक्षण स्टाफ"
-        : "समर्पित शिक्षण वर्ग",
-    staffBody:
-      lang === "en"
-        ? "The school is fortunate to have a team of dedicated, trained, and passionate educators who go above and beyond to nurture every learner. Our teachers are not just instructors — they are mentors, guides, and role models who inspire students daily. They continuously upgrade their skills through professional development programmes aligned with NEP 2020."
-        : lang === "hi"
-        ? "विद्यालय को समर्पित, प्रशिक्षित और उत्साही शिक्षकों की एक टीम का सौभाग्य प्राप्त है जो प्रत्येक शिक्षार्थी को प्रोत्साहित करने के लिए हर संभव प्रयास करते हैं। हमारे शिक्षक केवल अनुदेशक नहीं हैं — वे मार्गदर्शक, गुरु और आदर्श हैं जो प्रतिदिन विद्यार्थियों को प्रेरित करते हैं।"
-        : "शाळेला समर्पित, प्रशिक्षित व उत्साही शिक्षकांची एक टीम लाभली आहे जी प्रत्येक विद्यार्थ्याला प्रोत्साहित करण्यासाठी सर्वोतोपरी प्रयत्न करतात. आमचे शिक्षक केवळ शिकवणारे नाहीत — ते मार्गदर्शक, गुरू आणि आदर्श आहेत जे विद्यार्थ्यांना रोज प्रेरणा देतात.",
-
-    /* SMC */
-    smcLabel:
-      lang === "en"
-        ? "Governance"
-        : lang === "hi"
-        ? "प्रशासन"
-        : "प्रशासन",
-    smcTitle:
-      lang === "en"
-        ? "School Management Committee"
-        : lang === "hi"
-        ? "विद्यालय प्रबंधन समिति (SMC)"
-        : "शाळा व्यवस्थापन समिती (SMC)",
-    smcBody:
-      lang === "en"
-        ? "The School Management Committee (SMC) plays a vital role in the governance and development of our school. It brings together parents, community members, teachers, and local representatives to collaborate on school improvement, resource allocation, and student welfare. The SMC ensures transparency, accountability, and active community participation in school affairs."
-        : lang === "hi"
-        ? "विद्यालय प्रबंधन समिति (SMC) हमारे विद्यालय के प्रशासन और विकास में महत्वपूर्ण भूमिका निभाती है। यह अभिभावकों, समुदाय के सदस्यों, शिक्षकों और स्थानीय प्रतिनिधियों को विद्यालय सुधार, संसाधन आवंटन और विद्यार्थी कल्याण पर सहयोग करने के लिए एक साथ लाती है।"
-        : "शाळा व्यवस्थापन समिती (SMC) आमच्या शाळेच्या प्रशासन आणि विकासात महत्त्वाची भूमिका बजावते. पालक, समाजातील सदस्य, शिक्षक आणि स्थानीय प्रतिनिधी एकत्र येऊन शाळेच्या सुधारणा, साधनसंपत्तीचे वाटप आणि विद्यार्थी कल्याणासाठी सहकार्य करतात.",
-  };
-
-  const profileRows: Array<{ label: string; value: string; icon: React.ReactNode; note?: string }> = [
-    {
-      label:
-        lang === "en" ? "School Name" : lang === "hi" ? "विद्यालय नाम" : "शाळेचे नाव",
-      value:
-        lang === "en"
-          ? settings.name.english
-          : lang === "hi"
-          ? settings.name.hindi
-          : settings.name.marathi,
-      icon: <Building2 size={16} />,
-    },
-    {
-      label:
-        lang === "en" ? "Location" : lang === "hi" ? "स्थान" : "स्थान",
-      value: settings.address.fullAddress,
-      icon: <Star size={16} />,
-    },
-    {
-      label:
-        lang === "en" ? "Management" : lang === "hi" ? "प्रबंधन" : "व्यवस्थापन",
-      value: settings.management,
-      icon: <Award size={16} />,
-    },
-    {
-      label:
-        lang === "en" ? "Classes" : lang === "hi" ? "कक्षाएँ" : "इयत्ता",
-      value: settings.classesServed,
-      icon: <BookOpen size={16} />,
-    },
-    {
-      label:
-        lang === "en" ? "Medium" : lang === "hi" ? "माध्यम" : "माध्यम",
-      value: settings.medium,
-      icon: <GraduationCap size={16} />,
-    },
-    {
-      label:
-        lang === "en" ? "Academic Year" : lang === "hi" ? "शैक्षणिक वर्ष" : "शैक्षणिक वर्ष",
-      value: settings.academicYear,
-      icon: <Star size={16} />,
-    },
-    {
-      label:
-        lang === "en" ? "Principal" : lang === "hi" ? "प्राचार्य" : "मुख्याध्यापक",
-      value: settings.principal,
-      icon: <Users size={16} />,
-    },
-  ];
-
-  const pmshriFeatures = [
-    {
-      icon: <Target size={22} />,
-      title:
-        lang === "en"
-          ? "Model School Status"
-          : lang === "hi"
-          ? "आदर्श विद्यालय दर्जा"
-          : "आदर्श शाळेचा दर्जा",
-      desc:
-        lang === "en"
-          ? "Selected from across India, PM Shri schools set benchmarks in quality education."
-          : lang === "hi"
-          ? "पूरे भारत से चुने गए PM Shri विद्यालय गुणवत्तापूर्ण शिक्षा में मानदंड स्थापित करते हैं।"
-          : "संपूर्ण भारतातून निवडलेल्या PM Shri शाळा दर्जेदार शिक्षणात मानके प्रस्थापित करतात.",
-    },
-    {
-      icon: <Lightbulb size={22} />,
-      title: "NEP 2020",
-      desc:
-        lang === "en"
-          ? "Fully aligned with the National Education Policy 2020 — holistic, competency-based education."
-          : lang === "hi"
-          ? "राष्ट्रीय शिक्षा नीति 2020 के साथ पूर्ण रूप से संरेखित — समग्र, दक्षता-आधारित शिक्षा।"
-          : "NEP 2020 शी पूर्णपणे सुसंगत — सर्वांगीण, क्षमताधारित शिक्षण.",
-    },
-    {
-      icon: <CheckCircle size={22} />,
-      title:
-        lang === "en"
-          ? "Infrastructure Support"
-          : lang === "hi"
-          ? "बुनियादी ढाँचा सहायता"
-          : "पायाभूत सुविधा सहाय्य",
-      desc:
-        lang === "en"
-          ? "Enhanced government funding for smart classrooms, labs, libraries, and accessibility."
-          : lang === "hi"
-          ? "स्मार्ट कक्षाओं, प्रयोगशालाओं, पुस्तकालयों और पहुँच के लिए बढ़ी हुई सरकारी सहायता।"
-          : "स्मार्ट वर्गखोल्या, प्रयोगशाळा, ग्रंथालय आणि सुलभतेसाठी वाढीव सरकारी निधी.",
-    },
-    {
-      icon: <Heart size={22} />,
-      title:
-        lang === "en"
-          ? "Student-Centred Learning"
-          : lang === "hi"
-          ? "विद्यार्थी-केंद्रित शिक्षण"
-          : "विद्यार्थी-केंद्रित शिक्षण",
-      desc:
-        lang === "en"
-          ? "Focus on experiential, joyful, and inquiry-based education for every learner."
-          : lang === "hi"
-          ? "हर शिक्षार्थी के लिए अनुभवात्मक, आनंदमय और जिज्ञासा-आधारित शिक्षा पर ध्यान।"
-          : "प्रत्येक विद्यार्थ्यासाठी अनुभवात्मक, आनंददायी व जिज्ञासाधारित शिक्षणावर लक्ष.",
-    },
-    {
-      icon: <Eye size={22} />,
-      title:
-        lang === "en"
-          ? "Community Participation"
-          : lang === "hi"
-          ? "समुदाय सहभागिता"
-          : "समुदाय सहभाग",
-      desc:
-        lang === "en"
-          ? "Parents, SMC, and the local community are active stakeholders in school growth."
-          : lang === "hi"
-          ? "अभिभावक, SMC और स्थानीय समुदाय विद्यालय के विकास में सक्रिय भागीदार हैं।"
-          : "पालक, SMC आणि स्थानिक समुदाय शाळेच्या वाढीत सक्रिय भागीदार आहेत.",
-    },
-    {
-      icon: <Award size={22} />,
-      title:
-        lang === "en"
-          ? "Teacher Development"
-          : lang === "hi"
-          ? "शिक्षक विकास"
-          : "शिक्षक विकास",
-      desc:
-        lang === "en"
-          ? "Continuous professional development for teachers to deliver the best learning experience."
-          : lang === "hi"
-          ? "सर्वोत्तम सीखने का अनुभव देने के लिए शिक्षकों का निरंतर व्यावसायिक विकास।"
-          : "सर्वोत्तम शिक्षण अनुभव देण्यासाठी शिक्षकांचा सतत व्यावसायिक विकास.",
-    },
-  ];
+  const l = (en: string, hi: string, mr: string) =>
+    lang === "en" ? en : lang === "hi" ? hi : mr;
 
   return (
-    <div className="about-page">
-      {/* ===== PAGE HEADER ===== */}
-      <header className="page-header about-page-header">
+    <div className="about-editorial">
+
+      {/* ===== 1. EDITORIAL PAGE HEADER ===== */}
+      <header className="ab-header bg-parchment-light">
         <div className="container">
-          <div className="about-page-header__badge animate-fadeInUp">
-            <Award size={14} aria-hidden />
-            <span>P.M. Shri</span>
+          <div className="ab-header__kicker">
+            <span className="editorial-tag editorial-tag--gold">
+              <Award size={13} aria-hidden />
+              <span>{l("INSTITUTIONAL PROFILE", "संस्था परिचय", "संस्था परिचय")}</span>
+            </span>
+            <span className="ab-header__council">
+              {l("Municipal Corporation Chandrapur • Ward 18", "चंद्रपुर महानगरपालिका • वार्ड १८", "चंद्रपूर महानगरपालिका • प्रभाग १८")}
+            </span>
           </div>
-          <h1 className="page-header__title animate-fadeInUp delay-1">{tx.pageTitle}</h1>
-          <p className="page-header__sub animate-fadeInUp delay-2">{tx.pageSub}</p>
+
+          <h1 className="ab-header__title">
+            {l(
+              "An Exemplary Center of Knowledge, Social Justice & Nurturing Care",
+              "ज्ञान, सामाजिक न्याय और संवर्धन का एक आदर्श केंद्र",
+              "ज्ञान, सामाजिक न्याय आणि संस्कारांचे एक आदर्श केंद्र"
+            )}
+          </h1>
+          <p className="ab-header__sub">
+            {settings.name.english} — {l("Babupeth, Chandrapur, Maharashtra", "बाबूपेठ, चंद्रपुर, महाराष्ट्र", "बाबूपेठ, चंद्रपूर, महाराष्ट्र")}
+          </p>
         </div>
       </header>
 
-      {/* ===== SCHOOL IDENTITY ===== */}
-      <section className="section about-identity" aria-labelledby="identity-title">
+      {/* ===== 2. SCHOOL IDENTITY — EDITORIAL SPLIT ===== */}
+      <section className="ab-section bg-parchment">
         <div className="container">
-          <div className="about-identity__grid">
-            {/* Text */}
-            <div className="about-identity__text animate-fadeInUp">
-              <span className="section-label">
+          <div className="ab-identity-grid">
+            <div className="ab-identity-text">
+              <span className="editorial-eyebrow">
                 <Building2 size={14} aria-hidden />
-                {tx.identityLabel}
+                {l("FOUNDATIONS & RECOGNITION", "स्थापना व मान्यता", "स्थापना व मान्यता")}
               </span>
-              <h2 className="section-title" id="identity-title">
-                {tx.identityTitle}
+              <h2 className="editorial-title">
+                {settings.name.short}
               </h2>
-              <div className="divider" aria-hidden />
-              {tx.identityBody.split("\n\n").map((para, i) => (
-                <p key={i} className="about-identity__para">
-                  {para}
-                </p>
-              ))}
+              <div className="editorial-rule editorial-rule--gold" aria-hidden />
+
+              <p className="ab-lead-p ed-dropcap">
+                {lang === "en"
+                  ? "P.M. Shri Savitribai Phule School is a premier Municipal Corporation educational institution located in Babupeth, Chandrapur. Deeply rooted in the ideals of social justice, equal opportunity, and progressive pedagogy, the school provides quality, comprehensive education to students from early primary through high school grades."
+                  : lang === "hi"
+                    ? "पी.एम. श्री सावित्रीबाई फुले विद्यालय महाराष्ट्र के चंद्रपुर जिले के बाबूपेठ क्षेत्र में स्थित नगर निगम का प्रमुख विद्यालय है। सामाजिक न्याय, समान अवसर और प्रगतिशील शिक्षण के आदर्शों पर आधारित यह विद्यालय प्राथमिक से माध्यमिक स्तर तक गुणवत्तापूर्ण शिक्षा प्रदान करता है।"
+                    : "पी.एम. श्री. सावित्रीबाई फुले उच्च प्राथमिक व माध्यमिक शाळा ही महाराष्ट्रातील चंद्रपूर जिल्ह्याच्या बाबूपेठ परिसरातील मनपाची अग्रगण्य शाळा आहे. सामाजिक न्याय, समान संधी व पुरोगामी शिक्षणाच्या मूल्यांवर आधारित ही शाळा प्राथमिक ते माध्यमिक स्तरापर्यंत दर्जेदार शिक्षण देते."}
+              </p>
+
+              <p className="ab-body-p">
+                {lang === "en"
+                  ? "Recognised under the Government of India's prestigious PM SHRI (Prime Minister Schools for Rising India) initiative, the school is designated as a model institution embodying the National Education Policy 2020. Our pedagogy focuses on Foundational Literacy and Numeracy (FLN), hands-on experimentation, digital classroom displays, and inclusive learning for children with special needs."
+                  : lang === "hi"
+                    ? "भारत सरकार की प्रतिष्ठित पीएम श्री योजना के तहत मान्यता प्राप्त, यह विद्यालय राष्ट्रीय शिक्षा नीति २०२० के सिद्धांतों को क्रियान्वित करने वाला एक मॉडल स्कूल है। हमारा पाठ्यक्रम बुनियादी साक्षरता और संख्या ज्ञान (FLN), प्रायोगिक विज्ञान और समावेशी शिक्षा पर केंद्रित है।"
+                    : "भारत सरकारच्या प्रतिष्ठित पीएम श्री योजनेंतर्गत मान्यताप्राप्त ही शाळा NEP 2020 च्या तत्त्वांना मूर्त स्वरूप देणारी मॉडेल शाळा आहे. आमचा भर पायाभूत साक्षरता व संख्याज्ञान (FLN), प्रत्यक्ष प्रयोग, डिजिटल शिक्षण आणि समावेशक शिक्षणावर आहे."}
+              </p>
+
+              <div className="ab-highlights-row">
+                <div className="ab-highlight-col">
+                  <strong>PM SHRI</strong>
+                  <span>{l("Govt. of India Exemplar", "भारत सरकार आदर्श शाळा", "भारत सरकार आदर्श शाळा")}</span>
+                </div>
+                <div className="ab-highlight-col">
+                  <strong>Grades 1–10</strong>
+                  <span>{l("Primary & High School", "प्राथमिक व माध्यमिक", "प्राथमिक व माध्यमिक स्तर")}</span>
+                </div>
+                <div className="ab-highlight-col">
+                  <strong>Ward 18</strong>
+                  <span>{l("Babupeth, Chandrapur", "बाबूपेठ, चंद्रपूर", "बाबूपेठ, चंद्रपूर")}</span>
+                </div>
+              </div>
             </div>
-            {/* Image */}
-            <div className="about-identity__image-wrap animate-fadeInUp delay-2">
-              <div className="about-identity__img-frame">
+
+            <div className="ab-identity-visual">
+              <div className="ab-photo-frame">
                 <img
                   src="/assets/images/pptx1/image2.jpeg"
-                  alt="PM Shri Savitribai Phule School building, Babupeth, Chandrapur"
+                  alt="Official entrance of PM Shri Savitribai Phule School in Babupeth"
                   loading="lazy"
-                  className="about-identity__img"
                 />
-                <div className="about-identity__img-badge">
-                  <span>
-                    {lang === "en"
-                      ? "Babupeth, Chandrapur"
-                      : lang === "hi"
-                      ? "बाबूपेठ, चंद्रपुर"
-                      : "बाबूपेठ, चंद्रपूर"}
-                  </span>
+                <div className="ab-photo-caption">
+                  <p>{settings.name.short} — Campus Entrance Gate & Administration Block</p>
                 </div>
               </div>
             </div>
@@ -399,331 +111,315 @@ export default function About() {
         </div>
       </section>
 
-      {/* ===== MISSION & VISION ===== */}
-      <section className="section about-mission" aria-labelledby="mission-title">
+      {/* ===== 3. TRIBUTE TO KRANTIJOYTI SAVITRIBAI PHULE ===== */}
+      <section className="ab-section bg-parchment-light" aria-labelledby="tribute-head">
         <div className="container">
-          <div className="section-header section-header--center">
-            <span className="section-label">
-              <Target size={14} aria-hidden />
-              {tx.missionLabel}
-            </span>
-            <h2 className="section-title" id="mission-title">
-              {tx.missionTitle}
-            </h2>
-            <div className="divider" aria-hidden />
-          </div>
-          <div className="grid-2">
-            {/* Mission Card */}
-            <div className="mission-card mission-card--green animate-fadeInUp">
-              <div className="mission-card__icon">
-                <Target size={28} />
-              </div>
-              <h3 className="mission-card__head">{tx.missionHead}</h3>
-              <p className="mission-card__body">{tx.missionBody}</p>
-            </div>
-            {/* Vision Card */}
-            <div className="mission-card mission-card--saffron animate-fadeInUp delay-2">
-              <div className="mission-card__icon">
-                <Eye size={28} />
-              </div>
-              <h3 className="mission-card__head">{tx.visionHead}</h3>
-              <p className="mission-card__body">{tx.visionBody}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== TRIBUTE TO SAVITRIBAI PHULE ===== */}
-      <section className="section about-tribute" aria-labelledby="tribute-title">
-        <div className="container">
-          <div className="about-tribute__grid">
-            {/* Image side */}
-            <div className="about-tribute__img-wrap animate-fadeInUp">
-              <div className="about-tribute__img-frame">
+          <div className="ab-tribute-spread">
+            <div className="ab-tribute-portrait">
+              <div className="ab-portrait-mat">
                 <img
                   src={IMAGE_MANIFEST.savitribaiPortrait?.src || "/assets/images/pptx1/image4.jpeg"}
-                  alt={IMAGE_MANIFEST.savitribaiPortrait?.alt?.[lang] || "Savitribai Phule Portrait"}
+                  alt="Portrait of Krantijyoti Savitribai Phule"
                   loading="lazy"
-                  className="about-tribute__img"
                 />
-              </div>
-              <div className="about-tribute__img-caption">
-                <span className="badge badge-saffron">
-                  {lang === "en"
-                    ? "Krantijyoti"
-                    : lang === "hi"
-                    ? "क्रांतिज्योती"
-                    : "क्रांतिज्योती"}
-                </span>
-                <p>
-                  {lang === "en"
-                    ? "3 Jan 1831 – 10 Mar 1897"
-                    : lang === "hi"
-                    ? "३ जनवरी १८३१ – १० मार्च १८९७"
-                    : "३ जानेवारी १८३१ – १० मार्च १८९७"}
-                </p>
-              </div>
-            </div>
-
-            {/* Text side */}
-            <div className="about-tribute__content animate-fadeInUp delay-2">
-              <span className="section-label">
-                <Heart size={14} aria-hidden />
-                {tx.tributeLabel}
-              </span>
-              <h2 className="section-title" id="tribute-title">
-                {tx.tributeTitle}
-              </h2>
-              <div className="divider" aria-hidden />
-              {tx.tributeBody.map((para, i) => (
-                <p key={i} className="about-tribute__para">
-                  {para}
-                </p>
-              ))}
-              <div className="about-tribute__quote">
-                <blockquote>
-                  {lang === "en"
-                    ? '"Determined to educate, undeterred by hardship — Savitribai Phule\'s courage continues to illuminate every classroom."'
-                    : lang === "hi"
-                    ? '"शिक्षित करने के संकल्प से, कठिनाइयों से अविचलित — सावित्रीबाई फुले का साहस हर कक्षा को प्रकाशित करता है।"'
-                    : '"शिक्षित करण्याच्या निश्चयाने, संकटांनी न डगमगता — सावित्रीबाई फुले यांचे धैर्य प्रत्येक वर्गखोलीला उजळवत आहे."'}
-                </blockquote>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== SCHOOL PROFILE ===== */}
-      <section className="section--sm about-profile" aria-labelledby="profile-title">
-        <div className="container">
-          <div className="section-header section-header--center">
-            <span className="section-label">
-              <BookOpen size={14} aria-hidden />
-              {tx.profileLabel}
-            </span>
-            <h2 className="section-title" id="profile-title">
-              {tx.profileTitle}
-            </h2>
-            <div className="divider" aria-hidden />
-          </div>
-          <div className="about-profile__grid">
-            {profileRows.map((row, i) => (
-              <div className="about-profile__row animate-fadeInUp" key={i} style={{ animationDelay: `${i * 0.07}s` }}>
-                <div className="about-profile__icon">{row.icon}</div>
-                <div className="about-profile__info">
-                  <span className="about-profile__label">{row.label}</span>
-                  <span className="about-profile__value">{row.value}</span>
-                  {row.note && <span className="about-profile__note">{row.note}</span>}
+                <div className="ab-portrait-tag">
+                  <strong>Krantijyoti Savitribai Phule</strong>
+                  <span>3 January 1831 – 10 March 1897</span>
                 </div>
               </div>
-            ))}
+            </div>
+
+            <div className="ab-tribute-narrative">
+              <span className="editorial-eyebrow">
+                <Heart size={14} aria-hidden />
+                {l("OUR INSPIRING NAMESAKE", "आमची प्रेरणा आणि वारसा", "आमची प्रेरणा आणि वारसा")}
+              </span>
+              <h2 className="editorial-title" id="tribute-head">
+                {l(
+                  "Krantijyoti Savitribai Phule: Pioneer of Modern Education",
+                  "क्रांतिज्योति सावित्रीबाई फुले: आधुनिक शिक्षा की अग्रदूत",
+                  "क्रांतिज्योती सावित्रीबाई फुले: आधुनिक शिक्षणाच्या आद्य प्रणेत्या"
+                )}
+              </h2>
+              <div className="editorial-rule editorial-rule--gold" aria-hidden />
+
+              <p className="ab-body-p">
+                {lang === "en"
+                  ? "Savitribai Phule was a pioneering Indian social reformer, educational visionary, and poet who opened the gates of knowledge for women and underprivileged communities. Revered as the first female teacher of modern India, she and her husband Mahatma Jyotirao Phule established India's first school for girls at Bhide Wada in Pune in 1848."
+                  : lang === "hi"
+                    ? "सावित्रीबाई फुले एक अग्रणी भारतीय समाज सुधारक, शिक्षाविद और कवयित्री थीं जिन्होंने महिलाओं और वंचितों के लिए ज्ञान के द्वार खोले। आधुनिक भारत की पहली महिला शिक्षिका के रूप में पूजनीय, उन्होंने १८४८ में पुणे में बालिकाओं के लिए भारत का पहला विद्यालय स्थापित किया।"
+                    : "क्रांतिज्योती सावित्रीबाई फुले या अग्रगण्य भारतीय समाजसुधारक, शिक्षणतज्ज्ञ व कवयित्री होत्या ज्यांनी महिला आणि उपेक्षित समाजासाठी ज्ञानाची कवाडे उघडली. आधुनिक भारताच्या पहिल्या महिला शिक्षिका म्हणून गौरविलेल्या सावित्रीबाईंनी १८४८ मध्ये पुण्यात मुलींची पहिली शाळा सुरू केली."}
+              </p>
+
+              <p className="ab-body-p">
+                {lang === "en"
+                  ? "Facing intense social ostracism, ridicule, and harassment, Savitribai walked to school each morning undeterred, carrying a second saree in her bag because people threw mud at her. Her steadfast courage, compassion, and commitment to human equality illuminate our institution every single day."
+                  : lang === "hi"
+                    ? "कड़े सामाजिक विरोध और कठिनाइयों के बावजूद, वे कभी पीछे नहीं हटीं। उनका अदम्य साहस और मानवीय समानता के प्रति प्रतिबद्धता आज भी हमारे प्रत्येक वर्गखंड को प्रेरित करती है।"
+                    : "तीव्र सामाजिक बहिष्कार व विरोधाला सामोरे जात त्यांनी आपले शैक्षणिक व्रत कधीही सोडले नाही. त्यांचे धैर्य, करुणा आणि समतेचा संदेश आज आमच्या प्रत्येक वर्गाला आणि विद्यार्थ्याला ऊर्जा देतो."}
+              </p>
+
+              <blockquote className="editorial-quote">
+                {lang === "en"
+                  ? "“Determined to educate, undeterred by hardship — Savitribai Phule's courage continues to illuminate every classroom.”"
+                  : lang === "hi"
+                    ? "“शिक्षित करने के संकल्प से, कठिनाइयों से अविचलित — सावित्रीबाई फुले का साहस हर कक्षा को प्रकाशित करता है।”"
+                    : "“शिक्षणाच्या निश्चयाने, संकटांनी न डगमगता — क्रांतिज्योती सावित्रीबाईंचे धैर्य आमच्या प्रत्येक वर्गाला उजळवत आहे.”"}
+              </blockquote>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ===== PM SHRI PROGRAMME ===== */}
-      <section className="section about-pmshri" aria-labelledby="pmshri-title">
+      {/* ===== 4. MISSION & VISION — CARDLESS EDITORIAL ARCHITECTURE ===== */}
+      <section className="ab-section bg-parchment" aria-labelledby="purpose-head">
         <div className="container">
-          <div className="about-pmshri__grid">
-            <div className="about-pmshri__content">
-              <span className="section-label" style={{ color: "rgba(255,255,255,0.8)" }}>
-                <Award size={14} aria-hidden />
-                {tx.pmshriLabel}
-              </span>
-              <h2 className="section-title" id="pmshri-title" style={{ color: "white" }}>
-                {tx.pmshriTitle}
-              </h2>
-              <div className="divider" aria-hidden />
-              <p className="about-pmshri__body">{tx.pmshriBody}</p>
+          <div className="ed-section-intro ed-section-intro--center">
+            <span className="editorial-eyebrow">
+              <Target size={14} aria-hidden />
+              {l("PURPOSE & DIRECTION", "उद्देश्य व दृष्टिकोन", "उद्देश्य व दृष्टिकोन")}
+            </span>
+            <h2 className="editorial-title" id="purpose-head">
+              {l("Mission & Institutional Vision", "ध्येय और दृष्टि", "ध्येय आणि दृष्टी")}
+            </h2>
+            <div className="editorial-rule editorial-rule--gold" style={{ margin: "var(--space-4) auto" }} aria-hidden />
+          </div>
+
+          <div className="ab-purpose-grid">
+            <div className="ab-purpose-block">
+              <div className="ab-purpose-header">
+                <span className="ab-purpose-index">MISSION</span>
+                <Target size={24} className="ab-purpose-icon" />
+              </div>
+              <h3 className="ab-purpose-title">
+                {l("Our Educational Mission", "हमारा शैक्षणिक ध्येय", "आमचे शैक्षणिक ध्येय")}
+              </h3>
+              <p className="ab-purpose-body">
+                {lang === "en"
+                  ? "To provide every child with joyful, high-quality, and inclusive education that unlocks their full intellectual, social, and creative potential — while fostering civic responsibility, empathy, and lifelong curiosity."
+                  : lang === "hi"
+                    ? "प्रत्येक बच्चे को आनंदमय, उच्च गुणवत्तापूर्ण और समावेशी शिक्षा प्रदान करना जो उनकी बौद्धिक, सामाजिक और रचनात्मक क्षमता को विकसित करे और नागरिक जिम्मेदारी को बढ़ावा दे।"
+                    : "प्रत्येक विद्यार्थ्याला आनंददायी, दर्जेदार व समावेशक शिक्षण देणे — जे त्यांची बौद्धिक, सामाजिक व भावनिक क्षमता विकसित करेल आणि जबाबदार नागरिक घडवेल."}
+              </p>
             </div>
-            <div className="about-pmshri__features">
-              {pmshriFeatures.map((f, i) => (
-                <div className="about-pmshri__feature animate-fadeInUp" key={i} style={{ animationDelay: `${i * 0.08}s` }}>
-                  <div className="about-pmshri__feature-icon">{f.icon}</div>
+
+            <div className="ab-purpose-divider" aria-hidden />
+
+            <div className="ab-purpose-block">
+              <div className="ab-purpose-header">
+                <span className="ab-purpose-index">VISION</span>
+                <Eye size={24} className="ab-purpose-icon" />
+              </div>
+              <h3 className="ab-purpose-title">
+                {l("Our Institutional Vision", "हमारी संस्थागत दृष्टि", "आमची संस्थागत दृष्टी")}
+              </h3>
+              <p className="ab-purpose-body">
+                {lang === "en"
+                  ? "To stand as an exemplar PM SHRI model school where NEP 2020 comes to life: a vibrant community where every voice is respected, every background is embraced, and every student is equipped to contribute purposefully to the nation."
+                  : lang === "hi"
+                    ? "एक आदर्श पीएम श्री विद्यालय के रूप में स्थापित होना जहाँ राष्ट्रीय शिक्षा नीति २०२० साकार हो — एक ऐसा समुदाय जहाँ हर छात्र का सम्मान हो और हर शिक्षार्थी राष्ट्र निर्माण के लिए तैयार हो।"
+                    : "NEP 2020 च्या आदर्शांना मूर्त रूप देणारी एक आदर्श पीएम श्री शाळा बनणे — जिथे प्रत्येक विद्यार्थ्याचा सन्मान होतो आणि प्रत्येक शिकणारा राष्ट्र उभारणीत अर्थपूर्ण योगदान देण्यास सज्ज असतो."}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== 5. PM SHRI SCHEME — DEEP FOREST GREEN SPREAD ===== */}
+      <section className="ab-section bg-forest-deep" aria-labelledby="pmshri-head">
+        <div className="container">
+          <div className="ab-pmshri-spread">
+            <div className="ab-pmshri-content">
+              <span className="editorial-eyebrow">
+                <Award size={14} className="ed-icon-gold" aria-hidden />
+                {l("GOVERNMENT OF INDIA FLAGSHIP", "भारत सरकारची राष्ट्रीय योजना", "भारत सरकारची राष्ट्रीय योजना")}
+              </span>
+              <h2 className="editorial-title" id="pmshri-head">
+                {l("PM SHRI: Model Schools Under NEP 2020", "PM SHRI — NEP 2020 अंतर्गत आदर्श शाळा", "PM SHRI — NEP 2020 अंतर्गत आदर्श शाळा")}
+              </h2>
+              <div className="editorial-rule editorial-rule--dark" aria-hidden />
+
+              <p className="editorial-lead">
+                {lang === "en"
+                  ? "PM SHRI (Prime Minister Schools for Rising India) is a transformational initiative of the Government of India to develop exemplar schools showcasing NEP 2020 pedagogy, green campus infrastructure, and experiential learning."
+                  : lang === "hi"
+                    ? "पीएम श्री भारत सरकार की एक परिवर्तनकारी योजना है जो राष्ट्रीय शिक्षा नीति २०२०, हरित परिसर और अनुभवात्मक शिक्षण का उत्कृष्ट प्रदर्शन करने वाले आदर्श विद्यालयों का निर्माण करती है।"
+                    : "पीएम श्री (Prime Minister Schools for Rising India) ही भारत सरकारची एक परिवर्तनात्मक योजना आहे जी NEP 2020, हरित परिसर आणि कृती-शिक्षणाचा आदर्श निर्माण करणाऱ्या शाळा विकसित करते."}
+              </p>
+
+              <div className="ab-pmshri-pillars">
+                <div className="ab-pillar">
+                  <Lightbulb size={20} className="ab-pillar-icon" />
                   <div>
-                    <p className="about-pmshri__feature-title">{f.title}</p>
-                    <p className="about-pmshri__feature-desc">{f.desc}</p>
+                    <strong>{l("Experiential Pedagogy", "प्रायोगिक शिक्षण", "कृती-आधारित शिक्षण")}</strong>
+                    <p>{l("Replacing rote learning with inquiry, science fairs, and math manipulatives.", "रट्टा मारण्याच्या पद्धतीला फाटा देऊन प्रत्यक्ष कृती आणि प्रयोगांवर भर.", "रट्टा मारण्याच्या पद्धतीला फाटा देऊन प्रत्यक्ष कृती आणि प्रयोगांवर भर.")}</p>
                   </div>
                 </div>
-              ))}
+
+                <div className="ab-pillar">
+                  <ShieldCheck size={20} className="ab-pillar-icon" />
+                  <div>
+                    <strong>{l("Green Sustainable Schooling", "हरित शालेय परिसर", "हरित शालेय परिसर")}</strong>
+                    <p>{l("Rooftop solar energy, kitchen gardens, rainwater harvesting, and waste segregation.", "सौरऊर्जा, शालेय परसबाग, जलसंवर्धन व कचरा व्यवस्थापन.", "सौरऊर्जा, शालेय परसबाग, जलसंवर्धन व कचरा व्यवस्थापन.")}</p>
+                  </div>
+                </div>
+
+                <div className="ab-pillar">
+                  <Heart size={20} className="ab-pillar-icon" />
+                  <div>
+                    <strong>{l("Holistic Inclusive Support", "समावेशक वातावरण", "समावेशक वातावरण")}</strong>
+                    <p>{l("Accessible ramps, child safety protocols, nutritious meals, and individual care.", "सुलभ रॅम्प्स, बालसुरक्षा, पोषण आहार आणि प्रत्येक विद्यार्थ्याकडे वैयक्तिक लक्ष.", "सुलभ रॅम्प्स, बालसुरक्षा, पोषण आहार आणि प्रत्येक विद्यार्थ्याकडे वैयक्तिक लक्ष.")}</p>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="about-pmshri__img-row">
-            <img
-              src="/assets/images/pptx1/image3.jpeg"
-              alt="PM Shri school programme activities"
-              loading="lazy"
-            />
-            <img
-              src={IMAGE_MANIFEST.mathExhibitionChandrayaan?.src || "/assets/images/pptx1/image7.jpeg"}
-              alt="Class 6 students with Chandrayaan satellite launch model"
-              loading="lazy"
-            />
-            <img
-              src="/assets/images/pptx1/image40.jpeg"
-              alt="Students and community activities"
-              loading="lazy"
-            />
+
+            <div className="ab-pmshri-photos">
+              <div className="ab-pmshri-photo-card">
+                <img
+                  src="/assets/images/pptx1/image7.jpeg"
+                  alt="Students presenting Chandrayaan rocket model at exhibition"
+                  loading="lazy"
+                />
+                <span className="ab-photo-tag">{l("Science Model Showcase", "विज्ञान मॉडेल प्रदर्शन", "विज्ञान मॉडेल प्रदर्शन")}</span>
+              </div>
+              <div className="ab-pmshri-photo-card">
+                <img
+                  src="/assets/images/pptx1/image3.jpeg"
+                  alt="Panoramic view of school building and courtyard"
+                  loading="lazy"
+                />
+                <span className="ab-photo-tag">{l("Campus Architecture", "शाळेचा आधुनिक परिसर", "शाळेचा आधुनिक परिसर")}</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ===== PRINCIPAL'S MESSAGE ===== */}
-      <section className="section about-principal" aria-labelledby="principal-title">
+      {/* ===== 6. PRINCIPAL'S DESK — EDITORIAL LETTER FORMAT ===== */}
+      <section className="ab-section bg-parchment-light" aria-labelledby="principal-head">
         <div className="container">
-          <div className="about-principal__grid">
-            {/* Photo */}
-            <div className="about-principal__img-wrap animate-fadeInUp">
-              <div className="about-principal__img-frame">
+          <div className="ab-principal-spread">
+            <div className="ab-principal-card">
+              <div className="ab-principal-img-wrap">
                 <img
                   src="/assets/images/pptx1/image44.jpeg"
-                  alt="Principal of PM Shri Savitribai Phule School"
+                  alt="Principal and leadership of PM Shri Savitribai Phule School"
                   loading="lazy"
                 />
               </div>
-              <div className="about-principal__identity">
-                <p className="about-principal__name">{tx.principalName}</p>
-                <p className="about-principal__role">{tx.principalRole}</p>
+              <div className="ab-principal-badge">
+                <strong>{settings.principal}</strong>
+                <span>{l("Head of Institution / Principal", "मुख्याध्यापक / संस्था प्रमुख", "मुख्याध्यापक / संस्था प्रमुख")}</span>
+                <p>P.M. Shri Savitribai Phule High School</p>
               </div>
             </div>
 
-            {/* Message */}
-            <div className="about-principal__content animate-fadeInUp delay-2">
-              <span className="section-label">
+            <div className="ab-principal-narrative">
+              <span className="editorial-eyebrow">
                 <GraduationCap size={14} aria-hidden />
-                {tx.principalLabel}
+                {l("LEADERSHIP PERSPECTIVE", "मुख्याध्यापकांचे मनोगत", "मुख्याध्यापकांचे मनोगत")}
               </span>
-              <h2 className="section-title" id="principal-title">
-                {tx.principalTitle}
+              <h2 className="editorial-title" id="principal-head">
+                {l("From the Principal's Desk", "प्राचार्य का संदेश", "मुख्याध्यापकांचा संदेश")}
               </h2>
-              <div className="divider" aria-hidden />
-              <div className="about-principal__quote-wrap">
-                <span className="about-principal__quote-mark">"</span>
-                <blockquote className="about-principal__quote">
-                  {tx.principalQuote.replace(/^"|"$/g, "")}
+              <div className="editorial-rule editorial-rule--gold" aria-hidden />
+
+              <div className="ab-letter-body">
+                <p>
+                  {lang === "en"
+                    ? "Welcome to P.M. Shri Savitribai Phule School. Our school is far more than a physical building with classrooms — it is a vibrant, compassionate community where every child is seen, heard, and valued."
+                    : lang === "hi"
+                      ? "पी.एम. श्री सावित्रीबाई फुले विद्यालय में आपका स्वागत है। हमारा विद्यालय केवल एक इमारत नहीं है — यह एक ऐसा समुदाय है जहाँ प्रत्येक बच्चे को देखा, सुना और मूल्यवान समझा जाता है।"
+                      : "पी.एम. श्री. सावित्रीबाई फुले शाळेत आपले सहर्ष स्वागत. आमची शाळा केवळ वर्गखोल्यांची इमारत नाही — हा एक जिवंत, संस्कारक्षम समाज आहे जिथे प्रत्येक विद्यार्थ्याला ओळखले, ऐकले आणि सन्मान दिला जातो."}
+                </p>
+
+                <blockquote className="editorial-quote">
+                  {lang === "en"
+                    ? "“We believe that quality education, delivered with empathy and technological innovation, has the power to transform not just individual futures, but entire communities.”"
+                    : lang === "hi"
+                      ? "“हमारा दृढ़ विश्वास है कि सहानुभूति और तकनीक के साथ दी गई गुणवत्तापूर्ण शिक्षा में न केवल व्यक्तिगत भविष्य बल्कि पूरे समाज को बदलने की शक्ति है।”"
+                      : "“आमचा ठाम विश्वास आहे की काळजी, सहवेदना व आधुनिक तंत्रज्ञानाने दिलेले दर्जेदार शिक्षण केवळ एका विद्यार्थ्याचे नव्हे तर संपूर्ण समाजाचे भविष्य बदलू शकते.”"}
                 </blockquote>
+
+                <p>
+                  {lang === "en"
+                    ? "Together — our trained educators, dedicated parents, Municipal Corporation leadership, and motivated students — we strive every day to build an educational environment of genuine excellence."
+                    : lang === "hi"
+                      ? "हमारे प्रशिक्षित शिक्षक, समर्पित अभिभावक और मनपा प्रशासन मिलकर हर दिन उत्कृष्टता का एक सुरक्षित वातावरण बनाने के लिए प्रयासरत हैं।"
+                      : "आमचे प्रशिक्षित शिक्षक, जागरूक पालक आणि मनपाचे सहकार्य यांच्या बळावर आम्ही दररोज विद्यार्थ्यांच्या सर्वांगीण विकासासाठी कटिबद्ध आहोत."}
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===== TEACHING STAFF ===== */}
-      <section className="section--sm about-staff" aria-labelledby="staff-title">
+      {/* ===== 7. GOVERNANCE & SMC ===== */}
+      <section className="ab-section bg-parchment" aria-labelledby="smc-head">
         <div className="container">
-          <div className="about-staff__grid">
-            <div className="about-staff__img-wrap animate-fadeInUp">
-              <img
-                src="/assets/images/pptx1/image45.jpeg"
-                alt="Teaching staff of PM Shri Savitribai Phule School"
-                loading="lazy"
-              />
-            </div>
-            <div className="about-staff__content animate-fadeInUp delay-2">
-              <span className="section-label">
+          <div className="ab-smc-spread">
+            <div className="ab-smc-content">
+              <span className="editorial-eyebrow">
                 <Users size={14} aria-hidden />
-                {tx.staffLabel}
+                {l("DEMOCRATIC GOVERNANCE", "शाळा व्यवस्थापन समिती", "शाळा व्यवस्थापन समिती")}
               </span>
-              <h2 className="section-title" id="staff-title">
-                {tx.staffTitle}
+              <h2 className="editorial-title" id="smc-head">
+                {l("School Management Committee (SMC)", "विद्यालय प्रबंधन समिति (SMC)", "शाळा व्यवस्थापन समिती (SMC)")}
               </h2>
-              <div className="divider" aria-hidden />
-              <p className="section-subtitle">{tx.staffBody}</p>
-              <ul className="about-staff__points">
-                {[
-                  lang === "en" ? "Trained & certified educators" : lang === "hi" ? "प्रशिक्षित और प्रमाणित शिक्षक" : "प्रशिक्षित व प्रमाणित शिक्षक",
-                  lang === "en" ? "NEP 2020-aligned teaching methods" : lang === "hi" ? "NEP 2020 के अनुरूप शिक्षण पद्धतियाँ" : "NEP 2020 अनुरूप शिक्षण पद्धती",
-                  lang === "en" ? "Continuous professional development" : lang === "hi" ? "निरंतर व्यावसायिक विकास" : "सतत व्यावसायिक विकास",
-                  lang === "en" ? "Student-centred & inclusive approach" : lang === "hi" ? "विद्यार्थी-केंद्रित और समावेशी दृष्टिकोण" : "विद्यार्थी-केंद्रित व समावेशक दृष्टिकोन",
-                ].map((pt, i) => (
-                  <li key={i} className="about-staff__point">
-                    <CheckCircle size={16} aria-hidden />
-                    <span>{pt}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+              <div className="editorial-rule editorial-rule--gold" aria-hidden />
 
-      {/* ===== SCHOOL MANAGEMENT COMMITTEE ===== */}
-      <section className="section about-smc" aria-labelledby="smc-title">
-        <div className="container">
-          <div className="about-smc__grid">
-            <div className="about-smc__content animate-fadeInUp">
-              <span className="section-label">
-                <Users size={14} aria-hidden />
-                {tx.smcLabel}
-              </span>
-              <h2 className="section-title" id="smc-title">
-                {tx.smcTitle}
-              </h2>
-              <div className="divider" aria-hidden />
-              <p className="section-subtitle">{tx.smcBody}</p>
-              <div className="about-smc__roles">
-                {[
-                  {
-                    role:
-                      lang === "en"
-                        ? "Parents & Guardians"
-                        : lang === "hi"
-                        ? "अभिभावक"
-                        : "पालक व संरक्षक",
-                    desc:
-                      lang === "en"
-                        ? "Active voices in school decision-making"
-                        : lang === "hi"
-                        ? "विद्यालय निर्णय में सक्रिय भागीदार"
-                        : "शाळेच्या निर्णयांमध्ये सक्रिय सहभाग",
-                  },
-                  {
-                    role:
-                      lang === "en"
-                        ? "Community Members"
-                        : lang === "hi"
-                        ? "समुदाय के सदस्य"
-                        : "समाजातील सदस्य",
-                    desc:
-                      lang === "en"
-                        ? "Local stakeholders invested in school quality"
-                        : lang === "hi"
-                        ? "विद्यालय की गुणवत्ता में रुचि रखने वाले स्थानीय हितधारक"
-                        : "शाळेच्या दर्जात रस असणारे स्थानिक सहभागी",
-                  },
-                  {
-                    role:
-                      lang === "en"
-                        ? "Municipal Corporation"
-                        : lang === "hi"
-                        ? "नगर निगम (मनपा)"
-                        : "महानगरपालिका (मनपा)",
-                    desc:
-                      lang === "en"
-                        ? "Government oversight and resource support"
-                        : lang === "hi"
-                        ? "सरकारी निगरानी और संसाधन सहायता"
-                        : "सरकारी देखरेख आणि साधन सहाय्य",
-                  },
-                ].map((r, i) => (
-                  <div className="about-smc__role-card" key={i}>
-                    <p className="about-smc__role">{r.role}</p>
-                    <p className="about-smc__role-desc">{r.desc}</p>
+              <p className="ab-body-p">
+                {lang === "en"
+                  ? "The School Management Committee (SMC) brings together parents, educators, and municipal representatives to ensure transparent governance, resource accountability, and student welfare in accordance with the Right to Education (RTE) Act."
+                  : lang === "hi"
+                    ? "विद्यालय प्रबंधन समिति (SMC) अभिभावकों, शिक्षकों और नगर निगम प्रतिनिधियों को एक साथ लाती है ताकि पारदर्शी प्रशासन और विद्यार्थी कल्याण सुनिश्चित किया जा सके।"
+                    : "शाळा व्यवस्थापन समिती (SMC) पालक, शिक्षक आणि मनपा प्रतिनिधींना एकत्र आणून पारदर्शक कारभार, साधनसंपत्तीचे योग्य नियोजन आणि विद्यार्थी कल्याण सुनिश्चित करते."}
+              </p>
+
+              <div className="ab-smc-roles">
+                <div className="ab-smc-role-item">
+                  <CheckCircle2 size={18} className="ed-check-icon" />
+                  <div>
+                    <strong>{l("Parents & Community Voices", "अभिभावक सहभाग", "पालक व समाज सहभाग")}</strong>
+                    <p>{l("Direct participation in school improvement planning and monitoring nutrition.", "शालेय विकास आराखडा व पोषण आहार तपासणीत पालकांचा थेट सहभाग.", "शालेय विकास आराखडा व पोषण आहार तपासणीत पालकांचा थेट सहभाग.")}</p>
                   </div>
-                ))}
+                </div>
+
+                <div className="ab-smc-role-item">
+                  <CheckCircle2 size={18} className="ed-check-icon" />
+                  <div>
+                    <strong>{l("Municipal Corporation Oversight", "मनपा प्रशासन देखरेख", "मनपा प्रशासन देखरेख")}</strong>
+                    <p>{l("Regular infrastructure audits, budget sanctions, and quality certifications.", "पायाभूत सुविधांची तपासणी, निधी मंजुरी व दर्जा प्रमाणपत्र.", "पायाभूत सुविधांची तपासणी, निधी मंजुरी व दर्जा प्रमाणपत्र.")}</p>
+                  </div>
+                </div>
+
+                <div className="ab-smc-role-item">
+                  <CheckCircle2 size={18} className="ed-check-icon" />
+                  <div>
+                    <strong>{l("Child Protection & Inclusion", "बालसुरक्षा व समावेश", "बालसुरक्षा व समावेश")}</strong>
+                    <p>{l("Supervising safety measures, CWSN facilities, and transparent grievance redressal.", "विद्यार्थी सुरक्षा, दिव्यांग सुविधा व तक्रार निवारण देखरेख.", "विद्यार्थी सुरक्षा, दिव्यांग सुविधा व तक्रार निवारण देखरेख.")}</p>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="about-smc__img-wrap animate-fadeInUp delay-2">
-              <img
-                src="/assets/images/pptx1/image46.jpeg"
-                alt="School Management Committee meeting"
-                loading="lazy"
-              />
+
+            <div className="ab-smc-visual">
+              <div className="ab-photo-frame">
+                <img
+                  src="/assets/images/pptx1/image46.jpeg"
+                  alt="School Management Committee members during official meeting"
+                  loading="lazy"
+                />
+                <div className="ab-photo-caption">
+                  <p>{l("SMC Quarterly General Body Meeting — Babupeth Campus", "SMC त्रैमासिक बैठक — बाबूपेठ शाळा", "SMC त्रैमासिक बैठक — बाबूपेठ शाळा")}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
     </div>
   );
 }

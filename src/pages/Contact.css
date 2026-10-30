@@ -1,320 +1,268 @@
 /* =========================================================
-   CONTACT / ENQUIRY PAGE — Contact.css
+   CONTACT & ADMISSIONS ATELIER — EDITORIAL INSTITUTIONAL
+   PM Shri Savitribai Phule School, Babupeth, Chandrapur
    ========================================================= */
 
 /* ---- Page Header ---- */
 .contact-header {
-  background: var(--clr-green-800);
-  color: var(--clr-white);
-  padding-block: var(--space-16) var(--space-12);
-}
-.contact-header .section-label {
-  color: var(--clr-saffron-300);
-}
-.contact-header__title {
-  font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  font-weight: 700;
-  color: var(--clr-white);
-  margin-bottom: var(--space-3);
-}
-.contact-header__sub {
-  font-size: 1.0625rem;
-  color: rgba(255, 255, 255, 0.75);
-  max-width: 52ch;
-  line-height: 1.65;
+  background: linear-gradient(180deg, var(--clr-forest-950, #07190f) 0%, var(--clr-forest-900, #0d2818) 100%);
+  color: #ffffff;
+  padding-block: clamp(3.5rem, 6vw, 5.5rem) clamp(2.5rem, 4vw, 3.5rem);
+  border-bottom: 2px solid var(--clr-gold-accent, #cf9d38);
+  position: relative;
 }
 
-/* ---- Two-column grid ---- */
+.contact-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(ellipse at 80% 20%, rgba(207, 157, 56, 0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.contact-header .editorial-eyebrow,
+.contact-header .section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--clr-gold-accent, #cf9d38);
+  margin-bottom: 0.75rem;
+}
+
+.contact-header__title {
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+  font-size: clamp(2.2rem, 5vw, 3.75rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.contact-header__sub {
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  color: var(--clr-parchment-200, #f0ebe0);
+  max-width: 62ch;
+  line-height: 1.65;
+  font-weight: 400;
+}
+
+/* ---- Two-Column Editorial Layout ---- */
 .contact-grid {
   display: grid;
   grid-template-columns: 5fr 7fr;
-  gap: var(--space-10);
+  gap: clamp(2rem, 4vw, 4rem);
   align-items: start;
 }
-@media (max-width: 860px) {
+
+@media (max-width: 900px) {
   .contact-grid {
     grid-template-columns: 1fr;
   }
 }
 
-/* ---- Contact Info column ---- */
+/* ---- Left: Contact & Coordinates Dossier ---- */
 .contact-info {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
+  gap: 1.5rem;
+  background: var(--clr-parchment-50, #fdfcf9);
+  border: 1px solid var(--clr-parchment-300, #e4dcce);
+  border-radius: 16px;
+  padding: clamp(1.5rem, 2.5vw, 2.25rem);
+  box-shadow: 0 4px 20px rgba(7, 25, 15, 0.04);
 }
 
 .contact-info__block {
   display: flex;
-  gap: var(--space-4);
+  gap: 1rem;
   align-items: flex-start;
 }
 
 .contact-info__icon-wrap {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--clr-green-50);
-  color: var(--clr-green-600);
-  border-radius: var(--radius-md);
+  background: var(--clr-forest-50, #f0f7f2);
+  color: var(--clr-forest-700, #1a4f2f);
+  border: 1px solid var(--clr-forest-100, #d6ecde);
+  border-radius: 10px;
 }
+
 .contact-info__icon-wrap--whatsapp {
-  background: #e6faf0;
-  color: #25d366;
+  background: #f0fdf4;
+  color: #16a34a;
+  border-color: #bbf7d0;
 }
 
 .contact-info__label {
-  font-size: 0.8rem;
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--clr-neutral-500);
-  margin-bottom: var(--space-1);
+  letter-spacing: 0.1em;
+  color: var(--clr-charcoal-500, #68736c);
+  margin-bottom: 0.25rem;
 }
+
 .contact-info__value {
-  font-size: 0.9375rem;
-  color: var(--clr-neutral-800);
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.95rem;
+  color: var(--clr-charcoal-900, #121614);
   line-height: 1.6;
 }
+
 .contact-info__value--muted {
   font-style: italic;
-  color: var(--clr-neutral-500);
+  color: var(--clr-charcoal-500, #68736c);
 }
 
-/* ---- Map placeholder ---- */
-.map-placeholder {
-  border: 2px dashed var(--clr-green-400);
-  border-radius: var(--radius-lg);
-  background: var(--clr-green-50);
-  padding: var(--space-8);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-3);
-  text-align: center;
-  min-height: 160px;
-  justify-content: center;
-}
-.map-placeholder__icon {
-  color: var(--clr-green-500);
-  opacity: 0.6;
-}
-.map-placeholder__text {
-  font-size: 0.875rem;
-  color: var(--clr-neutral-600);
-  max-width: 30ch;
-  line-height: 1.55;
-}
-
-/* ---- Welcoming note ---- */
-.contact-welcome {
-  display: flex;
-  gap: var(--space-3);
-  align-items: flex-start;
-  background: var(--clr-saffron-50);
-  border-left: 3px solid var(--clr-saffron-400);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  padding: var(--space-4);
-  font-size: 0.9rem;
-  color: var(--clr-neutral-700);
-  line-height: 1.6;
-}
-.contact-welcome svg {
-  flex-shrink: 0;
-  color: var(--clr-saffron-600);
-  margin-top: 2px;
-}
-
-/* ---- Form column ---- */
-.contact-form-col {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-}
-.form-col__header {
-  padding-bottom: var(--space-4);
-  border-bottom: 2px solid var(--clr-neutral-100);
-}
-.form-col__title {
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--clr-green-800);
-}
-
-/* ---- Enquiry placeholder card ---- */
-.enquiry-placeholder {
-  background: linear-gradient(
-    135deg,
-    var(--clr-green-50) 0%,
-    var(--clr-saffron-50) 100%
-  );
-  border: 2px solid var(--clr-green-100);
-  border-radius: var(--radius-xl);
-  padding: var(--space-10) var(--space-8);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-5);
-}
-.enquiry-placeholder__icon {
-  width: 80px;
-  height: 80px;
-  background: var(--clr-green-600);
-  color: var(--clr-white);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.enquiry-placeholder__heading {
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--clr-green-800);
-}
-.enquiry-placeholder__langs {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  text-align: left;
-  max-width: 52ch;
-}
-.enquiry-placeholder__langs p {
-  font-size: 0.9375rem;
-  color: var(--clr-neutral-700);
-  line-height: 1.65;
-  padding: var(--space-3) var(--space-4);
-  background: var(--clr-white);
-  border-radius: var(--radius-md);
-  border-left: 3px solid var(--clr-green-300);
-}
-.enquiry-placeholder__config-note {
-  font-size: 0.8125rem;
-  color: var(--clr-neutral-500);
-  font-style: italic;
-  max-width: 48ch;
-  line-height: 1.55;
-}
-
-/* Form notice */
-.form-notice {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: 0.8125rem;
-  color: var(--clr-neutral-500);
-  padding: var(--space-3) var(--space-4);
-  background: var(--clr-neutral-50);
-  border-radius: var(--radius-md);
-  line-height: 1.5;
-}
-
-/* ---- Find Us section ---- */
-.find-us {
-  background: var(--clr-cream-200);
-}
-.find-us__inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-12);
-  align-items: start;
-}
-@media (max-width: 640px) {
-  .find-us__inner {
-    grid-template-columns: 1fr;
-  }
-}
-.find-us__details {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  padding-top: var(--space-2);
-}
-.find-us__item {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-  font-size: 0.9375rem;
-  color: var(--clr-neutral-700);
-  line-height: 1.55;
-}
-.find-us__item svg {
-  flex-shrink: 0;
-  color: var(--clr-green-500);
-  margin-top: 2px;
-}
-
-/* ---- Bottom CTA ---- */
-.contact-cta {
-  background: var(--clr-green-800);
-  color: var(--clr-white);
-  padding-block: var(--space-16);
-}
-.contact-cta__inner {
-  max-width: 56ch;
-  margin-inline: auto;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-5);
-}
-.contact-cta__icon {
-  width: 64px;
-  height: 64px;
-  background: var(--clr-saffron-400);
-  color: var(--clr-white);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.contact-cta__title {
-  font-family: var(--font-heading);
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  font-weight: 700;
-  color: var(--clr-white);
-}
-.contact-cta__sub {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.7;
-}
-
-
-/* Custom additions for functional contact links and admissions form */
 .contact-link {
-  color: var(--clr-green-800);
+  color: var(--clr-forest-800, #143d24);
   font-weight: 600;
   text-decoration: underline;
-  text-decoration-color: var(--clr-green-300);
+  text-decoration-color: var(--clr-gold-accent, #cf9d38);
   text-underline-offset: 3px;
-  transition: color var(--transition-fast);
+  transition: color 0.15s ease;
 }
 
 .contact-link:hover {
-  color: var(--clr-green-600);
+  color: var(--clr-forest-600, #236c3f);
 }
 
 .contact-link--whatsapp {
-  color: #128c7e;
-  text-decoration-color: #25d366;
+  color: #15803d;
+  text-decoration-color: #86efac;
 }
 
 .contact-link--whatsapp:hover {
-  color: #075e54;
+  color: #166534;
+}
+
+/* Welcoming Note / Institutional Pledge */
+.contact-welcome {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  background: #fef9ee;
+  border-left: 3px solid var(--clr-gold-accent, #cf9d38);
+  border-radius: 0 10px 10px 0;
+  padding: 1rem 1.15rem;
+  font-size: 0.875rem;
+  color: var(--clr-charcoal-800, #1c221e);
+  line-height: 1.6;
+}
+
+.contact-welcome svg {
+  flex-shrink: 0;
+  color: var(--clr-saffron-600, #b86e00);
+  margin-top: 2px;
+}
+
+/* Map Placeholder / Coordinates */
+.map-placeholder {
+  border: 1.5px dashed var(--clr-forest-400, #3ea063);
+  border-radius: 12px;
+  background: var(--clr-forest-50, #f0f7f2);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  text-align: center;
+  justify-content: center;
+}
+
+.map-placeholder__icon {
+  color: var(--clr-forest-600, #236c3f);
+}
+
+.map-placeholder__text {
+  font-size: 0.825rem;
+  color: var(--clr-charcoal-700, #2d3630);
+  max-width: 32ch;
+  line-height: 1.5;
+}
+
+/* ---- Right: Admission Enquiry Atelier ---- */
+.contact-form-card {
+  background: #ffffff;
+  border: 1px solid var(--clr-parchment-300, #e4dcce);
+  border-radius: 16px;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  box-shadow: 0 6px 24px rgba(7, 25, 15, 0.05);
+}
+
+.contact-form-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--clr-parchment-200, #f0ebe0);
+}
+
+.contact-form__title {
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+  font-size: clamp(1.35rem, 2vw, 1.75rem);
+  font-weight: 700;
+  color: var(--clr-forest-950, #07190f);
+  margin-bottom: 0.35rem;
+  line-height: 1.25;
+}
+
+.contact-form__subtitle {
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.875rem;
+  color: var(--clr-charcoal-600, #46514a);
+  line-height: 1.55;
+}
+
+.btn-open-form {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.5rem 0.95rem;
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--clr-forest-800, #143d24);
+  background: var(--clr-parchment-100, #f8f5ee);
+  border: 1px solid var(--clr-parchment-300, #e4dcce);
+  border-radius: 8px;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.btn-open-form:hover {
+  background: var(--clr-forest-900, #0d2818);
+  color: #ffffff;
+  border-color: var(--clr-forest-900, #0d2818);
+}
+
+/* Contact Form Controls */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
 }
 
 .form-group-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-4);
+  gap: 1rem;
 }
 
 @media (max-width: 600px) {
@@ -323,130 +271,109 @@
   }
 }
 
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  margin-top: var(--space-4);
-}
-
 .contact-form .form-group {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  gap: 0.35rem;
 }
 
 .contact-form label {
-  font-size: 0.875rem;
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.825rem;
   font-weight: 600;
-  color: var(--clr-neutral-700);
+  color: var(--clr-charcoal-800, #1c221e);
 }
 
 .contact-form input,
 .contact-form select,
 .contact-form textarea {
   width: 100%;
-  padding: 0.65rem 0.85rem;
-  border: 1.5px solid var(--clr-neutral-200);
-  border-radius: var(--radius-md);
-  background: var(--clr-white);
-  font: inherit;
-  font-size: 0.9375rem;
-  color: var(--clr-neutral-800);
+  padding: 0.75rem 0.95rem;
+  border: 1.5px solid var(--clr-charcoal-200, #d6ded8);
+  border-radius: 8px;
+  background: var(--clr-parchment-25, #fffefb);
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.925rem;
+  color: var(--clr-charcoal-900, #121614);
   outline: none;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  box-sizing: border-box;
 }
 
 .contact-form input:focus,
 .contact-form select:focus,
 .contact-form textarea:focus {
-  border-color: var(--clr-green-500);
-  box-shadow: 0 0 0 3px rgba(45, 122, 69, 0.12);
+  border-color: var(--clr-forest-600, #236c3f);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(35, 108, 63, 0.14);
 }
 
+.contact-form textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.contact-form .btn-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  background: linear-gradient(180deg, var(--clr-forest-700, #1a4f2f) 0%, var(--clr-forest-800, #143d24) 100%);
+  color: #ffffff;
+  border: 1px solid rgba(207, 157, 56, 0.35);
+  border-radius: 8px;
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 4px 14px rgba(7, 25, 15, 0.15);
+  align-self: flex-start;
+}
+
+.contact-form .btn-submit:hover:not(:disabled) {
+  background: linear-gradient(180deg, var(--clr-forest-600, #236c3f) 0%, var(--clr-forest-700, #1a4f2f) 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(7, 25, 15, 0.2);
+}
+
+.contact-form .btn-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Success Confirmation Box */
 .contact-success-box {
-  background: var(--clr-green-50);
-  border: 1.5px solid var(--clr-green-200);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
+  background: #f0fdf4;
+  border: 1.5px solid #86efac;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
   text-align: center;
-  margin-top: var(--space-4);
+  margin-top: 1rem;
 }
 
 .contact-success-icon {
-  color: var(--clr-green-600);
-  margin-bottom: var(--space-3);
+  color: #16a34a;
+  margin-bottom: 0.75rem;
 }
 
 .contact-success-title {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+  font-size: 1.35rem;
   font-weight: 700;
-  color: var(--clr-green-800);
-  margin-bottom: var(--space-2);
+  color: #14532d;
+  margin-bottom: 0.5rem;
 }
 
-
-/* Google Form embed styling */
-.contact-form-card {
-  background: var(--clr-white);
-  border: 1px solid var(--clr-neutral-200);
-  border-radius: var(--radius-xl);
-  padding: var(--space-8);
-  box-shadow: var(--shadow-sm);
-}
-
-.contact-form-card__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: var(--space-4);
-  margin-bottom: var(--space-6);
-  padding-bottom: var(--space-4);
-  border-bottom: 1px solid var(--clr-neutral-100);
-}
-
-.contact-form__title {
-  font-family: var(--font-heading);
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--clr-green-800);
-  margin-bottom: var(--space-1);
-}
-
-.contact-form__subtitle {
-  font-size: 0.9rem;
-  color: var(--clr-neutral-600);
-  line-height: 1.5;
-}
-
-.btn-open-form {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0.4rem 0.85rem;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--clr-green-700);
-  background: var(--clr-green-50);
-  border: 1px solid var(--clr-green-200);
-  border-radius: var(--radius-md);
-  text-decoration: none;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: all var(--transition-fast);
-}
-
-.btn-open-form:hover {
-  background: var(--clr-green-100);
-  color: var(--clr-green-800);
-}
-
+/* Embedded Form Iframe */
 .contact-form-iframe-container {
   width: 100%;
   overflow: hidden;
-  border-radius: var(--radius-lg);
-  background: var(--clr-neutral-50);
+  border-radius: 12px;
+  background: var(--clr-parchment-50, #fdfcf9);
+  border: 1px solid var(--clr-charcoal-200, #d6ded8);
 }
 
 .contact-form-iframe-container iframe {
@@ -456,11 +383,88 @@
   overflow: hidden;
 }
 
-@media (max-width: 640px) {
-  .contact-form-card {
-    padding: var(--space-4);
+/* ---- Find Us Campus Coordinates Section ---- */
+.find-us {
+  background: var(--clr-parchment-100, #f8f5ee);
+  border-top: 1px solid var(--clr-parchment-300, #e4dcce);
+}
+
+.find-us__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .find-us__inner {
+    grid-template-columns: 1fr;
   }
-  .contact-form-card__header {
-    flex-direction: column;
-  }
+}
+
+.find-us__details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-top: 0.5rem;
+}
+
+.find-us__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  font-size: 0.95rem;
+  color: var(--clr-charcoal-800, #1c221e);
+  line-height: 1.6;
+}
+
+.find-us__item svg {
+  flex-shrink: 0;
+  color: var(--clr-forest-700, #1a4f2f);
+  margin-top: 3px;
+}
+
+/* ---- Bottom CTA ---- */
+.contact-cta {
+  background: linear-gradient(180deg, var(--clr-forest-950, #07190f) 0%, var(--clr-forest-900, #0d2818) 100%);
+  color: #ffffff;
+  padding-block: clamp(4rem, 6vw, 6rem);
+  border-top: 2px solid var(--clr-gold-accent, #cf9d38);
+}
+
+.contact-cta__inner {
+  max-width: 60ch;
+  margin-inline: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.contact-cta__icon {
+  width: 68px;
+  height: 68px;
+  background: rgba(207, 157, 56, 0.15);
+  border: 1.5px solid var(--clr-gold-accent, #cf9d38);
+  color: var(--clr-gold-accent, #cf9d38);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-cta__title {
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.contact-cta__sub {
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.05rem;
+  color: var(--clr-parchment-200, #f0ebe0);
+  line-height: 1.65;
 }

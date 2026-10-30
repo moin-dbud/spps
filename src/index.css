@@ -11,45 +11,81 @@
 
 /* ---- CSS Custom Properties ---- */
 :root {
-  /* Colors */
-  --clr-green-900: #0d2b1a;
-  --clr-green-800: #14391f;
-  --clr-green-700: #1a4a27;
-  --clr-green-600: #1e5c2f;
-  --clr-green-500: #2d7a45;
-  --clr-green-400: #3d9957;
+  /* Editorial Palette: Forest Green, Warm Parchment & Ivory, Muted Saffron, Rich Charcoal */
+  --clr-forest-950: #07190f;
+  --clr-forest-900: #0d2818;
+  --clr-forest-850: #113320;
+  --clr-forest-800: #143d24;
+  --clr-forest-700: #1a4f2f;
+  --clr-forest-600: #236c3f;
+  --clr-forest-500: #2d824d;
+  --clr-forest-400: #3ea063;
+  --clr-forest-100: #d6ecde;
+  --clr-forest-50:  #f0f7f2;
+
+  /* Legacy aliases for backward compatibility */
+  --clr-green-900: var(--clr-forest-900);
+  --clr-green-800: var(--clr-forest-800);
+  --clr-green-700: var(--clr-forest-700);
+  --clr-green-600: var(--clr-forest-600);
+  --clr-green-500: var(--clr-forest-500);
+  --clr-green-400: var(--clr-forest-400);
   --clr-green-300: #5bb872;
-  --clr-green-100: #d4edda;
-  --clr-green-50:  #eaf5ed;
+  --clr-green-100: var(--clr-forest-100);
+  --clr-green-50:  var(--clr-forest-50);
 
-  --clr-saffron-700: #b56b00;
-  --clr-saffron-600: #c97b00;
-  --clr-saffron-500: #e08b00;
-  --clr-saffron-400: #f0a020;
-  --clr-saffron-300: #f5b84a;
-  --clr-saffron-100: #fdf0d0;
-  --clr-saffron-50:  #fef8eb;
+  /* Warm Ivory, Soft Parchment & Architectural Whites */
+  --clr-parchment-25:  #fffefb;
+  --clr-parchment-50:  #fdfcf9;
+  --clr-parchment-100: #f8f5ee;
+  --clr-parchment-200: #f0ebe0;
+  --clr-parchment-300: #e4dcce;
+  --clr-parchment-400: #d5cbba;
 
-  --clr-cream-100: #faf8f3;
-  --clr-cream-200: #f5f1e8;
-  --clr-cream-300: #ede7d9;
+  --clr-cream-100: var(--clr-parchment-50);
+  --clr-cream-200: var(--clr-parchment-100);
+  --clr-cream-300: var(--clr-parchment-200);
 
-  --clr-neutral-900: #1a1a1a;
-  --clr-neutral-800: #2c2c2c;
-  --clr-neutral-700: #3d3d3d;
-  --clr-neutral-600: #5a5a5a;
-  --clr-neutral-500: #777;
-  --clr-neutral-400: #999;
-  --clr-neutral-300: #bbb;
-  --clr-neutral-200: #ddd;
-  --clr-neutral-100: #f0f0f0;
-  --clr-neutral-50:  #f8f8f8;
+  /* Muted Saffron & Warm Antique Gold */
+  --clr-saffron-700: #9e5a00;
+  --clr-saffron-600: #b86e00;
+  --clr-saffron-500: #c97b00;
+  --clr-saffron-400: #df8c08;
+  --clr-saffron-300: #ebb03d;
+  --clr-saffron-100: #fbf0d8;
+  --clr-saffron-50:  #fef9ee;
+  --clr-gold-accent:  #cf9d38;
+
+  /* Rich Charcoal & Neutral Tones */
+  --clr-charcoal-950: #0b0d0c;
+  --clr-charcoal-900: #121614;
+  --clr-charcoal-800: #1c221e;
+  --clr-charcoal-700: #2d3630;
+  --clr-charcoal-600: #46514a;
+  --clr-charcoal-500: #68736c;
+  --clr-charcoal-400: #8c9790;
+  --clr-charcoal-300: #b4bdb7;
+  --clr-charcoal-200: #d6ded8;
+  --clr-charcoal-100: #eaf0ec;
+  --clr-charcoal-50:  #f4f7f5;
+
+  --clr-neutral-900: var(--clr-charcoal-900);
+  --clr-neutral-800: var(--clr-charcoal-800);
+  --clr-neutral-700: var(--clr-charcoal-700);
+  --clr-neutral-600: var(--clr-charcoal-600);
+  --clr-neutral-500: var(--clr-charcoal-500);
+  --clr-neutral-400: var(--clr-charcoal-400);
+  --clr-neutral-300: var(--clr-charcoal-300);
+  --clr-neutral-200: var(--clr-charcoal-200);
+  --clr-neutral-100: var(--clr-charcoal-100);
+  --clr-neutral-50:  var(--clr-charcoal-50);
   --clr-white:        #ffffff;
 
-  /* Typography */
-  --font-body: 'Inter', 'Noto Sans Devanagari', sans-serif;
-  --font-heading: 'Playfair Display', 'Noto Sans Devanagari', serif;
-  --font-devnagari: 'Noto Sans Devanagari', sans-serif;
+  /* Refined Typography */
+  --font-body: 'Plus Jakarta Sans', 'Inter', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Playfair Display', 'Cormorant Garamond', 'Noto Sans Devanagari', Georgia, serif;
+  --font-serif-display: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-devnagari: 'Noto Sans Devanagari', 'Plus Jakarta Sans', sans-serif;
 
   /* Spacing */
   --space-1: 0.25rem;
@@ -64,37 +100,46 @@
   --space-16: 4rem;
   --space-20: 5rem;
   --space-24: 6rem;
+  --space-32: 8rem;
 
-  /* Border radius */
+  /* Border radius — Subtle & controlled */
+  --radius-xs: 2px;
   --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 24px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+  --radius-2xl: 20px;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
-  --shadow-md: 0 4px 12px rgba(0,0,0,.10), 0 2px 4px rgba(0,0,0,.06);
-  --shadow-lg: 0 10px 30px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
-  --shadow-xl: 0 20px 60px rgba(0,0,0,.15);
-  --shadow-green: 0 4px 20px rgba(30,92,47,.15);
+  /* Editorial Borders & Hairlines */
+  --border-hairline: 1px solid rgba(20, 61, 36, 0.12);
+  --border-hairline-subtle: 1px solid rgba(20, 61, 36, 0.07);
+  --border-hairline-dark: 1px solid rgba(255, 255, 255, 0.14);
+  --border-gold: 1px solid rgba(207, 157, 56, 0.35);
+
+  /* Shadows — Subtle, Architectural & Natural */
+  --shadow-subtle: 0 1px 2px rgba(13, 40, 24, 0.04), 0 2px 6px rgba(13, 40, 24, 0.03);
+  --shadow-sm: 0 2px 4px rgba(13, 40, 24, 0.05), 0 1px 2px rgba(13, 40, 24, 0.04);
+  --shadow-md: 0 6px 16px rgba(13, 40, 24, 0.07), 0 2px 6px rgba(13, 40, 24, 0.04);
+  --shadow-lg: 0 14px 34px rgba(13, 40, 24, 0.09), 0 4px 10px rgba(13, 40, 24, 0.05);
+  --shadow-xl: 0 24px 60px rgba(13, 40, 24, 0.13), 0 8px 20px rgba(13, 40, 24, 0.07);
+  --shadow-green: 0 8px 24px rgba(20, 61, 36, 0.18);
 
   /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-base: 250ms ease;
-  --transition-slow: 400ms ease;
+  --transition-fast: 160ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  --transition-base: 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  --transition-slow: 450ms cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Max widths */
   --max-w-xs: 480px;
   --max-w-sm: 640px;
   --max-w-md: 768px;
-  --max-w-lg: 1024px;
-  --max-w-xl: 1200px;
-  --max-w-2xl: 1400px;
+  --max-w-lg: 1040px;
+  --max-w-xl: 1240px;
+  --max-w-2xl: 1440px;
 
   /* Nav height */
-  --nav-h: 72px;
+  --nav-h: 76px;
 }
 
 /* ---- Reset & Base ---- */
@@ -386,6 +431,167 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 .delay-3 { animation-delay: 0.3s; }
 .delay-4 { animation-delay: 0.4s; }
 .delay-5 { animation-delay: 0.5s; }
+
+/* =========================================================
+   EDITORIAL SYSTEM UTILITIES (Cardless, Architectural, Prestigious)
+   ========================================================= */
+
+/* Section contrasts */
+.bg-parchment-light {
+  background-color: var(--clr-parchment-25);
+}
+.bg-parchment {
+  background-color: var(--clr-parchment-100);
+}
+.bg-parchment-dark {
+  background-color: var(--clr-parchment-200);
+}
+.bg-forest-deep {
+  background-color: var(--clr-forest-950);
+  color: var(--clr-parchment-100);
+}
+.bg-forest-rich {
+  background-color: var(--clr-forest-900);
+  color: var(--clr-parchment-100);
+}
+
+/* Hairline Editorial Borders & Dividers */
+.editorial-rule {
+  width: 100%;
+  height: 1px;
+  background: var(--border-hairline);
+  border: none;
+  margin: var(--space-6) 0;
+}
+.editorial-rule--gold {
+  background: linear-gradient(90deg, rgba(207, 157, 56, 0.6) 0%, rgba(207, 157, 56, 0.15) 100%);
+}
+.editorial-rule--dark {
+  background: var(--border-hairline-dark);
+}
+
+/* Eyebrow / Kicker */
+.editorial-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--clr-forest-700);
+  margin-bottom: var(--space-3);
+}
+.editorial-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 1.5px;
+  background: currentColor;
+}
+.bg-forest-deep .editorial-eyebrow,
+.bg-forest-rich .editorial-eyebrow {
+  color: var(--clr-gold-accent);
+}
+
+/* Editorial Title & Headings */
+.editorial-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.1rem, 4.2vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--clr-charcoal-900);
+  margin-bottom: var(--space-4);
+}
+.bg-forest-deep .editorial-title,
+.bg-forest-rich .editorial-title {
+  color: var(--clr-parchment-25);
+}
+
+.editorial-lead {
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  line-height: 1.7;
+  color: var(--clr-charcoal-600);
+  max-width: 62ch;
+}
+.bg-forest-deep .editorial-lead,
+.bg-forest-rich .editorial-lead {
+  color: rgba(248, 245, 238, 0.82);
+}
+
+/* Editorial Pullquote */
+.editorial-quote {
+  position: relative;
+  font-family: var(--font-serif-display);
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--clr-forest-800);
+  padding-left: var(--space-6);
+  border-left: 2px solid var(--clr-gold-accent);
+  margin: var(--space-6) 0;
+}
+.bg-forest-deep .editorial-quote,
+.bg-forest-rich .editorial-quote {
+  color: var(--clr-parchment-100);
+}
+
+/* Museum-Grade Photographic Matting & Frame */
+.editorial-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(13, 40, 24, 0.08);
+  background: var(--clr-parchment-200);
+}
+.editorial-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.editorial-frame:hover img {
+  transform: scale(1.03);
+}
+
+/* Editorial Tag / Micro-Badge */
+.editorial-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--radius-xs);
+  background: var(--clr-parchment-100);
+  color: var(--clr-forest-800);
+  border: 1px solid rgba(20, 61, 36, 0.15);
+}
+.editorial-tag--gold {
+  background: var(--clr-saffron-50);
+  color: var(--clr-saffron-700);
+  border-color: rgba(207, 157, 56, 0.4);
+}
+.editorial-tag--dark {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--clr-parchment-100);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+/* Reduced Motion Override for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 
 /* ---- Focus visible ---- */
 :focus-visible {
