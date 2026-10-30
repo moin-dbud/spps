@@ -1,6 +1,29 @@
 /* =========================================================
    ADMIN DASHBOARD STYLES
+   =========================================================
+   Institutional Design System — PM Shri Savitribai Phule School
    ========================================================= */
+
+/* Keyframe Animations */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInFromTop {
+  from { opacity: 0; transform: translateY(-100%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
 
 .admin-layout {
   display: flex;
@@ -196,6 +219,19 @@
 
 .admin-action-btn--danger:hover {
   background: #bd2130;
+}
+
+.admin-action-btn--primary {
+  background: linear-gradient(180deg, var(--clr-forest-700, #1a4f2f) 0%, var(--clr-forest-800, #143d24) 100%);
+  color: #ffffff;
+  border: 1px solid rgba(207, 157, 56, 0.25);
+  box-shadow: 0 2px 8px rgba(7, 25, 15, 0.15);
+}
+
+.admin-action-btn--primary:hover {
+  background: linear-gradient(180deg, var(--clr-forest-600, #236c3f) 0%, var(--clr-forest-700, #1a4f2f) 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(7, 25, 15, 0.2);
 }
 
 /* Sections & Form Cards */
