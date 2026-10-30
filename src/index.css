@@ -432,6 +432,94 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 .delay-4 { animation-delay: 0.4s; }
 .delay-5 { animation-delay: 0.5s; }
 
+/* ---- Motion & Scroll Reveal System ---- */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-on-scroll.reveal-fade {
+  transform: none;
+}
+
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
+.reveal-delay-5 { transition-delay: 0.40s; }
+
+/* Page Route Transition */
+.page-transition {
+  animation: pageFadeSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes pageFadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hero Sequenced Entrance */
+.hero-seq-1 { animation: heroEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both; }
+.hero-seq-2 { animation: heroEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both; }
+.hero-seq-3 { animation: heroEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both; }
+.hero-seq-4 { animation: heroEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both; }
+.hero-seq-5 { animation: heroEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both; }
+
+@keyframes heroEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Subtle Image Hover & Reveals */
+.img-hover-zoom {
+  overflow: hidden;
+}
+
+.img-hover-zoom img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.img-hover-zoom:hover img {
+  transform: scale(1.03);
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  .page-transition,
+  .hero-seq-1, .hero-seq-2, .hero-seq-3, .hero-seq-4, .hero-seq-5,
+  .animate-fadeInUp, .animate-fadeIn, .animate-scaleIn,
+  .reveal-on-scroll {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .img-hover-zoom img,
+  .img-hover-zoom:hover img {
+    transform: none !important;
+  }
+}
+
+
 /* =========================================================
    EDITORIAL SYSTEM UTILITIES (Cardless, Architectural, Prestigious)
    ========================================================= */

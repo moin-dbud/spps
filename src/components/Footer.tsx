@@ -37,6 +37,8 @@ const NAV_LINKS = [
   { href: "/academics", key: "academics" as const },
   { href: "/facilities", key: "facilities" as const },
   { href: "/activities", key: "activities" as const },
+  { href: "/teaching-staff", key: "teachingStaff" as const },
+  { href: "/contribution", key: "contribution" as const },
   { href: "/news", key: "news" as const },
   { href: "/gallery", key: "gallery" as const },
   { href: "/contact", key: "contact" as const },

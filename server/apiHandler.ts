@@ -8,6 +8,8 @@ import {
   getEnquiriesCollection,
   getAuditLogsCollection,
   getSessionsCollection,
+  getStaffCollection,
+  getContributionsCollection,
 } from './db.ts';
 import {
   hashPassword,
@@ -24,6 +26,8 @@ import type {
   NewsDocument,
   GalleryDocument,
   EnquiryDocument,
+  StaffDocument,
+  ContributionDocument,
 } from './types.ts';
 
 // In-memory rate limiting map: ip -> { count, resetTime }
@@ -287,17 +291,23 @@ export async function handleApiRequest(req: IncomingMessage, res: ServerResponse
       return;
     }
     try {
-      const [adminsCount, newsAll, galleryCount, enquiriesCount] = await Promise.all([
+      const [adminsCount, newsAll, galleryCount, enquiriesCount, staffCount, contributionsAll] = await Promise.all([
         getAdminsCollection(db).countDocuments({ status: 'Active' }),
         getNewsCollection(db).find({}).toArray(),
         getGalleryCollection(db).countDocuments(),
         getEnquiriesCollection(db).countDocuments(),
+        getStaffCollection(db).countDocuments({ published: true }),
+        getContributionsCollection(db).find({}).toArray(),
       ]);
       const publishedNews = (newsAll as any[]).filter((n) => n.published && n.category !== 'notice').length;
       const totalNotices = (newsAll as any[]).filter((n) => n.category === 'notice').length;
       const pendingNotices = (newsAll as any[]).filter((n) => !n.published && n.category === 'notice').length;
       const publishedNotices = (newsAll as any[]).filter((n) => n.published && n.category === 'notice').length;
       const totalNews = (newsAll as any[]).length;
+      const totalContributions = (contributionsAll as any[]).length;
+      const pendingContributions = (contributionsAll as any[]).filter(
+        (c) => c.status === 'received' || c.status === 'under_review'
+      ).length;
       const recentNews = [...(newsAll as any[])]
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
         .slice(0, 5)
@@ -313,6 +323,9 @@ export async function handleApiRequest(req: IncomingMessage, res: ServerResponse
           publishedNotices,
           totalNews,
           totalEnquiries: enquiriesCount,
+          totalStaff: staffCount,
+          totalContributions,
+          pendingContributions,
           recentNews,
         },
       });
@@ -999,6 +1012,297 @@ export async function handleApiRequest(req: IncomingMessage, res: ServerResponse
     await enquiriesCol.deleteOne({ id });
     await logAudit(db, session.username, 'Enquiries', `Deleted enquiry ${id}`);
     sendJson(res, 200, { success: true });
+    return;
+  }
+
+  // ==========================================
+  // TEACHING STAFF ENDPOINTS
+  // ==========================================
+
+  // GET /api/staff (Public - returns published staff sorted by displayOrder)
+  if (url === '/api/staff' && req.method === 'GET') {
+    try {
+      const staffCol = getStaffCollection(db);
+      const list = await staffCol
+        .find({ published: true })
+        .sort({ displayOrder: 1, createdAt: 1 })
+        .toArray();
+      sendJson(res, 200, { success: true, staff: list });
+    } catch (e: any) {
+      sendJson(res, 500, { success: false, error: e.message });
+    }
+    return;
+  }
+
+  // GET /api/admin/staff (Admin only - returns all staff including drafts)
+  if (url === '/api/admin/staff' && req.method === 'GET') {
+    if (!session) {
+      sendJson(res, 401, { success: false, error: 'Unauthorized' });
+      return;
+    }
+    try {
+      const staffCol = getStaffCollection(db);
+      const list = await staffCol.find({}).sort({ displayOrder: 1, createdAt: 1 }).toArray();
+      sendJson(res, 200, { success: true, staff: list });
+    } catch (e: any) {
+      sendJson(res, 500, { success: false, error: e.message });
+    }
+    return;
+  }
+
+  // POST /api/admin/staff (Admin only - create staff member)
+  if (url === '/api/admin/staff' && req.method === 'POST') {
+    if (!session) {
+      sendJson(res, 401, { success: false, error: 'Unauthorized' });
+      return;
+    }
+    try {
+      const data = await parseRequestBody(req);
+      if (!data.name || !data.name.trim()) {
+        sendJson(res, 400, { success: false, error: 'Teacher full name is required' });
+        return;
+      }
+      if (!data.designation || !data.designation.trim()) {
+        sendJson(res, 400, { success: false, error: 'Designation is required' });
+        return;
+      }
+
+      const staffCol = getStaffCollection(db);
+      const newStaff: StaffDocument = {
+        id: data.id || `staff_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+        name: data.name.trim(),
+        nameMr: data.nameMr?.trim() || undefined,
+        nameHi: data.nameHi?.trim() || undefined,
+        designation: data.designation.trim(),
+        designationMr: data.designationMr?.trim() || undefined,
+        designationHi: data.designationHi?.trim() || undefined,
+        department: data.department?.trim() || 'General',
+        bio: data.bio?.trim() || undefined,
+        bioMr: data.bioMr?.trim() || undefined,
+        bioHi: data.bioHi?.trim() || undefined,
+        qualifications: data.qualifications?.trim() || undefined,
+        experienceYears: typeof data.experienceYears === 'number' ? data.experienceYears : Number(data.experienceYears) || undefined,
+        imageUrl: data.imageUrl || undefined,
+        contactEmail: data.contactEmail?.trim() || undefined,
+        contactPhone: data.contactPhone?.trim() || undefined,
+        displayOrder: Number(data.displayOrder) || 1,
+        published: data.published !== false,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+
+      await staffCol.insertOne(newStaff);
+      await logAudit(db, session.username, 'Staff', `Added staff member: ${newStaff.name} (${newStaff.designation})`);
+      sendJson(res, 201, { success: true, staff: newStaff });
+    } catch (e: any) {
+      sendJson(res, 500, { success: false, error: e.message });
+    }
+    return;
+  }
+
+  // PUT /api/admin/staff (Admin only - update staff member)
+  if (url === '/api/admin/staff' && req.method === 'PUT') {
+    if (!session) {
+      sendJson(res, 401, { success: false, error: 'Unauthorized' });
+      return;
+    }
+    try {
+      const data = await parseRequestBody(req);
+      if (!data.id) {
+        sendJson(res, 400, { success: false, error: 'Staff ID is required' });
+        return;
+      }
+      const staffCol = getStaffCollection(db);
+      const updates: Partial<StaffDocument> = {
+        updatedAt: new Date().toISOString(),
+      };
+      if (data.name !== undefined) updates.name = data.name.trim();
+      if (data.nameMr !== undefined) updates.nameMr = data.nameMr.trim();
+      if (data.nameHi !== undefined) updates.nameHi = data.nameHi.trim();
+      if (data.designation !== undefined) updates.designation = data.designation.trim();
+      if (data.designationMr !== undefined) updates.designationMr = data.designationMr.trim();
+      if (data.designationHi !== undefined) updates.designationHi = data.designationHi.trim();
+      if (data.department !== undefined) updates.department = data.department.trim();
+      if (data.bio !== undefined) updates.bio = data.bio.trim();
+      if (data.bioMr !== undefined) updates.bioMr = data.bioMr.trim();
+      if (data.bioHi !== undefined) updates.bioHi = data.bioHi.trim();
+      if (data.qualifications !== undefined) updates.qualifications = data.qualifications.trim();
+      if (data.experienceYears !== undefined) updates.experienceYears = Number(data.experienceYears) || 0;
+      if (data.imageUrl !== undefined) updates.imageUrl = data.imageUrl;
+      if (data.contactEmail !== undefined) updates.contactEmail = data.contactEmail.trim();
+      if (data.contactPhone !== undefined) updates.contactPhone = data.contactPhone.trim();
+      if (data.displayOrder !== undefined) updates.displayOrder = Number(data.displayOrder) || 1;
+      if (data.published !== undefined) updates.published = Boolean(data.published);
+
+      await staffCol.updateOne({ id: data.id }, { $set: updates });
+      await logAudit(db, session.username, 'Staff', `Updated staff member ${data.id}`);
+      sendJson(res, 200, { success: true });
+    } catch (e: any) {
+      sendJson(res, 500, { success: false, error: e.message });
+    }
+    return;
+  }
+
+  // DELETE /api/admin/staff (Admin only - delete staff member)
+  if ((url === '/api/admin/staff' || url.startsWith('/api/admin/staff/')) && req.method === 'DELETE') {
+    if (!session) {
+      sendJson(res, 401, { success: false, error: 'Unauthorized' });
+      return;
+    }
+    try {
+      let id = url.startsWith('/api/admin/staff/') ? url.replace('/api/admin/staff/', '') : '';
+      if (!id) {
+        const body = await parseRequestBody(req);
+        id = body.id;
+      }
+      if (!id) {
+        sendJson(res, 400, { success: false, error: 'Staff ID is required' });
+        return;
+      }
+      const staffCol = getStaffCollection(db);
+      await staffCol.deleteOne({ id });
+      await logAudit(db, session.username, 'Staff', `Deleted staff member ${id}`);
+      sendJson(res, 200, { success: true });
+    } catch (e: any) {
+      sendJson(res, 500, { success: false, error: e.message });
+    }
+    return;
+  }
+
+  // ==========================================
+  // CONTRIBUTION ENQUIRY ENDPOINTS
+  // ==========================================
+
+  // POST /api/contributions (Public contribution enquiry submission)
+  if (url === '/api/contributions' && req.method === 'POST') {
+    if (!checkRateLimit(req, 10, 60000)) {
+      sendJson(res, 429, { success: false, error: 'Too many requests. Please wait a moment.' });
+      return;
+    }
+    try {
+      const data = await parseRequestBody(req);
+      if (!data.contributorName?.trim()) {
+        sendJson(res, 400, { success: false, error: 'Name is required' });
+        return;
+      }
+      if (!data.phone?.trim() && !data.email?.trim()) {
+        sendJson(res, 400, { success: false, error: 'Please provide either a phone number or email address' });
+        return;
+      }
+      if (!data.category?.trim()) {
+        sendJson(res, 400, { success: false, error: 'Contribution category is required' });
+        return;
+      }
+      if (!data.description?.trim()) {
+        sendJson(res, 400, { success: false, error: 'Please provide a brief description of your proposed contribution' });
+        return;
+      }
+      if (!data.consentToContact) {
+        sendJson(res, 400, { success: false, error: 'Consent to be contacted by school administration is required' });
+        return;
+      }
+
+      const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+      const randSuffix = Math.floor(1000 + Math.random() * 9000);
+      const referenceId = `SPPS-CONT-${dateStr}-${randSuffix}`;
+
+      const contribDoc: ContributionDocument = {
+        id: referenceId,
+        contributorName: data.contributorName.trim(),
+        phone: data.phone?.trim() || '',
+        email: data.email?.trim() || '',
+        organization: data.organization?.trim() || undefined,
+        category: data.category,
+        description: data.description.trim(),
+        proposedAmount: data.proposedAmount ? Number(data.proposedAmount) : undefined,
+        preferredContact: data.preferredContact || 'phone',
+        consentToContact: true,
+        status: 'received',
+        adminNotes: '',
+        submittedAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+
+      const contribCol = getContributionsCollection(db);
+      await contribCol.insertOne(contribDoc);
+      sendJson(res, 201, {
+        success: true,
+        referenceId,
+        message: 'Your contribution enquiry has been registered with PM Shri Savitribai Phule School. Our school development committee will reach out to guide you through official procedures.',
+      });
+    } catch (e: any) {
+      sendJson(res, 500, { success: false, error: e.message });
+    }
+    return;
+  }
+
+  // GET /api/admin/contributions (Admin only)
+  if (url === '/api/admin/contributions' && req.method === 'GET') {
+    if (!session) {
+      sendJson(res, 401, { success: false, error: 'Unauthorized' });
+      return;
+    }
+    try {
+      const contribCol = getContributionsCollection(db);
+      const list = await contribCol.find({}).sort({ submittedAt: -1 }).toArray();
+      sendJson(res, 200, { success: true, contributions: list });
+    } catch (e: any) {
+      sendJson(res, 500, { success: false, error: e.message });
+    }
+    return;
+  }
+
+  // PUT /api/admin/contributions (Admin only - update status & notes)
+  if (url === '/api/admin/contributions' && req.method === 'PUT') {
+    if (!session) {
+      sendJson(res, 401, { success: false, error: 'Unauthorized' });
+      return;
+    }
+    try {
+      const data = await parseRequestBody(req);
+      if (!data.id) {
+        sendJson(res, 400, { success: false, error: 'Enquiry reference ID is required' });
+        return;
+      }
+      const contribCol = getContributionsCollection(db);
+      const updates: Partial<ContributionDocument> = {
+        updatedAt: new Date().toISOString(),
+      };
+      if (data.status) updates.status = data.status;
+      if (data.adminNotes !== undefined) updates.adminNotes = data.adminNotes;
+
+      await contribCol.updateOne({ id: data.id }, { $set: updates });
+      await logAudit(db, session.username, 'Contributions', `Updated contribution enquiry ${data.id} status to ${data.status || 'unchanged'}`);
+      sendJson(res, 200, { success: true });
+    } catch (e: any) {
+      sendJson(res, 500, { success: false, error: e.message });
+    }
+    return;
+  }
+
+  // DELETE /api/admin/contributions (Admin only - delete/archive)
+  if ((url === '/api/admin/contributions' || url.startsWith('/api/admin/contributions/')) && req.method === 'DELETE') {
+    if (!session) {
+      sendJson(res, 401, { success: false, error: 'Unauthorized' });
+      return;
+    }
+    try {
+      let id = url.startsWith('/api/admin/contributions/') ? url.replace('/api/admin/contributions/', '') : '';
+      if (!id) {
+        const body = await parseRequestBody(req);
+        id = body.id;
+      }
+      if (!id) {
+        sendJson(res, 400, { success: false, error: 'Enquiry ID is required' });
+        return;
+      }
+      const contribCol = getContributionsCollection(db);
+      await contribCol.deleteOne({ id });
+      await logAudit(db, session.username, 'Contributions', `Deleted contribution enquiry ${id}`);
+      sendJson(res, 200, { success: true });
+    } catch (e: any) {
+      sendJson(res, 500, { success: false, error: e.message });
+    }
     return;
   }
 

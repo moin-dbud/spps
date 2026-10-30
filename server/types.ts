@@ -139,3 +139,64 @@ export interface SessionDocument {
   expiresAt: Date;
 }
 
+export interface StaffDocument {
+  _id?: ObjectId;
+  id: string;
+  name: string;
+  nameMr?: string;
+  nameHi?: string;
+  designation: string;
+  designationMr?: string;
+  designationHi?: string;
+  department: string;
+  bio?: string;
+  bioMr?: string;
+  bioHi?: string;
+  qualifications?: string;
+  experienceYears?: number;
+  imageUrl?: string;
+  contactEmail?: string;
+  contactPhone?: string;
+  displayOrder: number;
+  published: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type ContributionCategory =
+  | 'financial'
+  | 'learning_resources'
+  | 'digital'
+  | 'sports'
+  | 'infrastructure'
+  | 'community'
+  | 'other';
+
+export type ContributionStatus =
+  | 'received'
+  | 'contacted'
+  | 'under_review'
+  | 'instructions_provided'
+  | 'verified_completed'
+  | 'rejected'
+  | 'archived';
+
+export interface ContributionDocument {
+  _id?: ObjectId;
+  id: string; // SPPS-CONT-YYYYMMDD-XXXX
+  contributorName: string;
+  phone: string;
+  email: string;
+  organization?: string;
+  category: ContributionCategory;
+  description: string;
+  proposedAmount?: number;
+  preferredContact: 'phone' | 'email' | 'whatsapp';
+  consentToContact: boolean;
+  status: ContributionStatus;
+  adminNotes?: string;
+  submittedAt: string;
+  updatedAt: string;
+}
+
+

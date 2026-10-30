@@ -354,6 +354,9 @@ export interface DashboardStats {
   publishedNotices: number;
   totalNews: number;
   totalEnquiries: number;
+  totalStaff?: number;
+  totalContributions?: number;
+  pendingContributions?: number;
   recentNews: Array<{ id: string; title: string; date: string; category: string; published: boolean }>;
 }
 
@@ -392,3 +395,193 @@ export async function apiSaveSettings(settings: Partial<SchoolConfigType>): Prom
     return true;
   }
 }
+
+// ================= TEACHING STAFF API =================
+export interface StaffMember {
+  id: string;
+  name: string;
+  nameMr?: string;
+  nameHi?: string;
+  designation: string;
+  designationMr?: string;
+  designationHi?: string;
+  department: string;
+  bio?: string;
+  bioMr?: string;
+  bioHi?: string;
+  qualifications?: string;
+  experienceYears?: number;
+  imageUrl?: string;
+  contactEmail?: string;
+  contactPhone?: string;
+  displayOrder: number;
+  published: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export async function apiFetchPublicStaff(): Promise<StaffMember[]> {
+  try {
+    const res = await fetch('/api/staff');
+    if (res.ok) {
+      const data = await res.json();
+      return Array.isArray(data.staff) ? data.staff : [];
+    }
+  } catch (e) {
+    console.warn('Failed to fetch public staff:', e);
+  }
+  return [];
+}
+
+export async function apiFetchAdminStaff(): Promise<StaffMember[]> {
+  try {
+    const res = await fetch('/api/admin/staff', { headers: getAuthHeaders() });
+    if (res.ok) {
+      const data = await res.json();
+      return Array.isArray(data.staff) ? data.staff : [];
+    }
+  } catch (e) {
+    console.warn('Failed to fetch admin staff:', e);
+  }
+  return [];
+}
+
+export async function apiCreateStaff(
+  data: Partial<StaffMember>
+): Promise<{ success: boolean; staff?: StaffMember; error?: string }> {
+  try {
+    const res = await fetch('/api/admin/staff', {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data),
+    });
+    return await res.json();
+  } catch (e: any) {
+    return { success: false, error: e.message || 'Network request failed' };
+  }
+}
+
+export async function apiUpdateStaff(
+  data: Partial<StaffMember> & { id: string }
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const res = await fetch('/api/admin/staff', {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data),
+    });
+    return await res.json();
+  } catch (e: any) {
+    return { success: false, error: e.message || 'Network request failed' };
+  }
+}
+
+export async function apiDeleteStaff(id: string): Promise<{ success: boolean; error?: string }> {
+  try {
+    const res = await fetch(`/api/admin/staff/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+    });
+    return await res.json();
+  } catch (e: any) {
+    return { success: false, error: e.message || 'Network request failed' };
+  }
+}
+
+// ================= CONTRIBUTION API =================
+export type ContributionCategory =
+  | 'financial'
+  | 'learning_resources'
+  | 'digital'
+  | 'sports'
+  | 'infrastructure'
+  | 'community'
+  | 'other';
+
+export type ContributionStatus =
+  | 'received'
+  | 'contacted'
+  | 'under_review'
+  | 'instructions_provided'
+  | 'verified_completed'
+  | 'rejected'
+  | 'archived';
+
+export interface ContributionEnquiry {
+  id: string;
+  contributorName: string;
+  phone: string;
+  email: string;
+  organization?: string;
+  category: ContributionCategory;
+  description: string;
+  proposedAmount?: number;
+  preferredContact: 'phone' | 'email' | 'whatsapp';
+  consentToContact: boolean;
+  status: ContributionStatus;
+  adminNotes?: string;
+  submittedAt: string;
+  updatedAt: string;
+}
+
+export async function apiSubmitContribution(
+  data: Partial<ContributionEnquiry>
+): Promise<{ success: boolean; referenceId?: string; message?: string; error?: string }> {
+  try {
+    const res = await fetch('/api/contributions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return await res.json();
+  } catch (e: any) {
+    return { success: false, error: e.message || 'Network connection failed' };
+  }
+}
+
+export async function apiFetchContributions(): Promise<{
+  success: boolean;
+  contributions?: ContributionEnquiry[];
+  error?: string;
+}> {
+  try {
+    const res = await fetch('/api/admin/contributions', { headers: getAuthHeaders() });
+    if (res.ok) {
+      return await res.json();
+    }
+    return { success: false, error: `Error ${res.status}: ${res.statusText}` };
+  } catch (e: any) {
+    return { success: false, error: e.message || 'Network error' };
+  }
+}
+
+export async function apiUpdateContribution(
+  id: string,
+  updates: { status?: ContributionStatus; adminNotes?: string }
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const res = await fetch('/api/admin/contributions', {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ id, ...updates }),
+    });
+    return await res.json();
+  } catch (e: any) {
+    return { success: false, error: e.message || 'Network error' };
+  }
+}
+
+export async function apiDeleteContribution(
+  id: string
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const res = await fetch(`/api/admin/contributions/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+    });
+    return await res.json();
+  } catch (e: any) {
+    return { success: false, error: e.message || 'Network error' };
+  }
+}
+

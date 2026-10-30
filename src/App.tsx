@@ -10,6 +10,8 @@ import Activities from "./pages/Activities";
 import News from "./pages/News";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
+import TeachingStaff from "./pages/TeachingStaff";
+import Contribution from "./pages/Contribution";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import "./index.css";
@@ -29,6 +31,8 @@ export default function App() {
               <Route path="/activities" element={<Activities />} />
               <Route path="/news" element={<News />} />
               <Route path="/gallery" element={<Gallery />} />
+              <Route path="/teaching-staff" element={<TeachingStaff />} />
+              <Route path="/contribution" element={<Contribution />} />
               <Route path="/contact" element={<Contact />} />
             </Route>
 

@@ -1,0 +1,428 @@
+/* =========================================================
+   TEACHING STAFF — EDITORIAL INSTITUTIONAL MONOGRAPH
+   PM Shri Savitribai Phule School, Babupeth, Chandrapur
+   ========================================================= */
+
+/* Hero Header */
+.staff-hero {
+  background: linear-gradient(180deg, var(--clr-forest-950, #07190f) 0%, var(--clr-forest-900, #0d2818) 100%);
+  color: #ffffff;
+  padding-block: clamp(3.5rem, 6vw, 5.5rem) clamp(2.5rem, 4vw, 3.5rem);
+  border-bottom: 2px solid var(--clr-gold-accent, #cf9d38);
+  position: relative;
+}
+
+.staff-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(ellipse at 85% 20%, rgba(207, 157, 56, 0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.staff-hero__kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.staff-kicker-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--clr-gold-accent, #cf9d38);
+  background: rgba(207, 157, 56, 0.12);
+  border: 1px solid rgba(207, 157, 56, 0.35);
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+}
+
+.staff-kicker-sub {
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.82rem;
+  color: var(--clr-parchment-200, #f0ebe0);
+  letter-spacing: 0.04em;
+}
+
+.staff-hero__title {
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+  font-size: clamp(2.2rem, 5.5vw, 3.75rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.staff-hero__rule {
+  width: 72px;
+  height: 2px;
+  background: var(--clr-gold-accent, #cf9d38);
+  margin-bottom: 1.25rem;
+}
+
+.staff-hero__lead {
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  color: var(--clr-parchment-200, #f0ebe0);
+  max-width: 68ch;
+  line-height: 1.65;
+  margin-bottom: 2rem;
+}
+
+.staff-hero__highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 1.5rem;
+}
+
+.staff-highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.staff-highlight-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--clr-gold-accent, #cf9d38);
+  box-shadow: 0 0 0 3px rgba(207, 157, 56, 0.25);
+  flex-shrink: 0;
+}
+
+.staff-highlight-item strong {
+  display: block;
+  font-size: 0.88rem;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.staff-highlight-item span {
+  font-size: 0.78rem;
+  color: var(--clr-parchment-300, #e4dcce);
+}
+
+/* Directory Section */
+.staff-directory-section {
+  padding-block: clamp(3rem, 5vw, 5rem);
+  min-height: 50vh;
+}
+
+/* Department Filter Bar */
+.staff-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background: #ffffff;
+  border: 1px solid var(--clr-parchment-300, #e4dcce);
+  border-radius: 12px;
+  padding: 0.85rem 1.25rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 2px 8px rgba(7, 25, 15, 0.04);
+}
+
+.staff-filter-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--clr-forest-700, #1a4f2f);
+}
+
+.staff-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.staff-filter-pill {
+  padding: 0.45rem 0.95rem;
+  border-radius: 20px;
+  border: 1px solid var(--clr-charcoal-200, #d6ded8);
+  background: var(--clr-parchment-50, #fdfcf9);
+  color: var(--clr-charcoal-700, #2d3630);
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.staff-filter-pill:hover {
+  background: var(--clr-parchment-200, #f0ebe0);
+  color: var(--clr-forest-900, #0d2818);
+}
+
+.staff-filter-pill.active {
+  background: var(--clr-forest-900, #0d2818);
+  border-color: var(--clr-forest-900, #0d2818);
+  color: #ffffff;
+}
+
+/* Loading Box */
+.staff-loading-box {
+  text-align: center;
+  padding: 4rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: var(--clr-charcoal-600, #46514a);
+}
+
+.staff-spinner {
+  width: 38px;
+  height: 38px;
+  border: 3px solid rgba(20, 61, 36, 0.15);
+  border-top-color: var(--clr-forest-700, #1a4f2f);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Dignified Empty State */
+.staff-empty-state {
+  text-align: center;
+  padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3rem);
+  background: #ffffff;
+  border: 1.5px dashed var(--clr-parchment-300, #e4dcce);
+  border-radius: 16px;
+  max-width: 680px;
+  margin-inline: auto;
+  box-shadow: 0 4px 20px rgba(7, 25, 15, 0.04);
+}
+
+.staff-empty-icon-wrap {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: var(--clr-parchment-100, #f8f5ee);
+  border: 1.5px solid rgba(207, 157, 56, 0.4);
+  color: var(--clr-forest-700, #1a4f2f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.staff-empty-title {
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--clr-forest-950, #07190f);
+  margin-bottom: 0.5rem;
+}
+
+.staff-empty-text {
+  font-size: 0.95rem;
+  color: var(--clr-charcoal-600, #46514a);
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+}
+
+.staff-empty-notice {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.15rem;
+  border-radius: 8px;
+  background: var(--clr-forest-50, #f0f7f2);
+  border: 1px solid var(--clr-forest-100, #d6ecde);
+  font-size: 0.825rem;
+  color: var(--clr-forest-800, #143d24);
+  font-weight: 500;
+}
+
+/* Staff Directory Grid */
+.staff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: clamp(1.5rem, 2.5vw, 2.25rem);
+}
+
+.staff-card {
+  background: #ffffff;
+  border: 1px solid var(--clr-parchment-300, #e4dcce);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(7, 25, 15, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.staff-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(7, 25, 15, 0.1);
+  border-color: rgba(35, 108, 63, 0.35);
+}
+
+/* Photo Frame */
+.staff-card__photo-frame {
+  position: relative;
+  aspect-ratio: 4 / 3.5;
+  background: var(--clr-forest-900, #0d2818);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid var(--clr-gold-accent, #cf9d38);
+}
+
+.staff-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.staff-card:hover .staff-card__img {
+  transform: scale(1.04);
+}
+
+.staff-card__avatar-fallback {
+  display: none;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--clr-forest-800, #143d24);
+  border: 2px solid var(--clr-gold-accent, #cf9d38);
+  color: var(--clr-gold-accent, #cf9d38);
+  font-family: var(--font-heading, 'Playfair Display', serif);
+  font-size: 2rem;
+  font-weight: 700;
+  align-items: center;
+  justify-content: center;
+}
+
+.staff-card__photo-frame.has-avatar .staff-card__avatar-fallback,
+.staff-card__photo-frame:not(:has(.staff-card__img)) .staff-card__avatar-fallback {
+  display: flex;
+}
+
+.staff-card__dept-tag {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: rgba(7, 25, 15, 0.85);
+  backdrop-filter: blur(4px);
+  color: var(--clr-gold-accent, #cf9d38);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  border: 1px solid rgba(207, 157, 56, 0.35);
+}
+
+/* Card Body */
+.staff-card__body {
+  padding: 1.35rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.staff-card__designation-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--clr-forest-800, #143d24);
+  background: var(--clr-forest-50, #f0f7f2);
+  border: 1px solid var(--clr-forest-100, #d6ecde);
+  padding: 0.2rem 0.65rem;
+  border-radius: 12px;
+  margin-bottom: 0.65rem;
+  align-self: flex-start;
+}
+
+.staff-card__name {
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--clr-charcoal-950, #0b0d0c);
+  margin-bottom: 0.4rem;
+  line-height: 1.3;
+}
+
+.staff-card__qual,
+.staff-card__exp {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--clr-charcoal-600, #46514a);
+  margin-bottom: 0.35rem;
+}
+
+.staff-card__qual svg,
+.staff-card__exp svg {
+  color: var(--clr-forest-700, #1a4f2f);
+  flex-shrink: 0;
+}
+
+.staff-card__bio {
+  font-size: 0.825rem;
+  color: var(--clr-charcoal-700, #2d3630);
+  line-height: 1.55;
+  margin: 0.65rem 0 0;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--clr-parchment-200, #f0ebe0);
+  flex: 1;
+}
+
+.staff-card__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.85rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--clr-parchment-200, #f0ebe0);
+}
+
+.staff-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--clr-forest-800, #143d24);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.staff-contact-link:hover {
+  color: var(--clr-gold-accent, #cf9d38);
+  text-decoration: underline;
+}
+
+/* Responsive fine-tuning */
+@media (max-width: 600px) {
+  .staff-grid {
+    grid-template-columns: 1fr;
+  }
+  .staff-filter-bar {
+    padding: 0.75rem 1rem;
+  }
+}
+

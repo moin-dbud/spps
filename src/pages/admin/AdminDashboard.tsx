@@ -32,6 +32,8 @@ import {
   User,
   Menu,
   Calendar,
+  GraduationCap,
+  HeartHandshake,
 } from "lucide-react";
 import { SCHOOL_CONFIG } from "../../config/school";
 import { useSchoolSettings } from "../../context/SchoolSettingsContext";
@@ -54,6 +56,8 @@ import {
   type AuditLog,
   type DashboardStats,
 } from "../../utils/api";
+import StaffManagementTab from "./StaffManagementTab";
+import ContributionManagementTab from "./ContributionManagementTab";
 import "./AdminDashboard.css";
 import "./AdminAccounts.css";
 
@@ -73,7 +77,7 @@ interface NewsItem {
   published: boolean;
 }
 
-type AdminTab = "dashboard" | "gallery" | "news" | "settings" | "accounts" | "profile" | "audit";
+type AdminTab = "dashboard" | "gallery" | "news" | "settings" | "accounts" | "profile" | "audit" | "staff" | "contributions";
 
 /* =========================================================
    HELPERS
@@ -297,6 +301,8 @@ export default function AdminDashboard() {
     accounts: "Admin Management",
     audit: "Audit Logs",
     profile: "My Profile",
+    staff: "Staff Management",
+    contributions: "Contributions",
   };
 
   const handleNavSelect = (tab: AdminTab) => {
@@ -371,6 +377,20 @@ export default function AdminDashboard() {
             >
               <Settings size={18} />
               School Settings
+            </button>
+            <button
+              className={`admin-sidebar__link ${activeTab === "staff" ? "active" : ""}`}
+              onClick={() => handleNavSelect("staff")}
+            >
+              <GraduationCap size={18} />
+              Staff Management
+            </button>
+            <button
+              className={`admin-sidebar__link ${activeTab === "contributions" ? "active" : ""}`}
+              onClick={() => handleNavSelect("contributions")}
+            >
+              <HeartHandshake size={18} />
+              Contributions
             </button>
 
             {isSuperAdmin && (
@@ -466,6 +486,20 @@ export default function AdminDashboard() {
             <Settings size={18} />
             School Settings
           </button>
+          <button
+            className={`admin-sidebar__link ${activeTab === "staff" ? "active" : ""}`}
+            onClick={() => setActiveTab("staff")}
+          >
+            <GraduationCap size={18} />
+            Staff Management
+          </button>
+          <button
+            className={`admin-sidebar__link ${activeTab === "contributions" ? "active" : ""}`}
+            onClick={() => setActiveTab("contributions")}
+          >
+            <HeartHandshake size={18} />
+            Contributions
+          </button>
 
           {/* Super Admin Only Menu Items */}
           {isSuperAdmin && (
@@ -551,6 +585,12 @@ export default function AdminDashboard() {
           <NewsTab news={news} onChange={persistNews} />
         )}
         {activeTab === "settings" && <SettingsTab />}
+        {activeTab === "staff" && (
+          <StaffManagementTab onNotify={showFeedback} />
+        )}
+        {activeTab === "contributions" && (
+          <ContributionManagementTab onNotify={showFeedback} />
+        )}
         {activeTab === "accounts" && isSuperAdmin && (
           <AdminManagementTab
             currentAdmin={currentAdmin}

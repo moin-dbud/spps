@@ -10,6 +10,8 @@ export const en: TranslationKeys = {
     news: "News & Notices",
     gallery: "Gallery",
     contact: "Enquiry",
+    teachingStaff: "Teaching Staff",
+    contribution: "Contribution",
     adminLogin: "Admin",
     enquire: "Enquire Now",
   },
@@ -188,5 +190,68 @@ export const en: TranslationKeys = {
       "⚠️ The school name is pending official confirmation. Verify with the school before production launch.",
     statsNotice:
       "⚠️ Statistics sourced from presentation documents. Verify before publishing.",
+  },
+
+  // Teaching Staff
+  teachingStaff: {
+    badge: "Our Teaching Faculty",
+    title: "Dedicated Educators & Mentors",
+    subtitle:
+      "Guided by the pioneering educational legacy of Krantijyoti Savitribai Phule, our dedicated educators nurture every student's intellect, curiosity, and character.",
+    allDepartments: "All Departments",
+    filterLeadership: "School Leadership",
+    filterLanguages: "Languages",
+    filterScienceMaths: "Science & Mathematics",
+    filterDigital: "Digital & ICT",
+    filterActivities: "Sports & Co-Curricular",
+    filterGeneral: "Primary & Secondary Faculty",
+    experience: "Experience",
+    years: "years",
+    qualifications: "Qualifications",
+    department: "Department",
+    emptyTitle: "Faculty Directory Being Updated",
+    emptySubtitle:
+      "Official credentials, qualifications, and profile dossiers of our dedicated teaching faculty are currently being compiled by the school administration and will be published here shortly.",
+  },
+
+  // Contribution Page
+  contribution: {
+    badge: "School Development & Community Support",
+    title: "Be a Part of a Brighter Tomorrow",
+    subtitle:
+      "Every meaningful contribution helps create better learning opportunities, modern infrastructure, and an inspiring educational environment for our students.",
+    financialTitle: "Voluntary Financial Support",
+    financialDesc: "Voluntary financial assistance for officially approved school development, library modernization, and digital learning enhancements.",
+    learningTitle: "Learning Resources & Books",
+    learningDesc: "Books, reference literature, educational kits, science experiments, and classroom instructional material donations.",
+    digitalTitle: "Digital & Laboratory Equipment",
+    digitalDesc: "Computers, tablets, interactive display panels, lab instruments, and STEM kits to empower digital pedagogy.",
+    sportsTitle: "Sports & Cultural Gear",
+    sportsDesc: "Athletic equipment, musical instruments, indoor games, and art supplies for holistic student development.",
+    infraTitle: "Campus & Environmental Initiatives",
+    infraDesc: "Tree plantation saplings, solar energy support, clean drinking water systems, and classroom revitalization.",
+    communityTitle: "Mentorship & Volunteering",
+    communityDesc: "Guest lectures, career guidance, skill workshops, student tutoring, and community volunteer participation.",
+    formTitle: "Contribution Enquiry Form",
+    formSubtitle:
+      "Please record your intended contribution in the form below. Our School Development Committee will reach out to guide you through official municipal procedures.",
+    nameLabel: "Full Name *",
+    phoneLabel: "Mobile Number *",
+    emailLabel: "Email Address",
+    orgLabel: "Organization / Alumni Group (Optional)",
+    categoryLabel: "Contribution Category *",
+    descLabel: "Description of Proposed Support *",
+    amountLabel: "Approximate Amount (₹) (Optional - financial contributions only)",
+    contactPrefLabel: "Preferred Contact Method",
+    consentText: "I give consent to PM Shri Savitribai Phule School administration to contact me regarding this enquiry. *",
+    submitBtn: "Submit Contribution Enquiry",
+    submittingBtn: "Submitting Enquiry...",
+    successTitle: "Thank You for Your Support!",
+    successText: "Your contribution enquiry has been registered successfully. Reference ID:",
+    successNote:
+      "Our School Development Committee will contact you with approved procedures. Note: PM Shri Savitribai Phule High School does NOT accept unverified or direct personal UPI payments. All procedures follow official municipal governance.",
+    transparencyBadge: "Transparent Institutional Governance",
+    transparencyNote:
+      "The school operates under the Chandrapur Municipal Corporation. All contributions directly support student learning and campus infrastructure.",
   },
 };

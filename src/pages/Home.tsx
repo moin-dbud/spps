@@ -7,6 +7,7 @@ import {
 import { useI18n } from "../i18n";
 import { useSchoolSettings } from "../context/SchoolSettingsContext";
 import { staticGalleryItems } from "../data/gallery";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 import "./Home.css";
 
 /* =========================================================
@@ -26,6 +27,8 @@ export default function Home() {
   const { t, lang } = useI18n();
   const { settings } = useSchoolSettings();
 
+  useScrollReveal([lang]);
+
   const l = (en: string, hi: string, mr: string) =>
     lang === "en" ? en : lang === "hi" ? hi : mr;
 
@@ -41,7 +44,7 @@ export default function Home() {
 
             {/* Left: Editorial Typography & Institutional Identity */}
             <div className="ed-hero__narrative">
-              <div className="ed-hero__kicker">
+              <div className="ed-hero__kicker hero-seq-1">
                 <span className="ed-kicker-badge">
                   <Star size={13} aria-hidden />
                   {l("P.M. SHRI INSTITUTION", "पी.एम. श्री आदर्श विद्यालय", "पी.एम. श्री आदर्श शाळा")}
@@ -51,17 +54,17 @@ export default function Home() {
                 </span>
               </div>
 
-              <h1 className="ed-hero__title">
+              <h1 className="ed-hero__title hero-seq-2">
                 {t.home.heroHeadline}
               </h1>
 
-              <div className="ed-hero__rule" aria-hidden />
+              <div className="ed-hero__rule hero-seq-2" aria-hidden />
 
-              <p className="ed-hero__lead">
+              <p className="ed-hero__lead hero-seq-3">
                 {t.home.heroSub}
               </p>
 
-              <div className="ed-hero__actions">
+              <div className="ed-hero__actions hero-seq-4">
                 <Link to="/about" className="ed-btn ed-btn--primary">
                   <span>{t.home.exploreCta}</span>
                   <ArrowRight size={17} aria-hidden />
@@ -75,7 +78,7 @@ export default function Home() {
               </div>
 
               {/* Verified Institutional Accreditations */}
-              <div className="ed-hero__accreditations">
+              <div className="ed-hero__accreditations hero-seq-4">
                 <div className="ed-accred-item">
                   <span className="ed-accred-dot" />
                   <div>
@@ -101,7 +104,7 @@ export default function Home() {
             </div>
 
             {/* Right: Museum-Grade Photographic Showcase */}
-            <div className="ed-hero__visual">
+            <div className="ed-hero__visual hero-seq-5">
               <div className="ed-hero__photo-card">
                 <img
                   src={HERO_BUILDING}
@@ -140,7 +143,7 @@ export default function Home() {
       {/* =========================================================
          2. SCHOOL AT A GLANCE — CARDLESS TYPOGRAPHY-LED STATS
          ========================================================= */}
-      <section className="ed-glance" aria-label="School At A Glance">
+      <section className="ed-glance reveal-on-scroll" aria-label="School At A Glance">
         <div className="container container--wide">
           <div className="ed-glance__header">
             <span className="editorial-eyebrow">
@@ -194,7 +197,7 @@ export default function Home() {
       {/* =========================================================
          3. SCHOOL INTRODUCTION — EDITORIAL STORYTELLING SPREAD
          ========================================================= */}
-      <section className="ed-section bg-parchment-light" aria-labelledby="intro-head">
+      <section className="ed-section bg-parchment-light reveal-on-scroll" aria-labelledby="intro-head">
         <div className="container">
           <div className="ed-story-spread">
 
@@ -288,7 +291,7 @@ export default function Home() {
       {/* =========================================================
          4. ACADEMIC EXCELLENCE — MAGAZINE EDITORIAL SPREAD
          ========================================================= */}
-      <section className="ed-section bg-parchment" aria-labelledby="academics-head">
+      <section className="ed-section bg-parchment reveal-on-scroll" aria-labelledby="academics-head">
         <div className="container">
           <div className="ed-section-intro">
             <span className="editorial-eyebrow">
@@ -413,7 +416,7 @@ export default function Home() {
       {/* =========================================================
          5. DIGITAL INFRASTRUCTURE — ARCHITECTURAL SHOWCASE
          ========================================================= */}
-      <section className="ed-section bg-parchment-light" aria-labelledby="infra-head">
+      <section className="ed-section bg-parchment-light reveal-on-scroll" aria-labelledby="infra-head">
         <div className="container">
           <div className="ed-section-intro">
             <span className="editorial-eyebrow">
@@ -519,7 +522,7 @@ export default function Home() {
       {/* =========================================================
          6. STUDENT LIFE & ACTIVITIES — MAGAZINE PHOTOJOURNAL
          ========================================================= */}
-      <section className="ed-section bg-parchment" aria-labelledby="life-head">
+      <section className="ed-section bg-parchment reveal-on-scroll" aria-labelledby="life-head">
         <div className="container">
           <div className="ed-section-intro">
             <span className="editorial-eyebrow">
@@ -635,7 +638,7 @@ export default function Home() {
       {/* =========================================================
          7. ENVIRONMENT & SUSTAINABILITY — DEEP FOREST GREEN
          ========================================================= */}
-      <section className="ed-section bg-forest-deep" aria-labelledby="env-head">
+      <section className="ed-section bg-forest-deep reveal-on-scroll" aria-labelledby="env-head">
         <div className="container">
           <div className="ed-env-spread">
 
@@ -723,7 +726,7 @@ export default function Home() {
       {/* =========================================================
          8. SAFETY, INCLUSION & GOVERNANCE — EDITORIAL TWO-TONE
          ========================================================= */}
-      <section className="ed-section bg-parchment-light" aria-labelledby="governance-head">
+      <section className="ed-section bg-parchment-light reveal-on-scroll" aria-labelledby="governance-head">
         <div className="container">
           <div className="ed-safety-grid">
 
@@ -805,7 +808,7 @@ export default function Home() {
       {/* =========================================================
          9. GALLERY HIGHLIGHTS — ASYMMETRIC PHOTOGRAPHIC ARCHIVE
          ========================================================= */}
-      <section className="ed-section bg-parchment" aria-labelledby="gallery-head">
+      <section className="ed-section bg-parchment reveal-on-scroll" aria-labelledby="gallery-head">
         <div className="container container--wide">
           <div className="ed-section-intro ed-section-intro--center">
             <span className="editorial-eyebrow">
@@ -851,7 +854,7 @@ export default function Home() {
       {/* =========================================================
          10. FINAL INSTITUTIONAL INVITATION & CTA
          ========================================================= */}
-      <section className="ed-cta-band bg-forest-deep" aria-labelledby="cta-head">
+      <section className="ed-cta-band bg-forest-deep reveal-on-scroll" aria-labelledby="cta-head">
         <div className="container">
           <div className="ed-cta-box">
             <div className="ed-cta-box__narrative">

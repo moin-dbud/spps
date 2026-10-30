@@ -7,6 +7,8 @@ import type {
   EnquiryDocument,
   AuditLogDocument,
   SessionDocument,
+  StaffDocument,
+  ContributionDocument,
 } from './types.ts';
 
 // Global cache for serverless environments (e.g. Vercel) and hot module reloading
@@ -39,6 +41,8 @@ export const COLLECTIONS = {
   ENQUIRIES: 'enquiries',
   AUDIT_LOGS: 'audit_logs',
   SESSIONS: 'sessions',
+  STAFF: 'staff',
+  CONTRIBUTIONS: 'contributions',
 } as const;
 
 let indexesInitialized = false;
@@ -76,6 +80,14 @@ export async function initIndexes(db: Db): Promise<void> {
 
     const auditCol = db.collection<AuditLogDocument>(COLLECTIONS.AUDIT_LOGS);
     await auditCol.createIndex({ timestamp: -1 });
+
+    const staffCol = db.collection<StaffDocument>(COLLECTIONS.STAFF);
+    await staffCol.createIndex({ id: 1 }, { unique: true });
+    await staffCol.createIndex({ displayOrder: 1, published: 1 });
+
+    const contribCol = db.collection<ContributionDocument>(COLLECTIONS.CONTRIBUTIONS);
+    await contribCol.createIndex({ id: 1 }, { unique: true });
+    await contribCol.createIndex({ submittedAt: -1, status: 1 });
 
     indexesInitialized = true;
   } catch (err) {
@@ -197,3 +209,12 @@ export function getAuditLogsCollection(db: Db): Collection<AuditLogDocument> {
 export function getSessionsCollection(db: Db): Collection<SessionDocument> {
   return db.collection<SessionDocument>(COLLECTIONS.SESSIONS);
 }
+
+export function getStaffCollection(db: Db): Collection<StaffDocument> {
+  return db.collection<StaffDocument>(COLLECTIONS.STAFF);
+}
+
+export function getContributionsCollection(db: Db): Collection<ContributionDocument> {
+  return db.collection<ContributionDocument>(COLLECTIONS.CONTRIBUTIONS);
+}
+

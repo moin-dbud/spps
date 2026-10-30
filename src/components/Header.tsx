@@ -18,8 +18,10 @@ const MAIN_NAV = [
 
 /* ── "More" dropdown links ── */
 const MORE_NAV = [
-  { href: "/news",    key: "news"    as const },
-  { href: "/gallery", key: "gallery" as const },
+  { href: "/teaching-staff", key: "teachingStaff" as const },
+  { href: "/contribution",   key: "contribution"  as const },
+  { href: "/news",           key: "news"          as const },
+  { href: "/gallery",        key: "gallery"       as const },
 ];
 
 export default function Header() {
