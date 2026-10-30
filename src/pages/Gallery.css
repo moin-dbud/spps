@@ -8,16 +8,17 @@
 }
 
 .gallery-page .page-header {
-  background: var(--clr-parchment-light);
-  color: var(--clr-forest-950);
-  padding-top: calc(var(--nav-h) + var(--space-12));
-  padding-bottom: var(--space-12);
-  border-bottom: 1px solid var(--border-hairline);
-  text-align: left;
+  background: linear-gradient(135deg, var(--clr-forest-950) 0%, var(--clr-forest-800) 100%);
+  color: var(--clr-parchment-25);
+  padding-top: calc(var(--nav-h) + var(--space-16));
+  padding-bottom: var(--space-16);
+  padding-inline: var(--space-6);
+  border-bottom: none;
+  text-align: center;
 }
 
 .gallery-page .page-header__title {
-  color: var(--clr-forest-950);
+  color: var(--clr-parchment-25);
   font-family: var(--font-heading);
   font-size: clamp(2.2rem, 4vw, 3.5rem);
   font-weight: 700;
@@ -27,15 +28,16 @@
 }
 
 .gallery-page .page-header__sub {
-  color: var(--clr-charcoal-600);
+  color: rgba(253, 252, 249, 0.75);
   font-size: 1.0625rem;
-  max-width: 68ch;
+  max-width: 52ch;
   line-height: 1.6;
+  margin-inline: auto;
 }
 
 .gallery-section {
   background: var(--clr-parchment-50);
-  padding-block: var(--space-12) var(--space-20);
+  padding-block: var(--space-8) var(--space-20);
 }
 
 /* Category Filter Bar */
