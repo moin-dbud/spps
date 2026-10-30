@@ -344,6 +344,32 @@ export async function apiDeleteGallery(id: string): Promise<boolean> {
   }
 }
 
+// ================= DASHBOARD STATS API =================
+export interface DashboardStats {
+  totalAdmins: number;
+  totalGallery: number;
+  publishedNews: number;
+  totalNotices: number;
+  pendingNotices: number;
+  publishedNotices: number;
+  totalNews: number;
+  totalEnquiries: number;
+  recentNews: Array<{ id: string; title: string; date: string; category: string; published: boolean }>;
+}
+
+export async function apiGetDashboardStats(): Promise<DashboardStats | null> {
+  try {
+    const res = await fetch('/api/admin/stats', { headers: getAuthHeaders() });
+    if (res.ok) {
+      const data = await res.json();
+      return data.stats || null;
+    }
+  } catch {
+    // network error — fall through
+  }
+  return null;
+}
+
 // ================= SETTINGS API =================
 export async function apiFetchSettings(): Promise<Partial<SchoolConfigType> | null> {
   const res = await fetch('/api/settings');

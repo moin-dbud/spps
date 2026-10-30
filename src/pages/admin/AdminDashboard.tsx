@@ -47,9 +47,11 @@ import {
   apiDeleteAdmin,
   apiUpdateProfile,
   apiChangePassword,
+  apiGetDashboardStats,
   type AdminUser,
   type AdminRole,
   type AuditLog,
+  type DashboardStats,
 } from "../../utils/api";
 import "./AdminDashboard.css";
 import "./AdminAccounts.css";
@@ -272,6 +274,19 @@ export default function AdminDashboard() {
   const pendingNotices = news.filter((n) => !n.published && n.category === "notice").length;
   const totalNotices = news.filter((n) => n.category === "notice").length;
   const isSuperAdmin = currentAdmin?.role === "Super Admin";
+
+  /* ---------- DB dashboard stats ---------- */
+  const [dbStats, setDbStats] = useState<DashboardStats | null>(null);
+  const [statsLoading, setStatsLoading] = useState(false);
+
+  useEffect(() => {
+    if (activeTab === "dashboard") {
+      setStatsLoading(true);
+      apiGetDashboardStats()
+        .then((s) => setDbStats(s))
+        .finally(() => setStatsLoading(false));
+    }
+  }, [activeTab]);
 
   const TAB_TITLES: Record<AdminTab, string> = {
     dashboard: "Dashboard",
@@ -520,6 +535,9 @@ export default function AdminDashboard() {
             totalNotices={totalNotices}
             onNavigate={setActiveTab}
             isSuperAdmin={isSuperAdmin}
+            dbStats={dbStats}
+            statsLoading={statsLoading}
+            currentAdmin={currentAdmin}
           />
         )}
         {activeTab === "gallery" && (
@@ -560,7 +578,15 @@ export default function AdminDashboard() {
    DASHBOARD OVERVIEW
    ========================================================= */
 function DashboardOverview({
-  galleryCount, publishedNews, pendingNotices, totalNotices, onNavigate, isSuperAdmin,
+  galleryCount,
+  publishedNews,
+  pendingNotices,
+  totalNotices,
+  onNavigate,
+  isSuperAdmin,
+  dbStats,
+  statsLoading,
+  currentAdmin,
 }: {
   galleryCount: number;
   publishedNews: number;
@@ -568,35 +594,205 @@ function DashboardOverview({
   totalNotices: number;
   onNavigate: (tab: AdminTab) => void;
   isSuperAdmin: boolean;
+  dbStats: DashboardStats | null;
+  statsLoading: boolean;
+  currentAdmin: AdminUser | null;
 }) {
+  const { settings } = useSchoolSettings();
+
+  // Use DB values with local fallback
+  const totalAdmins = dbStats?.totalAdmins ?? null;
+  const dbGallery = dbStats?.totalGallery ?? galleryCount;
+  const dbPublishedNews = dbStats?.publishedNews ?? publishedNews;
+  const dbPendingNotices = dbStats?.pendingNotices ?? pendingNotices;
+  const dbTotalNotices = dbStats?.totalNotices ?? totalNotices;
+  const dbTotalNews = dbStats?.totalNews ?? (publishedNews + pendingNotices);
+  const recentNews = dbStats?.recentNews ?? [];
+
+  // Chart data: content breakdown
+  const chartTotal = dbTotalNews || 1;
+  const categoryData = [
+    { label: "Notices", count: dbTotalNotices, color: "#10b981" },
+    { label: "News", count: dbPublishedNews, color: "#3b82f6" },
+    { label: "Pending", count: dbPendingNotices, color: "#f59e0b" },
+    { label: "Gallery", count: dbGallery, color: "#8b5cf6" },
+  ];
+
+  // Donut: published vs draft
+  const publishedPct = dbTotalNews > 0 ? Math.round(((dbPublishedNews + (dbStats?.publishedNotices ?? 0)) / dbTotalNews) * 100) : 0;
+  const draftPct = 100 - publishedPct;
+
+  const donutStyle = {
+    background: `conic-gradient(#10b981 0% ${publishedPct}%, #e5e7eb ${publishedPct}% 100%)`,
+  } as React.CSSProperties;
+
   return (
     <div className="admin-section">
       <h1 className="admin-page-title">Dashboard</h1>
-      <p className="admin-page-sub">Welcome back. Here is a summary of school content.</p>
+      <p className="admin-page-sub">Welcome back, {currentAdmin?.displayName || "Admin"}. Here's your school overview.</p>
 
-      <div className="admin-stats-grid">
-        <div className="admin-stat-card">
-          <div className="admin-stat-card__icon"><Image size={22} /></div>
-          <div className="admin-stat-card__num">{galleryCount}</div>
-          <div className="admin-stat-card__label">Total Gallery Items</div>
+      {/* ── 5-stat grid ── */}
+      <div className="admin-stats-grid--5">
+        <div className="admin-stat-card admin-stat-card--blue">
+          <div className="admin-stat-card__icon"><Users size={22} /></div>
+          <div className="admin-stat-card__num">
+            {statsLoading ? <span className="admin-stat-loading" /> : (totalAdmins ?? "—")}
+          </div>
+          <div className="admin-stat-card__label">Total Admins</div>
         </div>
-        <div className="admin-stat-card">
+        <div className="admin-stat-card admin-stat-card--purple">
+          <div className="admin-stat-card__icon"><Image size={22} /></div>
+          <div className="admin-stat-card__num">
+            {statsLoading ? <span className="admin-stat-loading" /> : dbGallery}
+          </div>
+          <div className="admin-stat-card__label">Gallery Items</div>
+        </div>
+        <div className="admin-stat-card admin-stat-card--green">
           <div className="admin-stat-card__icon"><Newspaper size={22} /></div>
-          <div className="admin-stat-card__num">{publishedNews}</div>
+          <div className="admin-stat-card__num">
+            {statsLoading ? <span className="admin-stat-loading" /> : dbPublishedNews}
+          </div>
           <div className="admin-stat-card__label">Published News</div>
         </div>
-        <div className="admin-stat-card admin-stat-card--warn">
+        <div className="admin-stat-card admin-stat-card--amber">
           <div className="admin-stat-card__icon"><AlertCircle size={22} /></div>
-          <div className="admin-stat-card__num">{pendingNotices}</div>
+          <div className="admin-stat-card__num">
+            {statsLoading ? <span className="admin-stat-loading" /> : dbPendingNotices}
+          </div>
           <div className="admin-stat-card__label">Pending Notices</div>
         </div>
-        <div className="admin-stat-card">
+        <div className="admin-stat-card admin-stat-card--teal">
           <div className="admin-stat-card__icon"><FileText size={22} /></div>
-          <div className="admin-stat-card__num">{totalNotices}</div>
+          <div className="admin-stat-card__num">
+            {statsLoading ? <span className="admin-stat-loading" /> : dbTotalNotices}
+          </div>
           <div className="admin-stat-card__label">Total Notices</div>
         </div>
       </div>
 
+      {/* ── Charts + Recent News + Info ── */}
+      <div className="admin-dashboard-grid">
+
+        {/* Content Breakdown Bar Chart */}
+        <div className="admin-chart-card">
+          <p className="admin-chart-card__title">Content Breakdown</p>
+          <div className="admin-chart-bars">
+            {categoryData.map((bar) => (
+              <div key={bar.label} className="admin-chart-bar-row">
+                <span className="admin-chart-bar-label">{bar.label}</span>
+                <div className="admin-chart-bar-track">
+                  <div
+                    className="admin-chart-bar-fill"
+                    style={{
+                      width: `${Math.max(4, Math.round((bar.count / chartTotal) * 100))}%`,
+                      background: bar.color,
+                    }}
+                  />
+                </div>
+                <span className="admin-chart-bar-count">{bar.count}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Published vs Draft Donut */}
+        <div className="admin-chart-card">
+          <p className="admin-chart-card__title">Publication Status</p>
+          <div className="admin-donut-wrap">
+            <div
+              className="admin-donut"
+              style={donutStyle}
+              title={`${publishedPct}% published`}
+            />
+            <div className="admin-donut-legend">
+              <div className="admin-donut-legend-item">
+                <span className="admin-donut-legend-dot" style={{ background: "#10b981" }} />
+                <span>Published — <strong>{publishedPct}%</strong></span>
+              </div>
+              <div className="admin-donut-legend-item">
+                <span className="admin-donut-legend-dot" style={{ background: "#e5e7eb" }} />
+                <span>Draft — <strong>{draftPct}%</strong></span>
+              </div>
+              <div className="admin-donut-legend-item" style={{ marginTop: "0.5rem" }}>
+                <span className="admin-donut-legend-dot" style={{ background: "#3b82f6" }} />
+                <span>Total content: <strong>{dbTotalNews}</strong></span>
+              </div>
+              {dbStats?.totalEnquiries != null && (
+                <div className="admin-donut-legend-item">
+                  <span className="admin-donut-legend-dot" style={{ background: "#f59e0b" }} />
+                  <span>Enquiries: <strong>{dbStats.totalEnquiries}</strong></span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Recent News/Notices */}
+        <div className="admin-chart-card">
+          <p className="admin-chart-card__title">Recent Content</p>
+          {recentNews.length === 0 ? (
+            <p style={{ fontSize: "0.875rem", color: "var(--clr-neutral-500)" }}>
+              {statsLoading ? "Loading…" : "No content yet."}
+            </p>
+          ) : (
+            <div className="admin-recent-news-list">
+              {recentNews.map((item, i) => (
+                <div key={item.id} className="admin-recent-news-item">
+                  <span className="admin-recent-news-item__num">#{i + 1}</span>
+                  <div className="admin-recent-news-item__body">
+                    <p className="admin-recent-news-item__title">{item.title}</p>
+                    <div className="admin-recent-news-item__meta">
+                      <span className="admin-badge admin-badge--cat">{item.category}</span>
+                      <span>{item.date}</span>
+                      <span className={`admin-badge ${item.published ? "admin-badge--pub" : "admin-badge--draft"}`}>
+                        {item.published ? "Published" : "Draft"}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* School Info Panel */}
+        <div className="admin-chart-card">
+          <p className="admin-chart-card__title">School At a Glance</p>
+          <div className="admin-info-panel">
+            <div className="admin-info-row">
+              <span className="admin-info-row__key">School</span>
+              <span className="admin-info-row__val">{settings?.name?.english || SCHOOL_CONFIG.name.english}</span>
+            </div>
+            <div className="admin-info-row">
+              <span className="admin-info-row__key">Management</span>
+              <span className="admin-info-row__val">{settings?.management || SCHOOL_CONFIG.management}</span>
+            </div>
+            <div className="admin-info-row">
+              <span className="admin-info-row__key">City</span>
+              <span className="admin-info-row__val">{settings?.address?.city || SCHOOL_CONFIG.address.city}</span>
+            </div>
+            <div className="admin-info-row">
+              <span className="admin-info-row__key">Contact</span>
+              <span className="admin-info-row__val">{settings?.contact?.phone || SCHOOL_CONFIG.contact.phone}</span>
+            </div>
+            <div className="admin-info-row">
+              <span className="admin-info-row__key">Logged in as</span>
+              <span className="admin-info-row__val">{currentAdmin?.displayName} ({currentAdmin?.role})</span>
+            </div>
+            <div className="admin-info-row">
+              <span className="admin-info-row__key">Last login</span>
+              <span className="admin-info-row__val">
+                {currentAdmin?.lastLogin
+                  ? new Date(currentAdmin.lastLogin).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })
+                  : "—"}
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      {/* ── Quick Actions ── */}
       <h2 className="admin-section-heading">Quick Actions</h2>
       <div className="admin-quick-actions">
         <button className="admin-action-btn" onClick={() => onNavigate("gallery")}>

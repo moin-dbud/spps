@@ -277,6 +277,52 @@ export async function handleApiRequest(req: IncomingMessage, res: ServerResponse
   }
 
   // ==========================================
+  // DASHBOARD STATS
+  // ==========================================
+
+  // GET /api/admin/stats
+  if (url === '/api/admin/stats' && req.method === 'GET') {
+    if (!session) {
+      sendJson(res, 401, { success: false, error: 'Unauthorized' });
+      return;
+    }
+    try {
+      const [adminsCount, newsAll, galleryCount, enquiriesCount] = await Promise.all([
+        getAdminsCollection(db).countDocuments({ status: 'Active' }),
+        getNewsCollection(db).find({}).toArray(),
+        getGalleryCollection(db).countDocuments(),
+        getEnquiriesCollection(db).countDocuments(),
+      ]);
+      const publishedNews = (newsAll as any[]).filter((n) => n.published && n.category !== 'notice').length;
+      const totalNotices = (newsAll as any[]).filter((n) => n.category === 'notice').length;
+      const pendingNotices = (newsAll as any[]).filter((n) => !n.published && n.category === 'notice').length;
+      const publishedNotices = (newsAll as any[]).filter((n) => n.published && n.category === 'notice').length;
+      const totalNews = (newsAll as any[]).length;
+      const recentNews = [...(newsAll as any[])]
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .slice(0, 5)
+        .map((n) => ({ id: n.id, title: n.titleEn || n.title || '', date: n.date, category: n.category, published: n.published }));
+      sendJson(res, 200, {
+        success: true,
+        stats: {
+          totalAdmins: adminsCount,
+          totalGallery: galleryCount,
+          publishedNews,
+          totalNotices,
+          pendingNotices,
+          publishedNotices,
+          totalNews,
+          totalEnquiries: enquiriesCount,
+          recentNews,
+        },
+      });
+    } catch (e: any) {
+      sendJson(res, 500, { success: false, error: e.message });
+    }
+    return;
+  }
+
+  // ==========================================
   // ADMIN PROFILE & PASSWORD
   // ==========================================
 
