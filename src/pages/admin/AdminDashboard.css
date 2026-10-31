@@ -27,29 +27,29 @@
 
 .admin-layout {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
   background: var(--clr-neutral-50);
   position: relative;
 }
 
 .admin-sidebar {
   width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+  height: 100%;
   background: var(--clr-green-900);
   color: white;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  height: 100vh;
-  height: 100dvh;
-  z-index: 50;
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+  z-index: 50;
 }
 
 .admin-sidebar::-webkit-scrollbar {
@@ -127,12 +127,13 @@
 
 .admin-content {
   flex: 1;
-  margin-left: 260px;
-  width: calc(100% - 260px);
-  min-width: 0;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: var(--space-8);
-  min-height: 100vh;
   box-sizing: border-box;
+  min-width: 0;
+  background: var(--clr-neutral-50);
 }
 
 .admin-page-title {
@@ -1444,7 +1445,10 @@
 @media (max-width: 768px) {
   .admin-layout {
     flex-direction: column;
+    height: auto;
     min-height: 100vh;
+    min-height: 100dvh;
+    overflow: visible;
   }
 
   /* Hide Desktop Sidebar on Mobile */
@@ -1579,6 +1583,8 @@
   .admin-content {
     margin-left: 0;
     width: 100%;
+    height: auto;
+    overflow-y: visible;
     padding: var(--space-4) var(--space-4) var(--space-10);
     max-width: 100%;
     overflow-x: hidden;

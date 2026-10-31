@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import "./index.css";
 import { I18nProvider } from "./i18n";
 import { SchoolSettingsProvider } from "./context/SchoolSettingsContext";
 import Layout from "./components/Layout";
@@ -14,7 +15,6 @@ import TeachingStaff from "./pages/TeachingStaff";
 import Contribution from "./pages/Contribution";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
-import "./index.css";
 
 export default function App() {
   return (
