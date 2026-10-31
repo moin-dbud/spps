@@ -558,6 +558,10 @@ The administrative panel is accessed at `/admin/login` and managed from [`src/pa
 ### 8.4 School Information & Settings (`settings`)
 - Manages institutional metadata synced across the website header, footer, contact page, and structured data.
 - Includes trilingual school name definitions, contact telephone numbers, official WhatsApp link, administrative emails, physical address, and principal/headmaster designations.
+- **Website Maintenance Mode Control:** Features an instant 1-click button to toggle site-wide maintenance mode ON or OFF.
+  - When **ON**: Public visitors are redirected to an authentic, localized Maintenance Screen with school crest, localized explanation, and emergency contact details (phone, email, campus address).
+  - Admins retain uninterrupted access to `/admin/login` and `/admin/dashboard`, and see a sticky warning banner when previewing public pages.
+  - Includes a trilingual customizer using `<MultilingualField>` allowing admins to tailor maintenance notices in English, Marathi, and Hindi.
 
 ### 8.5 Teaching Staff Management (`staff`)
 - *Restricted to Super Admin role.*

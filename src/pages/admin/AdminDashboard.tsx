@@ -35,6 +35,8 @@ import {
   GraduationCap,
   HeartHandshake,
   ShieldAlert,
+  Wrench,
+  Power,
 } from "lucide-react";
 import { SCHOOL_CONFIG } from "../../config/school";
 import { useSchoolSettings } from "../../context/SchoolSettingsContext";
@@ -690,6 +692,47 @@ function DashboardOverview({
     <div className="admin-section">
       <h1 className="admin-page-title">Dashboard</h1>
       <p className="admin-page-sub">Welcome back, {currentAdmin?.displayName || "Admin"}. Here's your school overview.</p>
+
+      {/* Maintenance Mode Alert for Admins */}
+      {settings?.maintenanceMode && (
+        <div
+          style={{
+            background: "#fffbeb",
+            border: "1px solid #fde68a",
+            borderLeft: "5px solid #d97706",
+            color: "#92400e",
+            padding: "14px 18px",
+            borderRadius: "var(--radius-lg)",
+            marginBottom: "24px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: "12px",
+            boxShadow: "0 2px 8px rgba(217, 119, 6, 0.08)",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <Wrench size={22} color="#d97706" />
+            <div>
+              <div style={{ fontWeight: 700, fontSize: "0.9375rem" }}>
+                Website Maintenance Mode is Currently ACTIVE
+              </div>
+              <div style={{ fontSize: "0.8125rem", color: "#b45309" }}>
+                Public visitors see the maintenance screen. Only logged-in administrators can view site content.
+              </div>
+            </div>
+          </div>
+          <button
+            type="button"
+            className="admin-action-btn admin-action-btn--ghost"
+            style={{ padding: "6px 16px", fontSize: "0.8125rem", background: "#ffffff", borderColor: "#fde68a" }}
+            onClick={() => onNavigate("settings")}
+          >
+            Manage in Settings
+          </button>
+        </div>
+      )}
 
       {/* ── 5-stat grid ── */}
       <div className="admin-stats-grid--5">
@@ -2360,6 +2403,10 @@ function SettingsTab() {
     youtube: settings.social.youtube || "",
     instagram: settings.social.instagram || "",
     enquiryFormUrl: settings.enquiryFormUrl || "",
+    maintenanceMode: settings.maintenanceMode || false,
+    maintenanceMessageEn: settings.maintenanceMessage?.english || "Our school website is currently undergoing scheduled maintenance to improve our digital services. Please check back shortly.",
+    maintenanceMessageMr: settings.maintenanceMessage?.marathi || "शाळेची वेबसाईट सध्या नियोजित देखभालीखाली (मेंटेनन्स) आहे. नवीन अद्यतनांसह आम्ही लवकरच पूर्ववत उपलब्ध होऊ. गैरसोयीबद्दल क्षमस्व.",
+    maintenanceMessageHi: settings.maintenanceMessage?.hindi || "विद्यालय की वेबसाइट वर्तमान में निर्धारित रखरखाव के अधीन है। डिजिटल सेवाओं को बेहतर बनाने का कार्य जारी है। कृपया कुछ समय बाद पुनः प्रयास करें।",
   });
 
   const [savedSuccess, setSavedSuccess] = useState(false);
@@ -2387,8 +2434,35 @@ function SettingsTab() {
       youtube: settings.social.youtube || "",
       instagram: settings.social.instagram || "",
       enquiryFormUrl: settings.enquiryFormUrl || "",
+      maintenanceMode: settings.maintenanceMode || false,
+      maintenanceMessageEn: settings.maintenanceMessage?.english || "Our school website is currently undergoing scheduled maintenance to improve our digital services. Please check back shortly.",
+      maintenanceMessageMr: settings.maintenanceMessage?.marathi || "शाळेची वेबसाईट सध्या नियोजित देखभालीखाली (मेंटेनन्स) आहे. नवीन अद्यतनांसह आम्ही लवकरच पूर्ववत उपलब्ध होऊ. गैरसोयीबद्दल क्षमस्व.",
+      maintenanceMessageHi: settings.maintenanceMessage?.hindi || "विद्यालय की वेबसाइट वर्तमान में निर्धारित रखरखाव के अधीन है। डिजिटल सेवाओं को बेहतर बनाने का कार्य जारी है। कृपया कुछ समय बाद पुनः प्रयास करें।",
     });
   }, [settings]);
+
+  const handleToggleMaintenance = async () => {
+    const nextMode = !formData.maintenanceMode;
+    const confirmMsg = nextMode
+      ? "Turn ON Website Maintenance Mode?\n\nPublic visitors will immediately see the maintenance screen with official contact information. You will still have full access to the admin dashboard."
+      : "Turn OFF Website Maintenance Mode?\n\nThe website will immediately go live to all public visitors.";
+
+    if (window.confirm(confirmMsg)) {
+      setFormData((prev) => ({ ...prev, maintenanceMode: nextMode }));
+      const ok = await updateSettings({
+        maintenanceMode: nextMode,
+        maintenanceMessage: {
+          english: formData.maintenanceMessageEn,
+          marathi: formData.maintenanceMessageMr,
+          hindi: formData.maintenanceMessageHi,
+        },
+      });
+      if (ok) {
+        setSavedSuccess(true);
+        setTimeout(() => setSavedSuccess(false), 4000);
+      }
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -2422,6 +2496,12 @@ function SettingsTab() {
         instagram: formData.instagram,
       },
       enquiryFormUrl: formData.enquiryFormUrl,
+      maintenanceMode: formData.maintenanceMode,
+      maintenanceMessage: {
+        english: formData.maintenanceMessageEn,
+        marathi: formData.maintenanceMessageMr,
+        hindi: formData.maintenanceMessageHi,
+      },
     });
 
     if (ok) {
@@ -2475,6 +2555,117 @@ function SettingsTab() {
       )}
 
       <form onSubmit={handleSubmit}>
+        {/* ─── SITE MAINTENANCE MODE CONTROL CARD ─── */}
+        <div
+          className="admin-form-card"
+          style={{
+            marginBottom: "24px",
+            borderLeft: formData.maintenanceMode ? "5px solid #d97706" : "5px solid #10b981",
+            background: formData.maintenanceMode ? "#fffbeb" : "#ffffff",
+            transition: "all 0.25s ease",
+            boxShadow: formData.maintenanceMode
+              ? "0 4px 16px rgba(217, 119, 6, 0.12)"
+              : "0 1px 3px rgba(0, 0, 0, 0.05)",
+          }}
+        >
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "16px" }}>
+            <div style={{ flex: 1, minWidth: "280px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px", flexWrap: "wrap" }}>
+                <Wrench size={22} color={formData.maintenanceMode ? "#d97706" : "var(--clr-green-700)"} />
+                <h3 className="admin-form-card__title" style={{ margin: 0, fontSize: "1.125rem" }}>
+                  Website Maintenance Mode
+                </h3>
+                <span
+                  style={{
+                    fontSize: "0.75rem",
+                    fontWeight: 700,
+                    padding: "3px 12px",
+                    borderRadius: "var(--radius-full)",
+                    background: formData.maintenanceMode ? "#fef3c7" : "#d1fae5",
+                    color: formData.maintenanceMode ? "#92400e" : "#065f46",
+                    border: `1px solid ${formData.maintenanceMode ? "#fde68a" : "#a7f3d0"}`,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                  }}
+                >
+                  {formData.maintenanceMode ? "● Maintenance Mode ACTIVE" : "● Website LIVE (Normal)"}
+                </span>
+              </div>
+              <p style={{ margin: 0, fontSize: "0.875rem", color: "var(--clr-charcoal-600)", lineHeight: 1.5, maxWidth: "65ch" }}>
+                {formData.maintenanceMode
+                  ? "Public visitors are currently seeing the dedicated maintenance notice with school contact details. Authorized administrators can still log in and view pages."
+                  : "Turn this ON when performing updates, structural changes, or technical work to present visitors with an authentic institutional maintenance screen."}
+              </p>
+            </div>
+
+            {/* Quick Toggle Button */}
+            <button
+              type="button"
+              onClick={handleToggleMaintenance}
+              disabled={isLoading}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "10px",
+                padding: "10px 24px",
+                borderRadius: "var(--radius-full)",
+                fontWeight: 700,
+                fontSize: "0.9375rem",
+                cursor: "pointer",
+                border: "none",
+                color: "#ffffff",
+                background: formData.maintenanceMode
+                  ? "linear-gradient(135deg, #10b981 0%, #059669 100%)"
+                  : "linear-gradient(135deg, #d97706 0%, #b45309 100%)",
+                boxShadow: "0 4px 14px rgba(0, 0, 0, 0.15)",
+                transition: "all var(--transition-fast)",
+                userSelect: "none",
+              }}
+            >
+              <Power size={18} />
+              <span>{formData.maintenanceMode ? "Turn Maintenance Mode OFF (Go Live)" : "Turn Maintenance Mode ON"}</span>
+            </button>
+          </div>
+
+          {/* Optional Customizable Maintenance Message */}
+          {formData.maintenanceMode && (
+            <div style={{ marginTop: "20px", paddingTop: "18px", borderTop: "1px dashed #fde68a" }}>
+              <div style={{ marginBottom: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <label className="admin-form-label" style={{ margin: 0, fontWeight: 700, color: "#92400e" }}>
+                  Maintenance Notice Message for Visitors:
+                </label>
+                <span style={{ fontSize: "0.75rem", color: "#b45309" }}>
+                  (Visitors will see this in their chosen language)
+                </span>
+              </div>
+              <MultilingualField
+                label="Maintenance Announcement"
+                type="textarea"
+                rows={2}
+                context="general"
+                values={{
+                  en: formData.maintenanceMessageEn,
+                  mr: formData.maintenanceMessageMr,
+                  hi: formData.maintenanceMessageHi,
+                }}
+                onChange={(v) =>
+                  setFormData((prev: any) => ({
+                    ...prev,
+                    maintenanceMessageEn: v.en,
+                    maintenanceMessageMr: v.mr,
+                    maintenanceMessageHi: v.hi,
+                  }))
+                }
+                placeholder={{
+                  en: "Our school website is currently undergoing scheduled maintenance...",
+                  mr: "शाळेची वेबसाईट सध्या नियोजित देखभालीखाली आहे...",
+                  hi: "विद्यालय की वेबसाइट वर्तमान में निर्धारित रखरखाव के अधीन है...",
+                }}
+              />
+            </div>
+          )}
+        </div>
+
         <div className="admin-form-card" style={{ marginBottom: "24px" }}>
           <h3 className="admin-form-card__title" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <Building2 size={18} color="var(--clr-green-700)" /> School Name &amp; Governance

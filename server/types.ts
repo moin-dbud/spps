@@ -51,6 +51,12 @@ export interface SettingsDocument {
   principal: string;
   headTeacher: string;
   academicYear: string;
+  maintenanceMode?: boolean;
+  maintenanceMessage?: {
+    english?: string;
+    marathi?: string;
+    hindi?: string;
+  };
   updatedAt?: string;
 }
 

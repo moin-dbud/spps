@@ -32,6 +32,7 @@ export const SchoolSettingsProvider: React.FC<{ children: React.ReactNode }> = (
           address: { ...SCHOOL_CONFIG.address, ...(parsed.address || {}) },
           contact: { ...SCHOOL_CONFIG.contact, ...(parsed.contact || {}) },
           social: { ...SCHOOL_CONFIG.social, ...(parsed.social || {}) },
+          maintenanceMessage: { ...SCHOOL_CONFIG.maintenanceMessage, ...(parsed.maintenanceMessage || {}) },
         };
       }
     } catch (e) {
@@ -60,6 +61,7 @@ export const SchoolSettingsProvider: React.FC<{ children: React.ReactNode }> = (
                 address: { ...SCHOOL_CONFIG.address, ...(data.address || {}) },
                 contact: { ...SCHOOL_CONFIG.contact, ...(data.contact || {}) },
                 social: { ...SCHOOL_CONFIG.social, ...(data.social || {}) },
+                maintenanceMessage: { ...SCHOOL_CONFIG.maintenanceMessage, ...(data.maintenanceMessage || {}) },
               };
               setSettings(merged);
               localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
@@ -86,6 +88,7 @@ export const SchoolSettingsProvider: React.FC<{ children: React.ReactNode }> = (
         address: { ...settings.address, ...(newSettings.address || {}) },
         contact: { ...settings.contact, ...(newSettings.contact || {}) },
         social: { ...settings.social, ...(newSettings.social || {}) },
+        maintenanceMessage: { ...(settings.maintenanceMessage || SCHOOL_CONFIG.maintenanceMessage!), ...(newSettings.maintenanceMessage || {}) },
       };
 
       setSettings(updated);
