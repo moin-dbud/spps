@@ -752,8 +752,8 @@ export async function handleApiRequest(req: IncomingMessage, res: ServerResponse
     return;
   }
 
-  // POST /api/settings
-  if (url === '/api/settings' && req.method === 'POST') {
+  // POST or PUT /api/settings
+  if (url === '/api/settings' && (req.method === 'POST' || req.method === 'PUT')) {
     if (!session) {
       sendJson(res, 401, { success: false, error: 'Unauthorized' });
       return;
@@ -763,15 +763,23 @@ export async function handleApiRequest(req: IncomingMessage, res: ServerResponse
       const payload = await parseRequestBody(req);
       const settingsCol = getSettingsCollection(db);
 
-      const updateData = {
+      const updateData: any = {
         ...payload,
         key: 'main',
         updatedAt: new Date().toISOString(),
       };
+      if (payload.maintenanceMode !== undefined) {
+        updateData.maintenanceMode = Boolean(payload.maintenanceMode);
+      }
       delete updateData._id;
 
       await settingsCol.updateOne({ key: 'main' }, { $set: updateData }, { upsert: true });
-      await logAudit(db, session.username, 'Settings', 'Updated school settings & links');
+
+      const auditAction = payload.maintenanceMode !== undefined
+        ? (payload.maintenanceMode ? 'Activated website maintenance mode' : 'Deactivated website maintenance mode')
+        : 'Updated school configuration & settings';
+
+      await logAudit(db, session.username, 'Settings', auditAction);
 
       const saved = await settingsCol.findOne({ key: 'main' });
       sendJson(res, 200, { success: true, settings: saved });

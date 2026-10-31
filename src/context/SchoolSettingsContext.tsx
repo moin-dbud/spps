@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { SCHOOL_CONFIG, type SchoolConfigType } from "../config/school";
+import { getAuthHeaders } from "../utils/api";
 
 interface SchoolSettingsContextType {
   settings: SchoolConfigType;
@@ -33,6 +34,7 @@ export const SchoolSettingsProvider: React.FC<{ children: React.ReactNode }> = (
           contact: { ...SCHOOL_CONFIG.contact, ...(parsed.contact || {}) },
           social: { ...SCHOOL_CONFIG.social, ...(parsed.social || {}) },
           maintenanceMessage: { ...SCHOOL_CONFIG.maintenanceMessage, ...(parsed.maintenanceMessage || {}) },
+          maintenanceMode: parsed.maintenanceMode !== undefined ? Boolean(parsed.maintenanceMode) : false,
         };
       }
     } catch (e) {
@@ -44,12 +46,13 @@ export const SchoolSettingsProvider: React.FC<{ children: React.ReactNode }> = (
   const [isLoading, setIsLoading] = useState(false);
   const [lastSaved, setLastSaved] = useState<string | null>(null);
 
-  // Sync from backend /api/settings on mount
+  // Sync from backend /api/settings on mount and regularly
   useEffect(() => {
     let isMounted = true;
+
     const fetchBackendSettings = async () => {
       try {
-        const res = await fetch("/api/settings");
+        const res = await fetch("/api/settings", { cache: "no-store" });
         if (res.ok) {
           const data = await res.json();
           if (data && typeof data === "object" && Object.keys(data).length > 0) {
@@ -62,6 +65,7 @@ export const SchoolSettingsProvider: React.FC<{ children: React.ReactNode }> = (
                 contact: { ...SCHOOL_CONFIG.contact, ...(data.contact || {}) },
                 social: { ...SCHOOL_CONFIG.social, ...(data.social || {}) },
                 maintenanceMessage: { ...SCHOOL_CONFIG.maintenanceMessage, ...(data.maintenanceMessage || {}) },
+                maintenanceMode: data.maintenanceMode !== undefined ? Boolean(data.maintenanceMode) : false,
               };
               setSettings(merged);
               localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
@@ -72,9 +76,27 @@ export const SchoolSettingsProvider: React.FC<{ children: React.ReactNode }> = (
         // Backend not available (e.g. static host) - localStorage fallback already active
       }
     };
+
     fetchBackendSettings();
+
+    // Listen for localStorage changes from other tabs or windows
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === STORAGE_KEY && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
+          setSettings((prev) => ({ ...prev, ...parsed }));
+        } catch {}
+      }
+    };
+    window.addEventListener("storage", handleStorageChange);
+
+    // Poll every 12 seconds to ensure public users and all open windows see maintenance mode changes immediately
+    const intervalId = setInterval(fetchBackendSettings, 12000);
+
     return () => {
       isMounted = false;
+      window.removeEventListener("storage", handleStorageChange);
+      clearInterval(intervalId);
     };
   }, []);
 
@@ -88,19 +110,41 @@ export const SchoolSettingsProvider: React.FC<{ children: React.ReactNode }> = (
         address: { ...settings.address, ...(newSettings.address || {}) },
         contact: { ...settings.contact, ...(newSettings.contact || {}) },
         social: { ...settings.social, ...(newSettings.social || {}) },
-        maintenanceMessage: { ...(settings.maintenanceMessage || SCHOOL_CONFIG.maintenanceMessage!), ...(newSettings.maintenanceMessage || {}) },
+        maintenanceMessage: {
+          ...(settings.maintenanceMessage || SCHOOL_CONFIG.maintenanceMessage!),
+          ...(newSettings.maintenanceMessage || {}),
+        },
+        maintenanceMode:
+          newSettings.maintenanceMode !== undefined
+            ? Boolean(newSettings.maintenanceMode)
+            : Boolean(settings.maintenanceMode),
       };
 
       setSettings(updated);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
 
-      // Attempt backend persistence
+      // Attempt backend persistence to MongoDB Atlas
       try {
-        await fetch("/api/settings", {
+        const res = await fetch("/api/settings", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: getAuthHeaders(),
           body: JSON.stringify(updated),
         });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.settings) {
+            const confirmed: SchoolConfigType = {
+              ...updated,
+              ...data.settings,
+              maintenanceMode: Boolean(data.settings.maintenanceMode),
+            };
+            setSettings(confirmed);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(confirmed));
+          }
+        } else {
+          console.warn("Backend API sync responded with non-200 status:", res.status);
+        }
       } catch (backendErr) {
         console.warn("Backend API sync failed, settings saved locally:", backendErr);
       }
@@ -123,7 +167,7 @@ export const SchoolSettingsProvider: React.FC<{ children: React.ReactNode }> = (
     try {
       await fetch("/api/settings", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getAuthHeaders(),
         body: JSON.stringify(SCHOOL_CONFIG),
       });
     } catch (e) {
@@ -149,4 +193,3 @@ export const SchoolSettingsProvider: React.FC<{ children: React.ReactNode }> = (
 };
 
 export const useSchoolSettings = () => useContext(SchoolSettingsContext);
-

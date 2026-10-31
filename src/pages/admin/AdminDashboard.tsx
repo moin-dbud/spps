@@ -2410,6 +2410,7 @@ function SettingsTab() {
   });
 
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [maintenanceFeedback, setMaintenanceFeedback] = useState<{ type: "success" | "error"; message: string } | null>(null);
 
   useEffect(() => {
     setFormData({
@@ -2458,8 +2459,19 @@ function SettingsTab() {
         },
       });
       if (ok) {
-        setSavedSuccess(true);
-        setTimeout(() => setSavedSuccess(false), 4000);
+        setMaintenanceFeedback({
+          type: "success",
+          message: nextMode
+            ? "Maintenance Mode successfully activated & saved to database! Public visitors now see the maintenance screen."
+            : "Maintenance Mode successfully turned OFF & saved to database! Website is now LIVE to all visitors.",
+        });
+        setTimeout(() => setMaintenanceFeedback(null), 5000);
+      } else {
+        setMaintenanceFeedback({
+          type: "error",
+          message: "Failed to update maintenance mode. Please check database connection.",
+        });
+        setTimeout(() => setMaintenanceFeedback(null), 5000);
       }
     }
   };
@@ -2534,6 +2546,25 @@ function SettingsTab() {
           <RotateCcw size={16} /> Reset to Defaults
         </button>
       </div>
+
+      {maintenanceFeedback && (
+        <div
+          style={{
+            background: maintenanceFeedback.type === "success" ? "#e6faf0" : "#fee2e2",
+            border: `1px solid ${maintenanceFeedback.type === "success" ? "#a3e6be" : "#fca5a5"}`,
+            color: maintenanceFeedback.type === "success" ? "#1b693a" : "#991b1b",
+            padding: "12px 16px",
+            borderRadius: "var(--radius-md)",
+            marginBottom: "20px",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+          }}
+        >
+          {maintenanceFeedback.type === "success" ? <CheckCircle2 size={18} /> : <AlertCircle size={18} />}
+          <strong>{maintenanceFeedback.message}</strong>
+        </div>
+      )}
 
       {savedSuccess && (
         <div

@@ -292,13 +292,22 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  flex: 1;
+  min-width: 260px;
+}
+
+.maintenance-admin-banner__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .maintenance-admin-banner__btn {
   background: #ffffff;
   color: #92400e;
   border: none;
-  padding: 5px 12px;
+  padding: 6px 14px;
   border-radius: var(--radius-full);
   font-weight: 700;
   font-size: 0.8125rem;
@@ -306,12 +315,22 @@
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  transition: background var(--transition-fast);
+  gap: 6px;
+  transition: all var(--transition-fast);
 }
 
 .maintenance-admin-banner__btn:hover {
   background: #fef3c7;
+}
+
+.maintenance-admin-banner__btn--danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.maintenance-admin-banner__btn--danger:hover {
+  background: #fecaca;
+  color: #7f1d1d;
 }
 
 @media (max-width: 640px) {

@@ -1,12 +1,47 @@
-import { Link } from "react-router-dom";
-import { Wrench, Phone, Mail, MapPin, Lock, Settings } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Wrench, Phone, Mail, MapPin, Lock, LayoutDashboard, Power } from "lucide-react";
 import { useSchoolSettings } from "../context/SchoolSettingsContext";
 import { useI18n, type Language } from "../i18n";
 import "./MaintenanceScreen.css";
 
 export function MaintenanceScreen() {
-  const { settings } = useSchoolSettings();
+  const { settings, updateSettings } = useSchoolSettings();
   const { lang, setLang } = useI18n();
+  const navigate = useNavigate();
+
+  // Check if current user is logged in as an administrator
+  const [isAdmin, setIsAdmin] = useState<boolean>(() => {
+    try {
+      return Boolean(
+        localStorage.getItem("spps_admin_auth") === "true" ||
+        localStorage.getItem("spps_admin_token")
+      );
+    } catch {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      setIsAdmin(
+        Boolean(
+          localStorage.getItem("spps_admin_auth") === "true" ||
+          localStorage.getItem("spps_admin_token")
+        )
+      );
+    } catch {}
+  }, []);
+
+  const handleTurnOffMaintenance = async () => {
+    if (
+      window.confirm(
+        "Turn OFF Website Maintenance Mode now?\n\nThe website will immediately go live to all public visitors."
+      )
+    ) {
+      await updateSettings({ maintenanceMode: false });
+    }
+  };
 
   // Localized school name
   const schoolName =
@@ -56,6 +91,36 @@ export function MaintenanceScreen() {
 
   return (
     <div className="maintenance-wrapper">
+      {/* ─── STICKY ADMIN CONTROL BANNER (Visible only to authenticated admins) ─── */}
+      {isAdmin && (
+        <div className="maintenance-admin-banner" role="alert">
+          <div className="maintenance-admin-banner__content">
+            <Wrench size={18} />
+            <span>
+              <strong>MAINTENANCE MODE IS ACTIVE:</strong> Public visitors only see this screen. You are previewing as an Administrator.
+            </span>
+          </div>
+          <div className="maintenance-admin-banner__actions">
+            <button
+              type="button"
+              onClick={() => navigate("/admin/dashboard")}
+              className="maintenance-admin-banner__btn"
+            >
+              <LayoutDashboard size={14} />
+              <span>Admin Dashboard</span>
+            </button>
+            <button
+              type="button"
+              onClick={handleTurnOffMaintenance}
+              className="maintenance-admin-banner__btn maintenance-admin-banner__btn--danger"
+            >
+              <Power size={14} />
+              <span>Turn OFF Maintenance</span>
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Top Bar with School Crest & Language Selector */}
       <header className="maintenance-topbar">
         <div className="maintenance-brand">
@@ -148,33 +213,20 @@ export function MaintenanceScreen() {
 
           {/* Footer with Discreet Staff Portal Link */}
           <div className="maintenance-footer">
-            <Link to="/admin/login" className="maintenance-admin-link">
-              <Lock size={14} />
-              <span>{lang === "en" ? "School Staff Login" : "प्रशासकीय कर्मचारी लॉगिन"}</span>
-            </Link>
+            {isAdmin ? (
+              <Link to="/admin/dashboard" className="maintenance-admin-link">
+                <LayoutDashboard size={14} />
+                <span>{lang === "en" ? "Return to Admin Dashboard" : "प्रशासक डॅशबोर्डवर परत जा"}</span>
+              </Link>
+            ) : (
+              <Link to="/admin/login" className="maintenance-admin-link">
+                <Lock size={14} />
+                <span>{lang === "en" ? "School Staff Login" : "प्रशासकीय कर्मचारी लॉगिन"}</span>
+              </Link>
+            )}
           </div>
         </div>
       </main>
-    </div>
-  );
-}
-
-/**
- * Top warning banner rendered when an authenticated administrator is browsing the public site while maintenance mode is active.
- */
-export function MaintenanceAdminBanner() {
-  return (
-    <div className="maintenance-admin-banner" role="alert">
-      <div className="maintenance-admin-banner__content">
-        <Wrench size={18} />
-        <span>
-          <strong>MAINTENANCE MODE IS ON:</strong> Public visitors currently see the maintenance screen. You are previewing the full website as an Administrator.
-        </span>
-      </div>
-      <Link to="/admin/dashboard" className="maintenance-admin-banner__btn">
-        <Settings size={14} />
-        <span>Manage in Settings</span>
-      </Link>
     </div>
   );
 }

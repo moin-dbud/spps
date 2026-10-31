@@ -122,6 +122,12 @@ export async function seedInitialData(db: Db, baseDir?: string): Promise<{
         principal: jsonSettings.principal || 'Shivlal Irpate Sir (शिवलाल इरपाते)',
         headTeacher: jsonSettings.headTeacher || 'Ajay Madot Sir (अजय माडोत)',
         academicYear: jsonSettings.academicYear || '2026-27',
+        maintenanceMode: jsonSettings.maintenanceMode || false,
+        maintenanceMessage: jsonSettings.maintenanceMessage || {
+          english: 'Our school website is currently undergoing scheduled maintenance to improve our digital services. Please check back shortly.',
+          marathi: 'शाळेची वेबसाईट सध्या नियोजित देखभालीखाली (मेंटेनन्स) आहे. नवीन अद्यतनांसह आम्ही लवकरच पूर्ववत उपलब्ध होऊ. गैरसोयीबद्दल क्षमस्व.',
+          hindi: 'विद्यालय की वेबसाइट वर्तमान में निर्धारित रखरखाव के अधीन है। डिजिटल सेवाओं को बेहतर बनाने का कार्य जारी है। कृपया कुछ समय बाद पुनः प्रयास करें।',
+        },
         updatedAt: new Date().toISOString(),
       };
 
