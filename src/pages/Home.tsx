@@ -186,8 +186,8 @@ export default function Home() {
             <div className="ed-metric-divider" aria-hidden />
 
             <div className="ed-metric-col">
-              <span className="ed-metric-num">Babupeth</span>
-              <span className="ed-metric-label">{l("Chandrapur, Maharashtra", "चंद्रपूर, महाराष्ट्र", "चंद्रपूर, महाराष्ट्र")}</span>
+              <span className="ed-metric-num">UDISE</span>
+              <span className="ed-metric-label">{l("27130101303", "चंद्रपूर, महाराष्ट्र", "चंद्रपूर, महाराष्ट्र")}</span>
               <p className="ed-metric-sub">{l("Municipal Corporation School", "मनपा संचलित शाळा", "मनपा संचलित शाळा")}</p>
             </div>
           </div>
