@@ -34,6 +34,7 @@ import {
   Calendar,
   GraduationCap,
   HeartHandshake,
+  ShieldAlert,
 } from "lucide-react";
 import { SCHOOL_CONFIG } from "../../config/school";
 import { useSchoolSettings } from "../../context/SchoolSettingsContext";
@@ -281,6 +282,13 @@ export default function AdminDashboard() {
   const totalNotices = news.filter((n) => n.category === "notice").length;
   const isSuperAdmin = currentAdmin?.role === "Super Admin";
 
+  /* ---------- Restrict Super Admin only tabs ---------- */
+  useEffect(() => {
+    if (!isSuperAdmin && (activeTab === "staff" || activeTab === "accounts" || activeTab === "audit")) {
+      setActiveTab("dashboard");
+    }
+  }, [isSuperAdmin, activeTab]);
+
   /* ---------- DB dashboard stats ---------- */
   const [dbStats, setDbStats] = useState<DashboardStats | null>(null);
   const [statsLoading, setStatsLoading] = useState(false);
@@ -307,6 +315,9 @@ export default function AdminDashboard() {
   };
 
   const handleNavSelect = (tab: AdminTab) => {
+    if (!isSuperAdmin && (tab === "staff" || tab === "accounts" || tab === "audit")) {
+      return;
+    }
     setActiveTab(tab);
     setMobileMenuOpen(false);
   };
@@ -380,13 +391,6 @@ export default function AdminDashboard() {
               School Settings
             </button>
             <button
-              className={`admin-sidebar__link ${activeTab === "staff" ? "active" : ""}`}
-              onClick={() => handleNavSelect("staff")}
-            >
-              <GraduationCap size={18} />
-              Staff Management
-            </button>
-            <button
               className={`admin-sidebar__link ${activeTab === "contributions" ? "active" : ""}`}
               onClick={() => handleNavSelect("contributions")}
             >
@@ -394,24 +398,31 @@ export default function AdminDashboard() {
               Contributions
             </button>
 
+            {/* Super Admin Only: Staff, Admin Accounts & Audit Logs */}
             {isSuperAdmin && (
-              <button
-                className={`admin-sidebar__link ${activeTab === "accounts" ? "active" : ""}`}
-                onClick={() => handleNavSelect("accounts")}
-              >
-                <Users size={18} />
-                Admin Management
-              </button>
-            )}
-
-            {isSuperAdmin && (
-              <button
-                className={`admin-sidebar__link ${activeTab === "audit" ? "active" : ""}`}
-                onClick={() => handleNavSelect("audit")}
-              >
-                <History size={18} />
-                Audit Logs
-              </button>
+              <>
+                <button
+                  className={`admin-sidebar__link ${activeTab === "staff" ? "active" : ""}`}
+                  onClick={() => handleNavSelect("staff")}
+                >
+                  <GraduationCap size={18} />
+                  Staff Management
+                </button>
+                <button
+                  className={`admin-sidebar__link ${activeTab === "accounts" ? "active" : ""}`}
+                  onClick={() => handleNavSelect("accounts")}
+                >
+                  <Users size={18} />
+                  Admin Management
+                </button>
+                <button
+                  className={`admin-sidebar__link ${activeTab === "audit" ? "active" : ""}`}
+                  onClick={() => handleNavSelect("audit")}
+                >
+                  <History size={18} />
+                  Audit Logs
+                </button>
+              </>
             )}
 
             <button
@@ -488,13 +499,6 @@ export default function AdminDashboard() {
             School Settings
           </button>
           <button
-            className={`admin-sidebar__link ${activeTab === "staff" ? "active" : ""}`}
-            onClick={() => setActiveTab("staff")}
-          >
-            <GraduationCap size={18} />
-            Staff Management
-          </button>
-          <button
             className={`admin-sidebar__link ${activeTab === "contributions" ? "active" : ""}`}
             onClick={() => setActiveTab("contributions")}
           >
@@ -502,25 +506,31 @@ export default function AdminDashboard() {
             Contributions
           </button>
 
-          {/* Super Admin Only Menu Items */}
+          {/* Super Admin Only Menu Items: Staff, Accounts & Audit */}
           {isSuperAdmin && (
-            <button
-              className={`admin-sidebar__link ${activeTab === "accounts" ? "active" : ""}`}
-              onClick={() => setActiveTab("accounts")}
-            >
-              <Users size={18} />
-              Admin Management
-            </button>
-          )}
-
-          {isSuperAdmin && (
-            <button
-              className={`admin-sidebar__link ${activeTab === "audit" ? "active" : ""}`}
-              onClick={() => setActiveTab("audit")}
-            >
-              <History size={18} />
-              Audit Logs
-            </button>
+            <>
+              <button
+                className={`admin-sidebar__link ${activeTab === "staff" ? "active" : ""}`}
+                onClick={() => setActiveTab("staff")}
+              >
+                <GraduationCap size={18} />
+                Staff Management
+              </button>
+              <button
+                className={`admin-sidebar__link ${activeTab === "accounts" ? "active" : ""}`}
+                onClick={() => setActiveTab("accounts")}
+              >
+                <Users size={18} />
+                Admin Management
+              </button>
+              <button
+                className={`admin-sidebar__link ${activeTab === "audit" ? "active" : ""}`}
+                onClick={() => setActiveTab("audit")}
+              >
+                <History size={18} />
+                Audit Logs
+              </button>
+            </>
           )}
 
           {/* Profile link for all admins */}
@@ -586,8 +596,16 @@ export default function AdminDashboard() {
           <NewsTab news={news} onChange={persistNews} />
         )}
         {activeTab === "settings" && <SettingsTab />}
-        {activeTab === "staff" && (
+        {activeTab === "staff" && isSuperAdmin && (
           <StaffManagementTab onNotify={showFeedback} />
+        )}
+        {activeTab === "staff" && !isSuperAdmin && (
+          <div className="admin-section">
+            <div className="admin-alert admin-alert--error" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <ShieldAlert size={20} />
+              <span>Access Restricted: Staff Management is only accessible to Super Administrators.</span>
+            </div>
+          </div>
         )}
         {activeTab === "contributions" && (
           <ContributionManagementTab onNotify={showFeedback} />
@@ -846,6 +864,11 @@ function DashboardOverview({
         <button className="admin-action-btn admin-action-btn--ghost" onClick={() => onNavigate("settings")}>
           <Settings size={16} /> Edit School Info
         </button>
+        {isSuperAdmin && (
+          <button className="admin-action-btn admin-action-btn--ghost" onClick={() => onNavigate("staff")}>
+            <GraduationCap size={16} /> Manage Teaching Staff
+          </button>
+        )}
         {isSuperAdmin && (
           <button className="admin-action-btn admin-action-btn--ghost" onClick={() => onNavigate("accounts")}>
             <Users size={16} /> Manage Admin Accounts

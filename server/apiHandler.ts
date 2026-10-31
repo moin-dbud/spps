@@ -1091,10 +1091,10 @@ export async function handleApiRequest(req: IncomingMessage, res: ServerResponse
     return;
   }
 
-  // GET /api/admin/staff (Admin only - returns all staff including drafts)
+  // GET /api/admin/staff (Super Admin only - returns all staff including drafts)
   if (url === '/api/admin/staff' && req.method === 'GET') {
-    if (!session) {
-      sendJson(res, 401, { success: false, error: 'Unauthorized' });
+    if (!session || session.role !== 'Super Admin') {
+      sendJson(res, 403, { success: false, error: 'Access restricted to Super Administrators' });
       return;
     }
     try {
@@ -1107,10 +1107,10 @@ export async function handleApiRequest(req: IncomingMessage, res: ServerResponse
     return;
   }
 
-  // POST /api/admin/staff (Admin only - create staff member)
+  // POST /api/admin/staff (Super Admin only - create staff member)
   if (url === '/api/admin/staff' && req.method === 'POST') {
-    if (!session) {
-      sendJson(res, 401, { success: false, error: 'Unauthorized' });
+    if (!session || session.role !== 'Super Admin') {
+      sendJson(res, 403, { success: false, error: 'Access restricted to Super Administrators' });
       return;
     }
     try {
@@ -1157,10 +1157,10 @@ export async function handleApiRequest(req: IncomingMessage, res: ServerResponse
     return;
   }
 
-  // PUT /api/admin/staff (Admin only - update staff member)
+  // PUT /api/admin/staff (Super Admin only - update staff member)
   if (url === '/api/admin/staff' && req.method === 'PUT') {
-    if (!session) {
-      sendJson(res, 401, { success: false, error: 'Unauthorized' });
+    if (!session || session.role !== 'Super Admin') {
+      sendJson(res, 403, { success: false, error: 'Access restricted to Super Administrators' });
       return;
     }
     try {
@@ -1200,10 +1200,10 @@ export async function handleApiRequest(req: IncomingMessage, res: ServerResponse
     return;
   }
 
-  // DELETE /api/admin/staff (Admin only - delete staff member)
+  // DELETE /api/admin/staff (Super Admin only - delete staff member)
   if ((url === '/api/admin/staff' || url.startsWith('/api/admin/staff/')) && req.method === 'DELETE') {
-    if (!session) {
-      sendJson(res, 401, { success: false, error: 'Unauthorized' });
+    if (!session || session.role !== 'Super Admin') {
+      sendJson(res, 403, { success: false, error: 'Access restricted to Super Administrators' });
       return;
     }
     try {

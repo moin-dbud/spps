@@ -379,10 +379,10 @@ All 36 endpoints implemented in [`server/apiHandler.ts`](file:///d:/spps/server/
 | `/api/admin/enquiries` | `GET` | List all submitted admission enquiries | Admin Token | `server/apiHandler.ts` |
 | `/api/admin/enquiries/:id` | `DELETE`| Delete an admission enquiry record by ID | Admin Token | `server/apiHandler.ts` |
 | `/api/staff` | `GET` | Fetch public list of teaching staff (`published: true`) | Public | `server/apiHandler.ts` |
-| `/api/admin/staff` | `GET` | Fetch all staff members including drafts | Admin Token | `server/apiHandler.ts` |
-| `/api/admin/staff` | `POST` | Create a new teaching faculty dossier | Admin Token | `server/apiHandler.ts` |
-| `/api/admin/staff` | `PUT` | Update faculty details, qualifications, or bio | Admin Token | `server/apiHandler.ts` |
-| `/api/admin/staff` | `DELETE`| Delete a faculty dossier by ID | Admin Token | `server/apiHandler.ts` |
+| `/api/admin/staff` | `GET` | Fetch all staff members including drafts | Super Admin Only | `server/apiHandler.ts` |
+| `/api/admin/staff` | `POST` | Create a new teaching faculty dossier | Super Admin Only | `server/apiHandler.ts` |
+| `/api/admin/staff` | `PUT` | Update faculty details, qualifications, or bio | Super Admin Only | `server/apiHandler.ts` |
+| `/api/admin/staff` | `DELETE`| Delete a faculty dossier by ID | Super Admin Only | `server/apiHandler.ts` |
 | `/api/contributions` | `POST` | Submit community/alumni contribution pledge | Public (Rate-limited: 10/min) | `server/apiHandler.ts` |
 | `/api/admin/contributions` | `GET` | List all community contribution pledges | Admin Token | `server/apiHandler.ts` |
 | `/api/admin/contributions` | `PUT` | Update contribution review status and admin notes | Admin Token | `server/apiHandler.ts` |
@@ -560,6 +560,7 @@ The administrative panel is accessed at `/admin/login` and managed from [`src/pa
 - Includes trilingual school name definitions, contact telephone numbers, official WhatsApp link, administrative emails, physical address, and principal/headmaster designations.
 
 ### 8.5 Teaching Staff Management (`staff`)
+- *Restricted to Super Admin role.*
 - Implemented in [`src/pages/admin/StaffManagementTab.tsx`](file:///d:/spps/src/pages/admin/StaffManagementTab.tsx).
 - Manages complete faculty dossiers: Name, Designation, Biography (all 3 languages using `<MultilingualField>`), Department selection, Educational Qualifications, Experience Years, Display Order, and Portrait Image URL.
 
@@ -572,8 +573,8 @@ The administrative panel is accessed at `/admin/login` and managed from [`src/pa
 ### 8.7 Administrator Account Management (`accounts`)
 - *Restricted to Super Admin role.*
 - Allows provisioning new administrators with roles:
-  - **Super Admin:** Full access to all modules, settings, accounts, and audit log clearing.
-  - **Content Admin:** Day-to-day access to News, Notices, Gallery, and Staff, with settings and accounts locked.
+  - **Super Admin:** Full access to all modules: Staff Management, School Settings, Accounts, Audit Logs, News, Gallery, and Contributions.
+  - **Content Admin:** Day-to-day access to News, Notices, Gallery, and Contributions, with Staff, Settings, Accounts, and Audit Logs locked to Super Admin.
 - Features self-deletion guards and prevents deleting the last remaining Super Admin.
 
 ### 8.8 Operational Audit Logs (`audit`)
