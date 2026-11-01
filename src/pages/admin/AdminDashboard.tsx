@@ -439,7 +439,7 @@ export default function AdminDashboard() {
           <div className="admin-mobile-drawer__footer">
             <button
               className="admin-sidebar__link"
-              style={{ color: "#f87171" }}
+              style={{ color: "#ffffff" }}
               onClick={handleLogout}
             >
               <LogOut size={18} />
