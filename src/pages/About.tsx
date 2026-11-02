@@ -6,6 +6,8 @@ import {
 import { useI18n } from "../i18n";
 import { useSchoolSettings } from "../context/SchoolSettingsContext";
 import { IMAGE_MANIFEST } from "../data/imageManifest";
+import SEO from "../components/SEO";
+import { getBreadcrumbSchema } from "../utils/seo";
 import "./About.css";
 
 /* =========================================================
@@ -20,8 +22,26 @@ export default function About() {
   const l = (en: string, hi: string, mr: string) =>
     lang === "en" ? en : lang === "hi" ? hi : mr;
 
+  const pageTitle = l(
+    "About Us | P.M. Shri Savitribai Phule High School, Chandrapur",
+    "हमारे बारे में | पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल, चंद्रपुर",
+    "आमच्याबद्दल | पी.एम. श्री. सावित्रीबाई फुले हायस्कूल, चंद्रपूर"
+  );
+
+  const pageDescription = l(
+    "Learn about P.M. Shri Savitribai Phule High School in Babupeth, Chandrapur. Discover our mission, educational vision under Municipal Corporation Chandrapur, values, and student development.",
+    "पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल, बाबूपेठ, चंद्रपुर के बारे में जानें। हमारा शैक्षणिक दृष्टिकोण, चंद्रपुर महानगरपालिका का मार्गदर्शन और छात्र विकास नीति।",
+    "पी.एम. श्री. सावित्रीबाई फुले हायस्कूल, बाबूपेठ, चंद्रपूर बद्दल सविस्तर माहिती. आमची शैक्षणिक ध्येये, चंद्रपूर महानगरपालिकेचे मार्गदर्शन आणि विद्यार्थ्यांचा सर्वांगीण विकास."
+  );
+
   return (
     <div className="about-editorial">
+      <SEO
+        title={pageTitle}
+        description={pageDescription}
+        canonicalPath="/about"
+        schema={getBreadcrumbSchema([{ name: "About Us", path: "/about" }])}
+      />
 
       {/* ===== 1. EDITORIAL PAGE HEADER ===== */}
       <header className="ab-header bg-parchment-light">

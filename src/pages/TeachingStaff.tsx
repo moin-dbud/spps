@@ -13,6 +13,8 @@ import {
 import { useI18n } from "../i18n";
 import { apiFetchPublicStaff, type StaffMember } from "../utils/api";
 import { useScrollReveal } from "../hooks/useScrollReveal";
+import SEO from "../components/SEO";
+import { getBreadcrumbSchema } from "../utils/seo";
 import "./TeachingStaff.css";
 
 /* =========================================================
@@ -91,8 +93,27 @@ export default function TeachingStaff() {
     return m.bio;
   };
 
+  const pageTitle = l(
+    "Teaching Staff & Faculty | Savitribai Phule High School Chandrapur",
+    "शिक्षण संकाय एवं शिक्षक | सावित्रीबाई फुले हाई स्कूल, चंद्रपुर",
+    "शिक्षक वृंद व मार्गदर्शक | सावित्रीबाई फुले हायस्कूल, चंद्रपूर"
+  );
+
+  const pageDescription = l(
+    "Meet the dedicated educators and leadership of P.M. Shri Savitribai Phule High School, Babupeth, Chandrapur. Qualified teaching staff committed to student success and academic mentorship.",
+    "पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल, बाबूपेठ, चंद्रपुर के प्राचार्य और योग्य शिक्षक संकाय। छात्र सफलता और शैक्षणिक मार्गदर्शन के लिए समर्पित।",
+    "पी.एम. श्री. सावित्रीबाई फुले हायस्कूल, बाबूपेठ, चंद्रपूर येथील मुख्याध्यापक आणि अनुभवी शिक्षकवृंद. विद्यार्थ्यांच्या सर्वांगीण विकासासाठी कटिबद्ध मार्गदर्शक."
+  );
+
   return (
     <div className="teaching-staff-page">
+      <SEO
+        title={pageTitle}
+        description={pageDescription}
+        canonicalPath="/teaching-staff"
+        schema={getBreadcrumbSchema([{ name: "Teaching Staff", path: "/teaching-staff" }])}
+      />
+
       {/* ===== 1. HERO SPREAD ===== */}
       <section className="staff-hero" aria-label="Faculty Header">
         <div className="container">

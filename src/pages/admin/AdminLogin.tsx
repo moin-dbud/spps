@@ -4,6 +4,7 @@ import { Lock, User, Eye, EyeOff, ShieldAlert, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SCHOOL_CONFIG } from "../../config/school";
 import { apiLogin } from "../../utils/api";
+import SEO from "../../components/SEO";
 import "./AdminLogin.css";
 
 /* =========================================================
@@ -44,6 +45,12 @@ export default function AdminLogin() {
 
   return (
     <div className="admin-login-page">
+      <SEO
+        title="Admin Login | PM Shri Savitribai Phule School"
+        description="Restricted administrative portal for school faculty and staff."
+        canonicalPath="/admin/login"
+        noindex={true}
+      />
       <div className="admin-login-card">
         {/* School branding */}
         <div className="admin-login-brand">

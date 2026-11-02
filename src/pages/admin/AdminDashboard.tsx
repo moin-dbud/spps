@@ -62,6 +62,7 @@ import {
 import StaffManagementTab from "./StaffManagementTab";
 import ContributionManagementTab from "./ContributionManagementTab";
 import MultilingualField from "../../components/admin/MultilingualField";
+import SEO from "../../components/SEO";
 import "./AdminDashboard.css";
 import "./AdminAccounts.css";
 
@@ -326,6 +327,12 @@ export default function AdminDashboard() {
 
   return (
     <div className="admin-layout">
+      <SEO
+        title="Admin Dashboard | PM Shri Savitribai Phule School"
+        description="Administrative management dashboard."
+        canonicalPath="/admin/dashboard"
+        noindex={true}
+      />
       {/* ─── MOBILE ADMIN HEADER (Sticky on < 768px) ─── */}
       <header className="admin-mobile-header" role="banner">
         <div className="admin-mobile-header__title-wrap">

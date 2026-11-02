@@ -20,6 +20,8 @@ import {
 import { useI18n } from "../i18n";
 import { apiSubmitContribution, type ContributionCategory } from "../utils/api";
 import { useScrollReveal } from "../hooks/useScrollReveal";
+import SEO from "../components/SEO";
+import { getBreadcrumbSchema } from "../utils/seo";
 import "./Contribution.css";
 
 /* =========================================================
@@ -170,8 +172,27 @@ export default function Contribution() {
     },
   ];
 
+  const pageTitle = l(
+    "Support & Community Contribution | P.M. Shri Savitribai Phule High School",
+    "समुदाय सहयोग एवं योगदान | पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल",
+    "शालेय विकास सहभाग व योगदान | पी.एम. श्री. सावित्रीबाई फुले हायस्कूल"
+  );
+
+  const pageDescription = l(
+    "Partner with P.M. Shri Savitribai Phule High School, Chandrapur. Support government school students through educational books, sports equipment, digital lab aids, and community initiatives.",
+    "पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल, चंद्रपुर के विकास में सहभागी बनें। पुस्तकें, खेल सामग्री और डिजिटल शिक्षा के लिए सामुदायिक सहयोग।",
+    "पी.एम. श्री. सावित्रीबाई फुले हायस्कूल, चंद्रपूर च्या विकासात सहभागी व्हा. पुस्तके, शैक्षणिक साहित्य, क्रीडा साहित्य आणि डिजिटल शिक्षणासाठी सहकार्य करा."
+  );
+
   return (
     <div className="contribution-page">
+      <SEO
+        title={pageTitle}
+        description={pageDescription}
+        canonicalPath="/contribution"
+        schema={getBreadcrumbSchema([{ name: "Contribution", path: "/contribution" }])}
+      />
+
       {/* ===== 1. HERO SPREAD ===== */}
       <section className="contrib-hero" aria-label="Contribution Header">
         <div className="container">

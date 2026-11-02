@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Wrench, Phone, Mail, MapPin, Lock, LayoutDashboard, Power } from "lucide-react";
 import { useSchoolSettings } from "../context/SchoolSettingsContext";
 import { useI18n, type Language } from "../i18n";
+import SEO from "./SEO";
 import "./MaintenanceScreen.css";
 
 export function MaintenanceScreen() {
@@ -91,6 +92,11 @@ export function MaintenanceScreen() {
 
   return (
     <div className="maintenance-wrapper">
+      <SEO
+        title="Site Maintenance | P.M. Shri Savitribai Phule High School"
+        description="The school website is currently undergoing scheduled maintenance. Please contact school administration directly."
+        noindex={true}
+      />
       {/* ─── STICKY ADMIN CONTROL BANNER (Visible only to authenticated admins) ─── */}
       {isAdmin && (
         <div className="maintenance-admin-banner" role="alert">

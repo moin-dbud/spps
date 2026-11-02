@@ -5,6 +5,8 @@ import {
 } from "lucide-react";
 import { useI18n } from "../i18n";
 import { staticGalleryItems, type GalleryItem, type GalleryCategory } from "../data/gallery";
+import SEO from "../components/SEO";
+import { getBreadcrumbSchema } from "../utils/seo";
 import "./Gallery.css";
 
 export default function Gallery() {
@@ -130,8 +132,27 @@ export default function Gallery() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [lightboxIndex, closeLightbox, nextImage, prevImage]);
 
+  const pageTitle = l(
+    "School Activities & Photo Gallery | P.M. Shri Savitribai Phule High School",
+    "चित्र दीर्घा एवं गतिविधियां | पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल",
+    "छायाचित्र दालन व उपक्रम क्षणचित्रे | पी.एम. श्री. सावित्रीबाई फुले हायस्कूल"
+  );
+
+  const pageDescription = l(
+    "Explore authentic photographs of classroom learning, science exhibitions, sports tournaments, cultural celebrations, and campus life at P.M. Shri Savitribai Phule High School, Chandrapur.",
+    "पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल, चंद्रपुर के कक्षा शिक्षण, विज्ञान प्रदर्शनी, खेलकूद प्रतियोगिताओं और सांस्कृतिक कार्यक्रमों की वास्तविक तस्वीरें।",
+    "पी.एम. श्री. सावित्रीबाई फुले हायस्कूल, चंद्रपूर येथील वर्गखोलीतील शिक्षण, विज्ञान प्रदर्शने, क्रीडा स्पर्धा आणि सांस्कृतिक उपक्रमांची छायाचित्रे."
+  );
+
   return (
     <div className="gallery-page">
+      <SEO
+        title={pageTitle}
+        description={pageDescription}
+        canonicalPath="/gallery"
+        schema={getBreadcrumbSchema([{ name: "Gallery", path: "/gallery" }])}
+      />
+
       {/* Header */}
       <section className="page-header">
         <h1 className="page-header__title">{t.gallery.title}</h1>

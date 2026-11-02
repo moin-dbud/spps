@@ -8,6 +8,8 @@ import { useI18n } from "../i18n";
 import { useSchoolSettings } from "../context/SchoolSettingsContext";
 import { staticGalleryItems } from "../data/gallery";
 import { useScrollReveal } from "../hooks/useScrollReveal";
+import SEO from "../components/SEO";
+import { getSchoolSchema, getWebSiteSchema } from "../utils/seo";
 import "./Home.css";
 
 /* =========================================================
@@ -32,8 +34,26 @@ export default function Home() {
   const l = (en: string, hi: string, mr: string) =>
     lang === "en" ? en : lang === "hi" ? hi : mr;
 
+  const pageTitle = l(
+    "P.M. Shri Savitribai Phule High School, Chandrapur | Official Website",
+    "पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल, चंद्रपुर | आधिकारिक वेबसाइट",
+    "पी.एम. श्री. सावित्रीबाई फुले हायस्कूल, चंद्रपूर | अधिकृत संकेतस्थळ"
+  );
+
+  const pageDescription = l(
+    "Visit the official website of P.M. Shri Savitribai Phule High School, Municipal Corporation, Chandrapur. Explore school facilities, teaching staff, activities, achievements, notices, gallery and admissions information.",
+    "पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल, महानगरपालिका, चंद्रपुर (बाबूपेठ) की आधिकारिक वेबसाइट पर आपका स्वागत है। विद्यालय की सुविधाएं, शिक्षक संकाय, गतिविधियां और प्रवेश संबंधी जानकारी प्राप्त करें।",
+    "पी.एम. श्री. सावित्रीबाई फुले हायस्कूल, महानगरपालिका, चंद्रपूर (बाबूपेठ) च्या अधिकृत संकेतस्थळावर आपले स्वागत आहे. शालेय सुविधा, शिक्षकवृंद, उपक्रम, गुणवत्ता आणि शैक्षणिक माहिती जाणून घ्या."
+  );
+
   return (
     <div className="home-editorial">
+      <SEO
+        title={pageTitle}
+        description={pageDescription}
+        canonicalPath="/"
+        schema={[getSchoolSchema(), getWebSiteSchema()]}
+      />
 
       {/* =========================================================
          1. HERO — ASYMMETRIC EDITORIAL SPLIT
@@ -55,6 +75,13 @@ export default function Home() {
               </div>
 
               <h1 className="ed-hero__title hero-seq-2">
+                <span className="sr-only">
+                  {l(
+                    "P.M. Shri Savitribai Phule High School, Chandrapur — ",
+                    "पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल, चंद्रपुर — ",
+                    "पी.एम. श्री. सावित्रीबाई फुले हायस्कूल, चंद्रपूर — "
+                  )}
+                </span>
                 {t.home.heroHeadline}
               </h1>
 

@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { useI18n } from "../i18n";
 import { useSchoolSettings } from "../context/SchoolSettingsContext";
+import SEO from "../components/SEO";
+import { getBreadcrumbSchema, SITE_ORIGIN } from "../utils/seo";
 import "./Contact.css";
 
 /* =========================================================
@@ -71,8 +73,55 @@ export default function Contact() {
         ? settings.name.hindi
         : settings.name.marathi;
 
+  const l = (en: string, hi: string, mr: string) =>
+    lang === "en" ? en : lang === "hi" ? hi : mr;
+
+  const pageTitle = l(
+    "Contact School Administration | P.M. Shri Savitribai Phule High School, Chandrapur",
+    "संपर्क करें एवं पूछताछ | पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल, चंद्रपुर",
+    "संपर्क साधा व विचारणा | पी.एम. श्री. सावित्रीबाई फुले हायस्कूल, चंद्रपूर"
+  );
+
+  const pageDescription = l(
+    "Get in touch with P.M. Shri Savitribai Phule High School, Chandrapur. Address: Netaji Chowk Road, Babupeth, Chandrapur, Maharashtra 442403. Phone: +91 94045 47528. Email: saviphulepschoolcmc@gmail.com.",
+    "पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल, चंद्रपुर से संपर्क करें। पता: नेताजी चौक रोड, बाबूपेठ, चंद्रपुर 442403। फोन: +91 94045 47528। ईमेल: saviphulepschoolcmc@gmail.com।",
+    "पी.एम. श्री. सावित्रीबाई फुले हायस्कूल, चंद्रपूर यांच्याशी संपर्क साधा. पत्ता: नेताजी चौक रोड, बाबूपेठ, चंद्रपूर ४४२४०३. फोन: +९१ ९४०४५ ४७५२८. ईमेल: saviphulepschoolcmc@gmail.com."
+  );
+
+  const contactSchemas = [
+    getBreadcrumbSchema([{ name: "Contact", path: "/contact" }]),
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      name: "Contact P.M. Shri Savitribai Phule High School",
+      description: "Official contact directory, campus address, telephone, email, and Google Maps directions.",
+      url: `${SITE_ORIGIN}/contact`,
+      mainEntity: {
+        "@type": "School",
+        name: settings.name.english,
+        telephone: "+91 94045 47528",
+        email: "saviphulepschoolcmc@gmail.com",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Netaji Chowk Road, Babupeth",
+          addressLocality: "Chandrapur",
+          addressRegion: "Maharashtra",
+          postalCode: "442403",
+          addressCountry: "IN",
+        },
+      },
+    },
+  ];
+
   return (
     <div className="contact-page">
+      <SEO
+        title={pageTitle}
+        description={pageDescription}
+        canonicalPath="/contact"
+        schema={contactSchemas}
+      />
+
       {/* ===== PAGE HEADER ===== */}
       <section className="contact-header">
         <div className="container">

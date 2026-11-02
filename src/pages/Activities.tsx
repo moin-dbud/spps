@@ -5,6 +5,8 @@ import {
   Newspaper, X, GraduationCap, Users, Award, Lightbulb,
 } from "lucide-react";
 import { useI18n } from "../i18n";
+import SEO from "../components/SEO";
+import { getBreadcrumbSchema } from "../utils/seo";
 
 /* =========================================================
    ACTIVITIES & INITIATIVES PAGE
@@ -303,8 +305,29 @@ export default function Activities() {
       ? "छात्रों का समग्र विकास — शैक्षणिक, सांस्कृतिक, पर्यावरणीय गतिविधियाँ"
       : "Holistic student development — academic, cultural, environmental activities";
 
+  const seoTitle =
+    lang === "mr"
+      ? "सहशालेय उपक्रम व विद्यार्थी जीवन | पी.एम. श्री. सावित्रीबाई फुले हायस्कूल"
+      : lang === "hi"
+      ? "सह-पाठ्यचर्या गतिविधियां | पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल"
+      : "Co-Curricular Activities & Student Life | P.M. Shri Savitribai Phule High School";
+
+  const seoDescription =
+    lang === "mr"
+      ? "पी.एम. श्री. सावित्रीबाई फुले हायस्कूल, चंद्रपूर येथील सहशालेय उपक्रम: सांस्कृतिक उत्सव, पर्यावरण क्लब, क्रीडा स्पर्धा, आणि अभ्यास सहली."
+      : lang === "hi"
+      ? "पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल, चंद्रपुर में सह-पाठ्यचर्या गतिविधियां: सांस्कृतिक कार्यक्रम, पर्यावरण क्लब, खेलकूद और शैक्षणिक भ्रमण।"
+      : "Explore vibrant co-curricular activities, cultural celebrations, eco-club initiatives, sports tournaments, and educational study trips at P.M. Shri Savitribai Phule High School, Chandrapur.";
+
   return (
     <>
+      <SEO
+        title={seoTitle}
+        description={seoDescription}
+        canonicalPath="/activities"
+        schema={getBreadcrumbSchema([{ name: "Activities", path: "/activities" }])}
+      />
+
       {/* ===== HEADER ===== */}
       <section className="activities-header" aria-label="Page header">
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
@@ -394,7 +417,11 @@ export default function Activities() {
                               aria-label={`View image ${ti + 1}`}
                               onKeyDown={(e) => e.key === "Enter" && setLightboxSrc(src)}
                             >
-                              <img src={src} alt="" loading="lazy" />
+                              <img
+                                src={src}
+                                alt={`${activity.titleEn || "Activity"} photo ${ti + 1}`}
+                                loading="lazy"
+                              />
                             </div>
                           ))}
                           {extraCount > 0 && (

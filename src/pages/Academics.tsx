@@ -3,6 +3,8 @@ import {
   CheckCircle2, FileText, Users,
 } from "lucide-react";
 import { useI18n } from "../i18n";
+import SEO from "../components/SEO";
+import { getBreadcrumbSchema } from "../utils/seo";
 import "./Academics.css";
 
 /* =========================================================
@@ -15,8 +17,26 @@ export default function Academics() {
   const l = (en: string, hi: string, mr: string) =>
     lang === "en" ? en : lang === "hi" ? hi : mr;
 
+  const pageTitle = l(
+    "Academics & Pedagogy | P.M. Shri Savitribai Phule High School, Chandrapur",
+    "शैक्षणिक पाठ्यक्रम एवं शिक्षण | पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल, चंद्रपुर",
+    "शैक्षणिक प्रणाली व अभ्यासक्रम | पी.एम. श्री. सावित्रीबाई फुले हायस्कूल, चंद्रपूर"
+  );
+
+  const pageDescription = l(
+    "Explore academic programs, curriculum framework, experiential learning, and bilingual instruction (Marathi & Semi-English) at P.M. Shri Savitribai Phule High School, Chandrapur.",
+    "पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल, चंद्रपुर में शैक्षणिक कार्यक्रम, पाठ्यचर्या रूपरेखा, अनुभवजन्य शिक्षण और द्विभाषी शिक्षा प्रणाली की जानकारी।",
+    "पी.एम. श्री. सावित्रीबाई फुले हायस्कूल, चंद्रपूर येथील शैक्षणिक अभ्यासक्रम, अनुभव-आधारित शिक्षण, आणि सेमी-इंग्रजी / मराठी माध्यमाची सविस्तर माहिती."
+  );
+
   return (
     <div className="academics-editorial">
+      <SEO
+        title={pageTitle}
+        description={pageDescription}
+        canonicalPath="/academics"
+        schema={getBreadcrumbSchema([{ name: "Academics", path: "/academics" }])}
+      />
 
       {/* ===== 1. EDITORIAL HEADER ===== */}
       <header className="ac-header bg-parchment-light">

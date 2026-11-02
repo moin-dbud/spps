@@ -71,12 +71,12 @@ export const SCHOOL_CONFIG: SchoolConfigType = {
 
   /** Verified postal address from municipal records and GPS imagery */
   address: {
-    line1: "Near Narsingh Akhada, Netaji Chowk Road",
+    line1: "Netaji Chowk Road",
     area: "Babupeth",
     city: "Chandrapur",
     state: "Maharashtra",
     pincode: "442403",
-    fullAddress: "3, Netaji Chowk Rd, Babupeth, Chandrapur, Maharashtra 442403",
+    fullAddress: "Netaji Chowk Road, Babupeth, Chandrapur, Maharashtra 442403",
   },
 
   /** Classes served */
@@ -92,7 +92,7 @@ export const SCHOOL_CONFIG: SchoolConfigType = {
   contact: {
     phone: "+91 94045 47528",
     whatsapp: "+91 94045 47528",
-    email: "savitribaiphule.school@gmail.com",
+    email: "saviphulepschoolcmc@gmail.com",
   },
 
   /** Official social links */

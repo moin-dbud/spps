@@ -5,6 +5,8 @@ import {
 } from "lucide-react";
 import { useI18n } from "../i18n";
 import { IMAGE_MANIFEST } from "../data/imageManifest";
+import SEO from "../components/SEO";
+import { getBreadcrumbSchema } from "../utils/seo";
 import "./Facilities.css";
 
 /* =========================================================
@@ -212,8 +214,26 @@ export default function Facilities() {
     },
   ];
 
+  const pageTitle = l(
+    "School Facilities & Infrastructure | P.M. Shri Savitribai Phule High School",
+    "विद्यालय सुविधाएं एवं अधोसंरचना | पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल",
+    "शालेय सुविधा व पायाभूत सुविधा | पी.एम. श्री. सावित्रीबाई फुले हायस्कूल"
+  );
+
+  const pageDescription = l(
+    "Explore modern educational facilities at P.M. Shri Savitribai Phule High School, Chandrapur: Smart ICT computer lab, Ideal Science lab, library, sports ground, solar rooftop, and safe campus.",
+    "पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल, चंद्रपुर में आधुनिक सुविधाएं: स्मार्ट आईसीटी कंप्यूटर लैब, विज्ञान प्रयोगशाला, पुस्तकालय, खेल मैदान और स्वच्छ परिसर।",
+    "पी.एम. श्री. सावित्रीबाई फुले हायस्कूल, चंद्रपूर येथील अत्याधुनिक सुविधा: स्मार्ट संगणक प्रयोगशाळा, आदर्श विज्ञान लॅब, ग्रंथालय, क्रीडांगण आणि सुरक्षित परिसर."
+  );
+
   return (
     <div className="facilities-editorial">
+      <SEO
+        title={pageTitle}
+        description={pageDescription}
+        canonicalPath="/facilities"
+        schema={getBreadcrumbSchema([{ name: "Facilities", path: "/facilities" }])}
+      />
 
       {/* ===== 1. EDITORIAL HEADER ===== */}
       <header className="fc-header bg-parchment-light">

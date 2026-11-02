@@ -5,6 +5,8 @@ import {
 } from "lucide-react";
 import { useI18n } from "../i18n";
 import { DEFAULT_NEWS, type NewsItem } from "../data/news";
+import SEO from "../components/SEO";
+import { getBreadcrumbSchema } from "../utils/seo";
 import "./News.css";
 
 export default function News() {
@@ -154,8 +156,27 @@ export default function News() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  const pageTitle = l(
+    "School News, Notices & Circulars | P.M. Shri Savitribai Phule High School",
+    "समाचार एवं आधिकारिक सूचनाएं | पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल",
+    "बातम्या व अधिकृत सूचना फलक | पी.एम. श्री. सावित्रीबाई फुले हायस्कूल"
+  );
+
+  const pageDescription = l(
+    "Stay updated with official school notices, examination schedules, event circulars, press archives, and academic announcements from P.M. Shri Savitribai Phule High School, Chandrapur.",
+    "पी.एम. श्री. सावित्रीबाई फुले हाई स्कूल, चंद्रपुर की ओर से आधिकारिक सूचनाएं, परीक्षा कार्यक्रम, परिपत्र और शैक्षणिक समाचार।",
+    "पी.एम. श्री. सावित्रीबाई फुले हायस्कूल, चंद्रपूर कडून अधिकृत सूचना, परीक्षा वेळापत्रक, उपक्रम परिपत्रके आणि शैक्षणिक घोषणा."
+  );
+
   return (
     <div className="news-page">
+      <SEO
+        title={pageTitle}
+        description={pageDescription}
+        canonicalPath="/news"
+        schema={getBreadcrumbSchema([{ name: "News & Notices", path: "/news" }])}
+      />
+
       {/* Header */}
       <section className="page-header news-header">
         <div className="container">
