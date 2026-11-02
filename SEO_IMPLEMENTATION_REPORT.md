@@ -2,9 +2,9 @@
 **Project:** P.M. Shri Savitribai Phule High School, Municipal Corporation, Chandrapur  
 **Location:** Netaji Chowk Road, Babupeth, Chandrapur, Maharashtra 442403  
 **Verified Contact:** Phone: `+91 94045 47528` | Email: `saviphulepschoolcmc@gmail.com`  
-**Production Canonical Domain:** `https://pmshrispps-chandrapur.edu.in`  
+**Source Canonical Domain:** `https://www.pmshrisavitribaiphuleschool.in`
 **Date:** November 2, 2026  
-**Status:** Completed & Production-Ready  
+**Status:** Source implementation completed; production deployment verification pending
 
 ---
 
@@ -41,7 +41,7 @@ All SEO assets, schemas, and configurations strictly adhere to verified school r
 - **Geo-Coordinates:** Latitude `19.951777`, Longitude `79.318433`
 - **Phone / WhatsApp:** `+91 94045 47528`
 - **Email:** `saviphulepschoolcmc@gmail.com`
-- **Production Canonical Domain:** `https://pmshrispps-chandrapur.edu.in`
+- **Source Canonical Domain:** `https://www.pmshrisavitribaiphuleschool.in`
 - **Medium of Instruction:** Marathi / Semi-English (Classes 1–10)
 
 ---
@@ -160,7 +160,7 @@ Implemented Schema.org JSON-LD on both static `index.html` (for crawlers that do
 ### `public/robots.txt`
 ```txt
 # Robots.txt for P.M. Shri Savitribai Phule High School, Municipal Corporation, Chandrapur
-# Official Production Domain: https://pmshrispps-chandrapur.edu.in
+# Source canonical domain: https://www.pmshrisavitribaiphuleschool.in
 
 User-agent: *
 Allow: /
@@ -183,11 +183,11 @@ Disallow: /api/
 Disallow: /api/*
 
 # XML Sitemap declaration
-Sitemap: https://pmshrispps-chandrapur.edu.in/sitemap.xml
+Sitemap: https://www.pmshrisavitribaiphuleschool.in/sitemap.xml
 ```
 
 ### `public/sitemap.xml`
-- Location: `https://pmshrispps-chandrapur.edu.in/sitemap.xml`
+- Location: `https://www.pmshrisavitribaiphuleschool.in/sitemap.xml`
 - Valid XML schema conforming to sitemaps.org standards.
 - Includes all 10 verified public URLs with accurate priority and change frequency.
 - Completely excludes admin and API routes.
@@ -242,7 +242,7 @@ To complete verification and indexing on Google:
 1. **Open Google Search Console:**
    - Go to [search.google.com/search-console](https://search.google.com/search-console).
 2. **Add Property:**
-   - Choose **URL prefix** and enter: `https://pmshrispps-chandrapur.edu.in`.
+   - Choose **URL prefix** and enter: `https://www.pmshrisavitribaiphuleschool.in`.
    - (Or choose **Domain** property if you manage DNS at your registrar).
 3. **Verify Ownership (Choose one method):**
    - **Method A (HTML Tag - Recommended):** Copy the meta tag provided by Google (e.g., `<meta name="google-site-verification" content="XYZ..." />`). Paste this into `index.html` inside `<head>`.
@@ -253,7 +253,7 @@ To complete verification and indexing on Google:
    - Click **Submit**. Google will process the sitemap and display "Success".
 5. **Request Indexing for Homepage:**
    - Use the **URL Inspection** tool at the top.
-   - Enter `https://pmshrispps-chandrapur.edu.in/` and click **Request Indexing**.
+   - Enter `https://www.pmshrisavitribaiphuleschool.in/` and click **Request Indexing**.
 
 ---
 
@@ -269,7 +269,7 @@ Local search discovery in Babupeth, Chandrapur depends heavily on an official Go
 - [ ] **Address Verification:**
   `Netaji Chowk Road, Babupeth, Chandrapur, Maharashtra 442403`
 - [ ] **Phone Number:** Add `+91 94045 47528`.
-- [ ] **Website URL:** Link to `https://pmshrispps-chandrapur.edu.in`.
+- [ ] **Website URL:** Link to `https://www.pmshrisavitribaiphuleschool.in`.
 - [ ] **Operating Hours:** Add official school hours (e.g. Mon–Sat 9:00 AM – 4:30 PM).
 - [ ] **Upload Authentic School Photos:** Add high-quality photos of the school gate, smart computer lab, building, classrooms, and student activities (from `/public/assets/images/`).
 - [ ] **Verification:** Complete Google's verification method (Video recording of school signage/premises or official phone OTP).
@@ -302,4 +302,3 @@ Local search discovery in Babupeth, Chandrapur depends heavily on an official Go
 | [`src/pages/admin/AdminLogin.tsx`](file:///d:/spps/src/pages/admin/AdminLogin.tsx) | Added `noindex, nofollow` SEO directives |
 | [`src/pages/admin/AdminDashboard.tsx`](file:///d:/spps/src/pages/admin/AdminDashboard.tsx) | Added `noindex, nofollow` SEO directives |
 | [`src/components/MaintenanceScreen.tsx`](file:///d:/spps/src/components/MaintenanceScreen.tsx) | Added `noindex, nofollow` SEO directives |
-

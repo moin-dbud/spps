@@ -1,5 +1,5 @@
 # Robots.txt for P.M. Shri Savitribai Phule High School, Municipal Corporation, Chandrapur
-# Official Production Domain: https://pmshrispps-chandrapur.edu.in
+# Official Production Domain: https://www.pmshrisavitribaiphuleschool.in
 
 User-agent: *
 Allow: /
@@ -22,5 +22,4 @@ Disallow: /api/
 Disallow: /api/*
 
 # XML Sitemap declaration
-Sitemap: https://pmshrispps-chandrapur.edu.in/sitemap.xml
-
+Sitemap: https://www.pmshrisavitribaiphuleschool.in/sitemap.xml

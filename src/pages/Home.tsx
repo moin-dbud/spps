@@ -133,12 +133,22 @@ export default function Home() {
             {/* Right: Museum-Grade Photographic Showcase */}
             <div className="ed-hero__visual hero-seq-5">
               <div className="ed-hero__photo-card">
-                <img
-                  src={HERO_BUILDING}
-                  alt="P.M. Shri Savitribai Phule High School campus entrance in Babupeth, Chandrapur"
-                  className="ed-hero__main-img"
-                  loading="eager"
-                />
+                <picture>
+                  <source
+                    type="image/webp"
+                    srcSet="/assets/images/optimized/hero-building-480.webp 480w, /assets/images/optimized/hero-building-936.webp 936w"
+                    sizes="(max-width: 768px) calc(100vw - 2rem), (max-width: 1200px) 48vw, 560px"
+                  />
+                  <img
+                    src={HERO_BUILDING}
+                    alt="P.M. Shri Savitribai Phule High School campus entrance in Babupeth, Chandrapur"
+                    className="ed-hero__main-img"
+                    width={936}
+                    height={752}
+                    loading="eager"
+                    fetchPriority="high"
+                  />
+                </picture>
                 <div className="ed-hero__caption-badge">
                   <Building2 size={16} className="ed-caption-icon" aria-hidden />
                   <div>

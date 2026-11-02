@@ -118,7 +118,7 @@ export async function seedInitialData(db: Db, baseDir?: string): Promise<{
           jsonSettings.enquiryFormUrl ||
           'https://docs.google.com/forms/d/e/1FAIpQLSdoh1QzH_GNGcbcqi9AeYXjz6pSMws2QNFq7E88tQu1EvuaPw/viewform?embedded=true',
         defaultLanguage: jsonSettings.defaultLanguage || 'en',
-        canonicalUrl: jsonSettings.canonicalUrl || 'https://pmshrispps-chandrapur.edu.in',
+        canonicalUrl: jsonSettings.canonicalUrl || 'https://www.pmshrisavitribaiphuleschool.in',
         principal: jsonSettings.principal || 'Shivlal Irpate Sir (शिवलाल इरपाते)',
         headTeacher: jsonSettings.headTeacher || 'Ajay Madot Sir (अजय माडोत)',
         academicYear: jsonSettings.academicYear || '2026-27',

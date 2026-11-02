@@ -668,7 +668,7 @@ export const IMAGE_MANIFEST: Record<string, ManifestImage> = {
 | `SESSION_SECRET` | **Yes** | Server / Backend | Cryptographic salt / secret token for admin sessions | Long random 32+ char hex string |
 | `INITIAL_ADMIN_PASSWORD` | No | Server / Backend | Initial super admin password on empty DB seed | `spps2026` (only used on first database creation) |
 | `GEMINI_API_KEY` | No | Server / Backend | Google AI Studio API key for Gemini translation | `AIzaSy...` (if omitted, defaults to MyMemory) |
-| `VITE_SITE_URL` | No | Client / Frontend | Canonical public domain URL | `https://pmshrispps-chandrapur.edu.in` |
+| `VITE_SITE_URL` | No | Client / Frontend | Canonical public domain URL | `https://www.pmshrisavitribaiphuleschool.in` |
 
 *Security Warning:* Never commit `.env` or `.env.local` to Git. The `.gitignore` file is explicitly configured to block all `.env` files.
 

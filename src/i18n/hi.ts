@@ -40,7 +40,7 @@ export const hi: TranslationKeys = {
     image: "छवि",
     all: "सभी",
     school: "विद्यालय",
-    learnMore: "अधिक जानें",
+    learnMore: "हमारे विद्यालय के बारे में",
   },
 
   home: {

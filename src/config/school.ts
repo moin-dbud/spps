@@ -109,7 +109,7 @@ export const SCHOOL_CONFIG: SchoolConfigType = {
   defaultLanguage: "en",
 
   /** Canonical production URL */
-  canonicalUrl: "https://pmshrispps-chandrapur.edu.in",
+  canonicalUrl: "https://www.pmshrisavitribaiphuleschool.in",
 
   /** Principal name */
   principal: "Shivlal Irpate Sir (शिवलाल इरपाते)",

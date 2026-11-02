@@ -11,7 +11,7 @@ import { SCHOOL_CONFIG } from "../config/school";
 export const SITE_ORIGIN =
   typeof window !== "undefined" && window.location.origin && !window.location.origin.includes("localhost")
     ? window.location.origin
-    : SCHOOL_CONFIG.canonicalUrl || "https://pmshrispps-chandrapur.edu.in";
+    : SCHOOL_CONFIG.canonicalUrl || "https://www.pmshrisavitribaiphuleschool.in";
 
 export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/assets/images/pptx1/image1.jpeg`;
 
@@ -152,4 +152,3 @@ export function getBreadcrumbSchema(items: BreadcrumbItem[], origin: string = SI
     ],
   };
 }
-

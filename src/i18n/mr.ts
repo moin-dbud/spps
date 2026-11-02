@@ -40,7 +40,7 @@ export const mr = {
     image: "छायाचित्र",
     all: "सर्व",
     school: "शाळा",
-    learnMore: "अधिक जाणा",
+    learnMore: "आमच्या शाळेबद्दल",
   },
 
   // Home page

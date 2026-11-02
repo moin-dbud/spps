@@ -1,3 +1,4 @@
+import { Component, lazy, Suspense, type ErrorInfo, type ReactNode } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./index.css";
 import { I18nProvider } from "./i18n";
@@ -13,8 +14,50 @@ import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import TeachingStaff from "./pages/TeachingStaff";
 import Contribution from "./pages/Contribution";
-import AdminLogin from "./pages/admin/AdminLogin";
-import AdminDashboard from "./pages/admin/AdminDashboard";
+
+const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
+
+class AdminRouteErrorBoundary extends Component<
+  { children: ReactNode },
+  { hasError: boolean }
+> {
+  state = { hasError: false };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, _info: ErrorInfo) {
+    console.error("Unable to load the administrative portal.", error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <main role="alert" style={{ padding: "2rem", textAlign: "center" }}>
+          <h1>Administrative portal unavailable</h1>
+          <p>Please reload the page and try again.</p>
+          <button type="button" onClick={() => window.location.reload()}>
+            Reload page
+          </button>
+        </main>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+function AdminRoute({ children }: { children: ReactNode }) {
+  return (
+    <AdminRouteErrorBoundary>
+      <Suspense fallback={<div role="status" aria-live="polite">Loading administrative portal…</div>}>
+        {children}
+      </Suspense>
+    </AdminRouteErrorBoundary>
+  );
+}
 
 export default function App() {
   return (
@@ -37,8 +80,8 @@ export default function App() {
             </Route>
 
             {/* Standalone Admin routes */}
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/login" element={<AdminRoute><AdminLogin /></AdminRoute>} />
+            <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
             <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
 
             {/* Fallback to Home */}

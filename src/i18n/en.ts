@@ -40,7 +40,7 @@ export const en: TranslationKeys = {
     image: "Image",
     all: "All",
     school: "School",
-    learnMore: "Learn More",
+    learnMore: "About Our School",
   },
 
   home: {
