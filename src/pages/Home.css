@@ -96,6 +96,35 @@
   flex-wrap: wrap;
 }
 
+.ed-hero__social {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: calc(-1 * var(--space-6));
+  margin-bottom: var(--space-6);
+}
+
+.ed-hero__social a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(20, 61, 36, 0.2);
+  background: rgba(20, 61, 36, 0.04);
+  color: var(--clr-forest-800);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.ed-hero__social a:hover {
+  background: var(--clr-gold-accent);
+  border-color: var(--clr-gold-accent);
+  color: var(--clr-forest-950);
+  transform: translateY(-2px);
+}
+
 /* Editorial Buttons */
 .ed-btn {
   display: inline-flex;
@@ -1472,4 +1501,3 @@
     gap: 1.25rem;
   }
 }
-
